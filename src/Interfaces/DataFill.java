@@ -5,6 +5,7 @@
 package Interfaces;
 
 import javax.swing.*;
+import java.awt.*;
 
 /**
  *
@@ -14,21 +15,15 @@ public class DataFill extends javax.swing.JFrame {
 
 
 
+    CardLayout cards = new CardLayout();
+
     /**
      * Creates new form HardwareData
      */
     public DataFill() {
         initComponents();
-        
-        
-        jcards.setLayer(p_menu, 30);
-        p_menu.setVisible(true);
-        jcards.setLayer(p_emp, 20);
-        p_menu.setVisible(false);
-        jcards.setLayer(p_gabinete, 10);
-        p_menu.setVisible(false);
-        
 
+        cards.show(jcards, "menu");
     }
 
     /**
@@ -86,9 +81,10 @@ public class DataFill extends javax.swing.JFrame {
         menu_bttn_empleado = new javax.swing.JButton();
         menu_bttn_cancel = new javax.swing.JButton();
 
+
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jcards.setLayout(new java.awt.CardLayout());
+        jcards.setLayout(cards);
 
         jLabel1.setText("Nombre");
 
@@ -195,7 +191,7 @@ public class DataFill extends javax.swing.JFrame {
                 .addContainerGap(70, Short.MAX_VALUE))
         );
 
-        jcards.add(p_emp, "card2");
+        jcards.add(p_emp, "emp");
 
         jButton1.setText("GUARDAR");
 
@@ -373,7 +369,7 @@ public class DataFill extends javax.swing.JFrame {
                 .addGap(71, 71, 71))
         );
 
-        jcards.add(p_gabinete, "card3");
+        jcards.add(p_gabinete, "gab");
 
         menu_bttn_equipo.setText("Equipo");
         menu_bttn_equipo.addActionListener(new java.awt.event.ActionListener() {
@@ -429,7 +425,7 @@ public class DataFill extends javax.swing.JFrame {
                     .addContainerGap(263, Short.MAX_VALUE)))
         );
 
-        jcards.add(p_menu, "card4");
+        jcards.add(p_menu, "menu");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -459,22 +455,12 @@ public class DataFill extends javax.swing.JFrame {
 
     private void menu_bttn_empleadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menu_bttn_empleadoActionPerformed
         // TODO add your handling code here:
-        jcards.setLayer(p_menu, 1);
-        p_menu.setVisible(false);
-        jcards.setLayer(p_emp, 3);
-        p_menu.setVisible(true);
-        jcards.setLayer(p_gabinete, 2);
-        p_menu.setVisible(false);
+        cards.show(jcards, "emp");
     }//GEN-LAST:event_menu_bttn_empleadoActionPerformed
 
     private void menu_bttn_equipoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menu_bttn_equipoActionPerformed
         // TODO add your handling code here:
-        jcards.setLayer(p_menu, 1);
-        p_menu.setVisible(false);
-        jcards.setLayer(p_emp, 2);
-        p_menu.setVisible(false);
-        jcards.setLayer(p_gabinete, 3);
-        p_menu.setVisible(true);
+        cards.show(jcards, "gab");
     }//GEN-LAST:event_menu_bttn_equipoActionPerformed
 
     private void menu_bttn_cancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menu_bttn_cancelActionPerformed
@@ -484,12 +470,7 @@ public class DataFill extends javax.swing.JFrame {
 
     private void datafill_emp_bttn_cancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_datafill_emp_bttn_cancelActionPerformed
         // TODO add your handling code here:
-        jcards.setLayer(p_menu, 3);
-        p_menu.setVisible(true);
-        jcards.setLayer(p_emp, 2);
-        p_menu.setVisible(false);
-        jcards.setLayer(p_gabinete, 1);
-        p_menu.setVisible(false);
+        cards.show(jcards, "menu");
     }//GEN-LAST:event_datafill_emp_bttn_cancelActionPerformed
 
     /**
