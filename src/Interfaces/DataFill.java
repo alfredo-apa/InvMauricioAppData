@@ -47,12 +47,12 @@ public class DataFill extends javax.swing.JFrame {
         jLabel4 = new javax.swing.JLabel();
         datafill_emp_tf_cargo = new javax.swing.JTextField();
         jLabel5 = new javax.swing.JLabel();
-        datafill__emp_bttn_save = new javax.swing.JButton();
+        datafill_emp_bttn_save = new javax.swing.JButton();
         datafill_emp_tf_clean = new javax.swing.JButton();
         datafill_emp_bttn_cancel = new javax.swing.JButton();
         p_gabinete = new javax.swing.JPanel();
-        jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
+        datafill_gab_save = new javax.swing.JButton();
+        datafill_gab_bttn_clean = new javax.swing.JButton();
         jLabel6 = new javax.swing.JLabel();
         datafill_gab_cb_resguardante = new javax.swing.JComboBox<>();
         jLabel7 = new javax.swing.JLabel();
@@ -76,15 +76,15 @@ public class DataFill extends javax.swing.JFrame {
         jLabel16 = new javax.swing.JLabel();
         jLabel17 = new javax.swing.JLabel();
         jTextField9 = new javax.swing.JTextField();
+        datafill_gab_bttn_cancel = new javax.swing.JButton();
         p_menu = new javax.swing.JPanel();
         menu_bttn_equipo = new javax.swing.JButton();
         menu_bttn_empleado = new javax.swing.JButton();
         menu_bttn_cancel = new javax.swing.JButton();
 
-
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jcards.setLayout(cards);
+        jcards.setLayout(new java.awt.CardLayout());
 
         jLabel1.setText("Nombre");
 
@@ -96,10 +96,10 @@ public class DataFill extends javax.swing.JFrame {
 
         jLabel5.setText("Cargo");
 
-        datafill__emp_bttn_save.setText("Guardar");
-        datafill__emp_bttn_save.addActionListener(new java.awt.event.ActionListener() {
+        datafill_emp_bttn_save.setText("Guardar");
+        datafill_emp_bttn_save.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                datafill__emp_bttn_saveActionPerformed(evt);
+                datafill_emp_bttn_saveActionPerformed(evt);
             }
         });
 
@@ -140,7 +140,7 @@ public class DataFill extends javax.swing.JFrame {
                                 .addGroup(p_empLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                     .addComponent(datafill_emp_tf_ubicacion, javax.swing.GroupLayout.PREFERRED_SIZE, 282, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addGroup(p_empLayout.createSequentialGroup()
-                                        .addComponent(datafill__emp_bttn_save)
+                                        .addComponent(datafill_emp_bttn_save)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                         .addComponent(datafill_emp_tf_clean)
                                         .addGap(61, 61, 61))))))
@@ -184,18 +184,28 @@ public class DataFill extends javax.swing.JFrame {
                     .addComponent(datafill_emp_tf_ubicacion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(68, 68, 68)
                 .addGroup(p_empLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(datafill__emp_bttn_save)
+                    .addComponent(datafill_emp_bttn_save)
                     .addComponent(datafill_emp_tf_clean))
                 .addGap(32, 32, 32)
                 .addComponent(datafill_emp_bttn_cancel)
                 .addContainerGap(70, Short.MAX_VALUE))
         );
 
-        jcards.add(p_emp, "emp");
+        jcards.add(p_emp, "card2");
 
-        jButton1.setText("GUARDAR");
+        datafill_gab_save.setText("Guardar");
+        datafill_gab_save.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                datafill_gab_saveActionPerformed(evt);
+            }
+        });
 
-        jButton2.setText("LIMPIAR");
+        datafill_gab_bttn_clean.setText("Limpiar");
+        datafill_gab_bttn_clean.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                datafill_gab_bttn_cleanActionPerformed(evt);
+            }
+        });
 
         jLabel6.setText("Resguardante");
 
@@ -203,31 +213,19 @@ public class DataFill extends javax.swing.JFrame {
 
         jLabel7.setText("Marca");
 
-        jTextField2.setText("jTextField1");
-
         jLabel8.setText("No. Inventario");
 
         jLabel9.setText("Modelo");
 
         jLabel10.setText("Componentes");
 
-        jTextField4.setText("jTextField4");
-
         jLabel11.setText("Procesador");
-
-        jTextField5.setText("jTextField4");
 
         jLabel12.setText("RAM");
 
-        jTextField6.setText("jTextField4");
-
         jLabel13.setText("Disco Duro");
 
-        jTextField7.setText("jTextField4");
-
         jLabel14.setText("Office");
-
-        jTextField8.setText("jTextField4");
 
         jLabel15.setText("Windows");
 
@@ -242,7 +240,12 @@ public class DataFill extends javax.swing.JFrame {
 
         jLabel17.setText("No. de Serie");
 
-        jTextField9.setText("jTextField1");
+        datafill_gab_bttn_cancel.setText("Cancelar");
+        datafill_gab_bttn_cancel.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                datafill_gab_bttn_cancelActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout p_gabineteLayout = new javax.swing.GroupLayout(p_gabinete);
         p_gabinete.setLayout(p_gabineteLayout);
@@ -250,62 +253,66 @@ public class DataFill extends javax.swing.JFrame {
             p_gabineteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(p_gabineteLayout.createSequentialGroup()
                 .addGroup(p_gabineteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(p_gabineteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(p_gabineteLayout.createSequentialGroup()
+                            .addGap(109, 109, 109)
+                            .addComponent(datafill_gab_save)
+                            .addGap(98, 98, 98)
+                            .addComponent(datafill_gab_bttn_clean))
+                        .addGroup(p_gabineteLayout.createSequentialGroup()
+                            .addGap(29, 29, 29)
+                            .addGroup(p_gabineteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                .addGroup(p_gabineteLayout.createSequentialGroup()
+                                    .addComponent(jLabel6)
+                                    .addGap(18, 18, 18)
+                                    .addComponent(datafill_gab_cb_resguardante, 0, 346, Short.MAX_VALUE))
+                                .addGroup(p_gabineteLayout.createSequentialGroup()
+                                    .addGroup(p_gabineteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addComponent(jTextField4, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(jLabel11, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                    .addGroup(p_gabineteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addComponent(jLabel12, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(jTextField5, javax.swing.GroupLayout.PREFERRED_SIZE, 138, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addGap(18, 18, 18)
+                                    .addGroup(p_gabineteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addComponent(jTextField6, javax.swing.GroupLayout.PREFERRED_SIZE, 138, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(jLabel13, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addGroup(p_gabineteLayout.createSequentialGroup()
+                                    .addGroup(p_gabineteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addComponent(jTextField8, javax.swing.GroupLayout.PREFERRED_SIZE, 138, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(jLabel15, javax.swing.GroupLayout.PREFERRED_SIZE, 72, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addGap(21, 21, 21)
+                                    .addGroup(p_gabineteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addComponent(jLabel14, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(jTextField7, javax.swing.GroupLayout.PREFERRED_SIZE, 138, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, p_gabineteLayout.createSequentialGroup()
+                                    .addGap(36, 36, 36)
+                                    .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addGap(18, 18, 18)
+                                    .addComponent(datafill_gab_tf_marca))
+                                .addGroup(p_gabineteLayout.createSequentialGroup()
+                                    .addGap(31, 31, 31)
+                                    .addComponent(jLabel9)
+                                    .addGap(18, 18, 18)
+                                    .addComponent(datafill_gab_tf_modelo))
+                                .addGroup(p_gabineteLayout.createSequentialGroup()
+                                    .addComponent(jLabel16, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addGap(18, 18, 18)
+                                    .addComponent(jComboBox2, javax.swing.GroupLayout.PREFERRED_SIZE, 176, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addComponent(jLabel10)))
+                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, p_gabineteLayout.createSequentialGroup()
+                            .addContainerGap()
+                            .addGroup(p_gabineteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                .addComponent(jLabel17)
+                                .addComponent(jLabel8))
+                            .addGap(18, 18, 18)
+                            .addGroup(p_gabineteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                .addComponent(jTextField2, javax.swing.GroupLayout.DEFAULT_SIZE, 346, Short.MAX_VALUE)
+                                .addComponent(jTextField9))))
                     .addGroup(p_gabineteLayout.createSequentialGroup()
-                        .addGap(109, 109, 109)
-                        .addComponent(jButton1)
-                        .addGap(98, 98, 98)
-                        .addComponent(jButton2))
-                    .addGroup(p_gabineteLayout.createSequentialGroup()
-                        .addGap(29, 29, 29)
-                        .addGroup(p_gabineteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addGroup(p_gabineteLayout.createSequentialGroup()
-                                .addComponent(jLabel6)
-                                .addGap(18, 18, 18)
-                                .addComponent(datafill_gab_cb_resguardante, 0, 346, Short.MAX_VALUE))
-                            .addGroup(p_gabineteLayout.createSequentialGroup()
-                                .addGroup(p_gabineteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jTextField4, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jLabel11, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addGroup(p_gabineteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel12, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jTextField5, javax.swing.GroupLayout.PREFERRED_SIZE, 138, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGap(18, 18, 18)
-                                .addGroup(p_gabineteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jTextField6, javax.swing.GroupLayout.PREFERRED_SIZE, 138, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jLabel13, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                            .addGroup(p_gabineteLayout.createSequentialGroup()
-                                .addGroup(p_gabineteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jTextField8, javax.swing.GroupLayout.PREFERRED_SIZE, 138, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jLabel15, javax.swing.GroupLayout.PREFERRED_SIZE, 72, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGap(21, 21, 21)
-                                .addGroup(p_gabineteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel14, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jTextField7, javax.swing.GroupLayout.PREFERRED_SIZE, 138, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, p_gabineteLayout.createSequentialGroup()
-                                .addGap(36, 36, 36)
-                                .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(18, 18, 18)
-                                .addComponent(datafill_gab_tf_marca))
-                            .addGroup(p_gabineteLayout.createSequentialGroup()
-                                .addGap(31, 31, 31)
-                                .addComponent(jLabel9)
-                                .addGap(18, 18, 18)
-                                .addComponent(datafill_gab_tf_modelo))
-                            .addGroup(p_gabineteLayout.createSequentialGroup()
-                                .addComponent(jLabel16, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(18, 18, 18)
-                                .addComponent(jComboBox2, javax.swing.GroupLayout.PREFERRED_SIZE, 113, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(jLabel10)))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, p_gabineteLayout.createSequentialGroup()
-                        .addContainerGap()
-                        .addGroup(p_gabineteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jLabel17)
-                            .addComponent(jLabel8))
-                        .addGap(18, 18, 18)
-                        .addGroup(p_gabineteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jTextField2, javax.swing.GroupLayout.DEFAULT_SIZE, 346, Short.MAX_VALUE)
-                            .addComponent(jTextField9))))
+                        .addGap(184, 184, 184)
+                        .addComponent(datafill_gab_bttn_cancel)))
                 .addContainerGap(119, Short.MAX_VALUE))
         );
         p_gabineteLayout.setVerticalGroup(
@@ -364,12 +371,14 @@ public class DataFill extends javax.swing.JFrame {
                     .addComponent(jComboBox2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(p_gabineteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton1)
-                    .addComponent(jButton2))
-                .addGap(71, 71, 71))
+                    .addComponent(datafill_gab_save)
+                    .addComponent(datafill_gab_bttn_clean))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(datafill_gab_bttn_cancel)
+                .addGap(36, 36, 36))
         );
 
-        jcards.add(p_gabinete, "gab");
+        jcards.add(p_gabinete, "card3");
 
         menu_bttn_equipo.setText("Equipo");
         menu_bttn_equipo.addActionListener(new java.awt.event.ActionListener() {
@@ -425,7 +434,7 @@ public class DataFill extends javax.swing.JFrame {
                     .addContainerGap(263, Short.MAX_VALUE)))
         );
 
-        jcards.add(p_menu, "menu");
+        jcards.add(p_menu, "card4");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -441,9 +450,9 @@ public class DataFill extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void datafill__emp_bttn_saveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_datafill__emp_bttn_saveActionPerformed
+    private void datafill_emp_bttn_saveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_datafill_emp_bttn_saveActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_datafill__emp_bttn_saveActionPerformed
+    }//GEN-LAST:event_datafill_emp_bttn_saveActionPerformed
 
     private void datafill_emp_tf_cleanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_datafill_emp_tf_cleanActionPerformed
         // TODO add your handling code here:
@@ -472,6 +481,19 @@ public class DataFill extends javax.swing.JFrame {
         // TODO add your handling code here:
         cards.show(jcards, "menu");
     }//GEN-LAST:event_datafill_emp_bttn_cancelActionPerformed
+
+    private void datafill_gab_saveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_datafill_gab_saveActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_datafill_gab_saveActionPerformed
+
+    private void datafill_gab_bttn_cleanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_datafill_gab_bttn_cleanActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_datafill_gab_bttn_cleanActionPerformed
+
+    private void datafill_gab_bttn_cancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_datafill_gab_bttn_cancelActionPerformed
+        // TODO add your handling code here:
+        cards.show(jcards, "menu");
+    }//GEN-LAST:event_datafill_gab_bttn_cancelActionPerformed
 
     /**
      * @param args the command line arguments
@@ -510,19 +532,20 @@ public class DataFill extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton datafill__emp_bttn_save;
     private javax.swing.JButton datafill_emp_bttn_cancel;
+    private javax.swing.JButton datafill_emp_bttn_save;
     private javax.swing.JTextField datafill_emp_tf_area;
     private javax.swing.JTextField datafill_emp_tf_cargo;
     private javax.swing.JButton datafill_emp_tf_clean;
     private javax.swing.JTextField datafill_emp_tf_direccion;
     private javax.swing.JTextField datafill_emp_tf_nombre;
     private javax.swing.JTextField datafill_emp_tf_ubicacion;
+    private javax.swing.JButton datafill_gab_bttn_cancel;
+    private javax.swing.JButton datafill_gab_bttn_clean;
     private javax.swing.JComboBox<String> datafill_gab_cb_resguardante;
+    private javax.swing.JButton datafill_gab_save;
     private javax.swing.JTextField datafill_gab_tf_marca;
     private javax.swing.JTextField datafill_gab_tf_modelo;
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
     private javax.swing.JComboBox<String> jComboBox2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
