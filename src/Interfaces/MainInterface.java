@@ -28,6 +28,7 @@ public class MainInterface extends javax.swing.JFrame {
     private Connect con = new Connect();
     private SqliteQuery sqlq = new SqliteQuery();
     private String[] filt = new String[7];
+    private int co = 0;
     
     private ComboBoxModel cbxmarea;
     private ComboBoxModel cbxmstatus;
