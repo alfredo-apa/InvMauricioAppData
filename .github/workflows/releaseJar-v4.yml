@@ -1,0 +1,119 @@
+name: Release single JAR on change
+
+permissions:
+  contents: write
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - 'out/artifacts/InventarioMNBD_jar/**'
+  workflow_dispatch: {}
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Show workspace (debug)
+        run: |
+          echo "Workspace: $GITHUB_WORKSPACE"
+          echo "List top-level:"
+          ls -la
+          echo "List artifact dir if exists:"
+          ls -la out || true
+          ls -la out/artifacts || true
+          ls -la out/artifacts/InventarioMNBD_jar || true
+
+      - name: Locate the JAR
+        id: locate
+        run: |
+          # Try explicit expected path first
+          EXPECTED="out/artifacts/InventarioMNBD_jar/InventarioMNBD.jar"
+          if [ -f "$EXPECTED" ]; then
+            echo "jar_path=$EXPECTED" >> $GITHUB_OUTPUT
+            echo "found=1" >> $GITHUB_OUTPUT
+            exit 0
+          fi
+
+          # Otherwise, try to find any jar in the folder
+          if [ -d "out/artifacts/InventarioMNBD_jar" ]; then
+            JAR=$(find out/artifacts/InventarioMNBD_jar -maxdepth 1 -type f -name '*.jar' | head -n 1 || true)
+            if [ -n "$JAR" ]; then
+              echo "jar_path=$JAR" >> $GITHUB_OUTPUT
+              echo "found=1" >> $GITHUB_OUTPUT
+              exit 0
+            fi
+          fi
+
+          # Not found: print helpful diagnostics and fail
+          echo "ERROR: No JAR found in out/artifacts/InventarioMNBD_jar"
+          echo "Directory listing:"
+          ls -la out/artifacts/InventarioMNBD_jar || true
+          echo "All files in repo (truncated):"
+          find . -maxdepth 3 -type f | sed -n '1,200p' || true
+          echo "found=0" >> $GITHUB_OUTPUT
+          exit 1
+
+      - name: Ensure we have a JAR (fail if not)
+        if: steps.locate.outputs.found != '1'
+        run: |
+          echo "JAR not found — failing early so we don't attach the repo archive. Ensure the JAR is committed or add a build step to produce it."
+          exit 1
+
+      - name: Create or get release info
+        id: release
+        run: |
+          TAG="jar-latest"
+          repo="${{ github.repository }}"
+          api="https://api.github.com/repos/$repo/releases/tags/$TAG"
+          echo "Checking for existing release $TAG"
+          status=$(curl -s -o /tmp/release.json -w "%{http_code}" -H "Authorization: Bearer ${{ secrets.GITHUB_TOKEN }}" -H "Accept: application/vnd.github+json" "$api")
+          if [ "$status" = "200" ]; then
+            echo "Existing release found"
+            upload_url=$(jq -r '.upload_url' /tmp/release.json | sed -e 's/{?name,label}//')
+            release_id=$(jq -r '.id' /tmp/release.json)
+            echo "upload_url=$upload_url" >> $GITHUB_OUTPUT
+            echo "release_id=$release_id" >> $GITHUB_OUTPUT
+          else
+            echo "No existing release; creating new one"
+            create=$(curl -s -X POST -H "Authorization: Bearer ${{ secrets.GITHUB_TOKEN }}" -H "Accept: application/vnd.github+json" \
+              https://api.github.com/repos/$repo/releases \
+              -d "$(jq -n --arg tag "$TAG" --arg name "$TAG" '{ tag_name: $tag, name: $name, body: "Automated release for InventarioMNBD.jar (jar-latest)", draft: false, prerelease: false }')")
+            upload_url=$(echo "$create" | jq -r '.upload_url' | sed -e 's/{?name,label}//')
+            release_id=$(echo "$create" | jq -r '.id')
+            echo "upload_url=$upload_url" >> $GITHUB_OUTPUT
+            echo "release_id=$release_id" >> $GITHUB_OUTPUT
+          fi
+
+      - name: Delete existing asset named InventarioMNBD.jar (if present)
+        run: |
+          RELEASE_ID="${{ steps.release.outputs.release_id }}"
+          if [ -z "$RELEASE_ID" ] || [ "$RELEASE_ID" = "null" ]; then
+            echo "No release id; aborting delete step"
+            exit 0
+          fi
+          echo "Checking assets for release id $RELEASE_ID"
+          assets=$(curl -s -H "Authorization: Bearer ${{ secrets.GITHUB_TOKEN }}" \
+            "https://api.github.com/repos/${{ github.repository }}/releases/$RELEASE_ID/assets")
+          asset_id=$(echo "$assets" | jq -r '.[] | select(.name=="InventarioMNBD.jar") | .id' || true)
+          if [ -n "$asset_id" ] && [ "$asset_id" != "null" ]; then
+            echo "Deleting existing asset id $asset_id"
+            curl -s -X DELETE -H "Authorization: Bearer ${{ secrets.GITHUB_TOKEN }}" \
+              "https://api.github.com/repos/${{ github.repository }}/releases/assets/$asset_id"
+          else
+            echo "No existing asset named InventarioMNBD.jar"
+          fi
+
+      - name: Upload the JAR as release asset
+        uses: actions/upload-release-asset@v1
+        with:
+          upload_url: ${{ steps.release.outputs.upload_url }}
+          asset_path: ${{ steps.locate.outputs.jar_path }}
+          asset_name: InventarioMNBD.jar
+          asset_content_type: application/java-archive
