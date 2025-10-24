@@ -1,6 +1,6 @@
-name: Release JAR on change
+name: Release single JAR on change
 
-# ensure the workflow can create/update releases
+# allow the job to create releases and upload assets
 permissions:
   contents: write
 
@@ -10,7 +10,7 @@ on:
       - main
     paths:
       - 'out/artifacts/InventarioMNBD_jar/**'
-  workflow_dispatch: {}  # optional manual trigger
+  workflow_dispatch: {}
 
 jobs:
   release:
@@ -19,12 +19,82 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      - name: Upload JAR as a GitHub Release asset
-        # Creates a release with tag `jar-latest` (or updates it) and uploads the JAR,
-        # overwriting an existing asset with the same name.
-        uses: ncipollo/release-action@v1
+      - name: Ensure JAR exists
+        run: |
+          JAR_PATH="out/artifacts/InventarioMNBD_jar/InventarioMNBD.jar"
+          if [ ! -f "$JAR_PATH" ]; then
+            echo "ERROR: JAR not found at $JAR_PATH"
+            ls -R out || true
+            exit 1
+          fi
+          echo "Found $JAR_PATH"
+
+      - name: Install jq (used for small JSON parsing)
+        run: sudo apt-get update && sudo apt-get install -y jq
+
+      - name: Try to get existing release by tag
+        id: get_release
+        run: |
+          set -e
+          TAG="jar-latest"
+          api="https://api.github.com/repos/${{ github.repository }}/releases/tags/$TAG"
+          status=$(curl -s -o /tmp/release.json -w "%{http_code}" -H "Authorization: Bearer ${{ secrets.GITHUB_TOKEN }}" -H "Accept: application/vnd.github+json" "$api")
+          echo "http_status=$status" >> $GITHUB_OUTPUT
+          if [ "$status" = "200" ]; then
+            release_id=$(jq -r '.id' /tmp/release.json)
+            upload_url=$(jq -r '.upload_url' /tmp/release.json | sed -e 's/{?name,label}//')
+            echo "release_id=$release_id" >> $GITHUB_OUTPUT
+            echo "upload_url=$upload_url" >> $GITHUB_OUTPUT
+          fi
+
+      - name: Create release if not found
+        id: create_release
+        if: steps.get_release.outputs.http_status != '200'
+        uses: actions/create-release@v1
         with:
-          tag: jar-latest
-          name: InventarioMNBD.jar (auto-upload)
-          files: out/artifacts/InventarioMNBD_jar/InventarioMNBD.jar
-          overwrite: true
+          tag_name: jar-latest
+          release_name: jar-latest
+          body: "Automated release for InventarioMNBD.jar (jar-latest)"
+          draft: false
+          prerelease: false
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Determine release upload_url & id
+        id: release_info
+        run: |
+          # Prefer output from create_release, otherwise use get_release outputs
+          if [ -n "${{ steps.create_release.outputs.upload_url }}" ]; then
+            echo "upload_url=${{ steps.create_release.outputs.upload_url }}" >> $GITHUB_OUTPUT
+            echo "release_id=${{ steps.create_release.outputs.id }}" >> $GITHUB_OUTPUT
+          else
+            echo "upload_url=${{ steps.get_release.outputs.upload_url }}" >> $GITHUB_OUTPUT
+            echo "release_id=${{ steps.get_release.outputs.release_id }}" >> $GITHUB_OUTPUT
+          fi
+
+      - name: Delete existing asset with same name (if any)
+        run: |
+          RELEASE_ID="${{ steps.release_info.outputs.release_id }}"
+          if [ -z "$RELEASE_ID" ]; then
+            echo "No release ID available; cannot delete old assets"
+            exit 1
+          fi
+          echo "Checking assets for release id $RELEASE_ID"
+          assets=$(curl -s -H "Authorization: Bearer ${{ secrets.GITHUB_TOKEN }}" \
+            "https://api.github.com/repos/${{ github.repository }}/releases/$RELEASE_ID/assets")
+          asset_id=$(echo "$assets" | jq -r '.[] | select(.name=="InventarioMNBD.jar") | .id')
+          if [ -n "$asset_id" ] && [ "$asset_id" != "null" ]; then
+            echo "Deleting existing asset id $asset_id"
+            curl -s -X DELETE -H "Authorization: Bearer ${{ secrets.GITHUB_TOKEN }}" \
+              "https://api.github.com/repos/${{ github.repository }}/releases/assets/$asset_id"
+          else
+            echo "No existing asset named InventarioMNBD.jar"
+          fi
+
+      - name: Upload only the JAR as release asset
+        uses: actions/upload-release-asset@v1
+        with:
+          upload_url: ${{ steps.release_info.outputs.upload_url }}
+          asset_path: out/artifacts/InventarioMNBD_jar/InventarioMNBD.jar
+          asset_name: InventarioMNBD.jar
+          asset_content_type: application/java-archive
