@@ -61,25 +61,25 @@ public class DataFill extends javax.swing.JFrame {
         datafill_gab_cb_resguardante = new javax.swing.JComboBox<>();
         jLabel7 = new javax.swing.JLabel();
         datafill_gab_tf_marca = new javax.swing.JTextField();
-        jTextField2 = new javax.swing.JTextField();
+        datafill_gab_tf_inv = new javax.swing.JTextField();
         jLabel8 = new javax.swing.JLabel();
         datafill_gab_tf_modelo = new javax.swing.JTextField();
         jLabel9 = new javax.swing.JLabel();
         jLabel10 = new javax.swing.JLabel();
-        jTextField4 = new javax.swing.JTextField();
+        datafill_gab_tf_procesador = new javax.swing.JTextField();
         jLabel11 = new javax.swing.JLabel();
-        jTextField5 = new javax.swing.JTextField();
+        datafill_gab_tf_ram = new javax.swing.JTextField();
         jLabel12 = new javax.swing.JLabel();
-        jTextField6 = new javax.swing.JTextField();
+        datafill_gab_tf_discoduro = new javax.swing.JTextField();
         jLabel13 = new javax.swing.JLabel();
-        jTextField7 = new javax.swing.JTextField();
+        datafill_gab_tf_office = new javax.swing.JTextField();
         jLabel14 = new javax.swing.JLabel();
-        jTextField8 = new javax.swing.JTextField();
+        datafill_gab_tf_win = new javax.swing.JTextField();
         jLabel15 = new javax.swing.JLabel();
-        jComboBox2 = new javax.swing.JComboBox<>();
+        datafill_gab_cb_status = new javax.swing.JComboBox<>();
         jLabel16 = new javax.swing.JLabel();
         jLabel17 = new javax.swing.JLabel();
-        jTextField9 = new javax.swing.JTextField();
+        datafill_gab_tf_serie = new javax.swing.JTextField();
         datafill_gab_bttn_cancel = new javax.swing.JButton();
         p_menu = new javax.swing.JPanel();
         menu_bttn_equipo = new javax.swing.JButton();
@@ -88,7 +88,7 @@ public class DataFill extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jcards.setLayout(cards);
+        jcards.setLayout(new java.awt.CardLayout());
 
         jLabel1.setText("Nombre");
 
@@ -195,7 +195,7 @@ public class DataFill extends javax.swing.JFrame {
                 .addContainerGap(70, Short.MAX_VALUE))
         );
 
-        jcards.add(p_emp, "emp");
+        jcards.add(p_emp, "card2");
 
         datafill_gab_save.setText("Guardar");
         datafill_gab_save.addActionListener(new java.awt.event.ActionListener() {
@@ -233,10 +233,10 @@ public class DataFill extends javax.swing.JFrame {
 
         jLabel15.setText("Windows");
 
-        jComboBox2.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "BUENO", "OBSOLETO", "BAJA" }));
-        jComboBox2.addActionListener(new java.awt.event.ActionListener() {
+        datafill_gab_cb_status.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "BUENO", "OBSOLETO", "BAJA" }));
+        datafill_gab_cb_status.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jComboBox2ActionPerformed(evt);
+                datafill_gab_cb_statusActionPerformed(evt);
             }
         });
 
@@ -272,24 +272,24 @@ public class DataFill extends javax.swing.JFrame {
                                     .addComponent(datafill_gab_cb_resguardante, 0, 346, Short.MAX_VALUE))
                                 .addGroup(p_gabineteLayout.createSequentialGroup()
                                     .addGroup(p_gabineteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addComponent(jTextField4, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(datafill_gab_tf_procesador, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addComponent(jLabel11, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE))
                                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                     .addGroup(p_gabineteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                         .addComponent(jLabel12, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addComponent(jTextField5, javax.swing.GroupLayout.PREFERRED_SIZE, 138, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                        .addComponent(datafill_gab_tf_ram, javax.swing.GroupLayout.PREFERRED_SIZE, 138, javax.swing.GroupLayout.PREFERRED_SIZE))
                                     .addGap(18, 18, 18)
                                     .addGroup(p_gabineteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addComponent(jTextField6, javax.swing.GroupLayout.PREFERRED_SIZE, 138, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(datafill_gab_tf_discoduro, javax.swing.GroupLayout.PREFERRED_SIZE, 138, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addComponent(jLabel13, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE)))
                                 .addGroup(p_gabineteLayout.createSequentialGroup()
                                     .addGroup(p_gabineteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addComponent(jTextField8, javax.swing.GroupLayout.PREFERRED_SIZE, 138, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(datafill_gab_tf_win, javax.swing.GroupLayout.PREFERRED_SIZE, 138, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addComponent(jLabel15, javax.swing.GroupLayout.PREFERRED_SIZE, 72, javax.swing.GroupLayout.PREFERRED_SIZE))
                                     .addGap(21, 21, 21)
                                     .addGroup(p_gabineteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                         .addComponent(jLabel14, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addComponent(jTextField7, javax.swing.GroupLayout.PREFERRED_SIZE, 138, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                        .addComponent(datafill_gab_tf_office, javax.swing.GroupLayout.PREFERRED_SIZE, 138, javax.swing.GroupLayout.PREFERRED_SIZE)))
                                 .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, p_gabineteLayout.createSequentialGroup()
                                     .addGap(36, 36, 36)
                                     .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -303,7 +303,7 @@ public class DataFill extends javax.swing.JFrame {
                                 .addGroup(p_gabineteLayout.createSequentialGroup()
                                     .addComponent(jLabel16, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addGap(18, 18, 18)
-                                    .addComponent(jComboBox2, javax.swing.GroupLayout.PREFERRED_SIZE, 176, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addComponent(datafill_gab_cb_status, javax.swing.GroupLayout.PREFERRED_SIZE, 176, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addComponent(jLabel10)))
                         .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, p_gabineteLayout.createSequentialGroup()
                             .addContainerGap()
@@ -312,8 +312,8 @@ public class DataFill extends javax.swing.JFrame {
                                 .addComponent(jLabel8))
                             .addGap(18, 18, 18)
                             .addGroup(p_gabineteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                .addComponent(jTextField2, javax.swing.GroupLayout.DEFAULT_SIZE, 346, Short.MAX_VALUE)
-                                .addComponent(jTextField9))))
+                                .addComponent(datafill_gab_tf_inv, javax.swing.GroupLayout.DEFAULT_SIZE, 346, Short.MAX_VALUE)
+                                .addComponent(datafill_gab_tf_serie))))
                     .addGroup(p_gabineteLayout.createSequentialGroup()
                         .addGap(184, 184, 184)
                         .addComponent(datafill_gab_bttn_cancel)))
@@ -338,11 +338,11 @@ public class DataFill extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addGroup(p_gabineteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel8)
-                    .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(datafill_gab_tf_inv, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(p_gabineteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel17)
-                    .addComponent(jTextField9, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(datafill_gab_tf_serie, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 26, Short.MAX_VALUE)
                 .addComponent(jLabel10)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -352,27 +352,27 @@ public class DataFill extends javax.swing.JFrame {
                             .addGroup(p_gabineteLayout.createSequentialGroup()
                                 .addComponent(jLabel11)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jTextField4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addComponent(datafill_gab_tf_procesador, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(p_gabineteLayout.createSequentialGroup()
                                 .addComponent(jLabel12)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jTextField5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addComponent(datafill_gab_tf_ram, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(p_gabineteLayout.createSequentialGroup()
                                 .addComponent(jLabel13)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jTextField6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addComponent(datafill_gab_tf_discoduro, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addGap(18, 18, 18)
                         .addComponent(jLabel15)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jTextField8, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(datafill_gab_tf_win, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(p_gabineteLayout.createSequentialGroup()
                         .addComponent(jLabel14)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jTextField7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(datafill_gab_tf_office, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(18, 18, 18)
                 .addGroup(p_gabineteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel16)
-                    .addComponent(jComboBox2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(datafill_gab_cb_status, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(p_gabineteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(datafill_gab_save)
@@ -382,7 +382,7 @@ public class DataFill extends javax.swing.JFrame {
                 .addGap(36, 36, 36))
         );
 
-        jcards.add(p_gabinete, "gab");
+        jcards.add(p_gabinete, "card3");
 
         menu_bttn_equipo.setText("Equipo");
         menu_bttn_equipo.addActionListener(new java.awt.event.ActionListener() {
@@ -438,7 +438,7 @@ public class DataFill extends javax.swing.JFrame {
                     .addContainerGap(263, Short.MAX_VALUE)))
         );
 
-        jcards.add(p_menu, "menu");
+        jcards.add(p_menu, "card4");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -463,9 +463,9 @@ public class DataFill extends javax.swing.JFrame {
         cleanData(1);
     }//GEN-LAST:event_datafill_emp_tf_cleanActionPerformed
 
-    private void jComboBox2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox2ActionPerformed
+    private void datafill_gab_cb_statusActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_datafill_gab_cb_statusActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jComboBox2ActionPerformed
+    }//GEN-LAST:event_datafill_gab_cb_statusActionPerformed
 
     private void menu_bttn_empleadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menu_bttn_empleadoActionPerformed
         // TODO add your handling code here:
@@ -579,10 +579,17 @@ public class DataFill extends javax.swing.JFrame {
     private javax.swing.JButton datafill_gab_bttn_cancel;
     private javax.swing.JButton datafill_gab_bttn_clean;
     private javax.swing.JComboBox<String> datafill_gab_cb_resguardante;
+    private javax.swing.JComboBox<String> datafill_gab_cb_status;
     private javax.swing.JButton datafill_gab_save;
+    private javax.swing.JTextField datafill_gab_tf_discoduro;
+    private javax.swing.JTextField datafill_gab_tf_inv;
     private javax.swing.JTextField datafill_gab_tf_marca;
     private javax.swing.JTextField datafill_gab_tf_modelo;
-    private javax.swing.JComboBox<String> jComboBox2;
+    private javax.swing.JTextField datafill_gab_tf_office;
+    private javax.swing.JTextField datafill_gab_tf_procesador;
+    private javax.swing.JTextField datafill_gab_tf_ram;
+    private javax.swing.JTextField datafill_gab_tf_serie;
+    private javax.swing.JTextField datafill_gab_tf_win;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
@@ -600,13 +607,6 @@ public class DataFill extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
-    private javax.swing.JTextField jTextField2;
-    private javax.swing.JTextField jTextField4;
-    private javax.swing.JTextField jTextField5;
-    private javax.swing.JTextField jTextField6;
-    private javax.swing.JTextField jTextField7;
-    private javax.swing.JTextField jTextField8;
-    private javax.swing.JTextField jTextField9;
     private javax.swing.JPanel jcards;
     private javax.swing.JButton menu_bttn_cancel;
     private javax.swing.JButton menu_bttn_empleado;
