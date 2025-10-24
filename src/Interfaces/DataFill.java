@@ -458,6 +458,7 @@ public class DataFill extends javax.swing.JFrame {
 
     private void datafill_emp_bttn_saveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_datafill_emp_bttn_saveActionPerformed
         // TODO add your handling code here:
+        saveData(1);
     }//GEN-LAST:event_datafill_emp_bttn_saveActionPerformed
 
     private void datafill_emp_tf_cleanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_datafill_emp_tf_cleanActionPerformed
@@ -493,6 +494,7 @@ public class DataFill extends javax.swing.JFrame {
 
     private void datafill_gab_saveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_datafill_gab_saveActionPerformed
         // TODO add your handling code here:
+        saveData(2);
     }//GEN-LAST:event_datafill_gab_saveActionPerformed
 
     private void datafill_gab_bttn_cleanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_datafill_gab_bttn_cleanActionPerformed
@@ -558,6 +560,148 @@ public class DataFill extends javax.swing.JFrame {
                 break;
         }
     }
+
+    /**
+     * Saves data to the database according to the option.
+     *
+     * option:
+     *   1 -> Save EMPLOYEE (p_emp) into datos_resguardante
+     *   2 -> Save GABINETE (p_gabinete) into hardware_gabinete
+     *
+     * Notes:
+     * - Preserves user input as-is (no trimming or case transformations).
+     * - Allows blanks and spaces in all fields.
+     * - Clears only the corresponding panel after successful save.
+     */
+    private void saveData(int option) {
+        switch (option) {
+            case 1: { // EMPLOYEE (p_emp) -> datos_resguardante
+                final String sqlEmp =
+                        "INSERT INTO datos_resguardante " +
+                                " (nombre, departamento, direccion, cargo, ubicacion_fisica, extension, correo) " +
+                                "VALUES (?, ?, ?, ?, ?, ?, ?)";
+
+                final String vNombre     = datafill_emp_tf_nombre.getText();
+                final String vArea       = datafill_emp_tf_area.getText();
+                final String vDireccion  = datafill_emp_tf_direccion.getText();
+                final String vCargo      = datafill_emp_tf_cargo.getText();
+                final String vUbicacion  = datafill_emp_tf_ubicacion.getText();
+
+                try (var conn = BD.Connect.open();
+                     var ps   = conn.prepareStatement(sqlEmp)) {
+
+                    ps.setString(1, vNombre);
+                    ps.setString(2, vArea);
+                    ps.setString(3, vDireccion);
+                    ps.setString(4, vCargo);
+                    ps.setString(5, vUbicacion);
+                    ps.setNull(6, java.sql.Types.VARCHAR); // extension not in UI
+                    ps.setNull(7, java.sql.Types.VARCHAR); // correo not in UI
+
+                    ps.executeUpdate();
+                    JOptionPane.showMessageDialog(this, "Employee saved.");
+                    cleanData(1);
+
+                } catch (java.sql.SQLException ex) {
+                    JOptionPane.showMessageDialog(this, ex);
+                } catch (Exception e) {
+                    throw new RuntimeException(e);
+                }
+                break;
+            }
+
+            case 2: { // GABINETE (p_gabinete) -> hardware_gabinete
+                final String sqlGab =
+                        "INSERT INTO hardware_gabinete " +
+                                " (resguardante, marca, modelo, no_inventario, numero_serie, componentes, status, observaciones) " +
+                                "VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
+
+                final Object selResguardante = datafill_gab_cb_resguardante.getSelectedItem();
+                final Object selStatus       = datafill_gab_cb_status.getSelectedItem();
+
+                final String vResguardante = (selResguardante == null) ? null : selResguardante.toString();
+                final String vStatus       = (selStatus == null)       ? null : selStatus.toString();
+
+                final String vMarca       = datafill_gab_tf_marca.getText();
+                final String vModelo      = datafill_gab_tf_modelo.getText();
+                final String vInventario  = datafill_gab_tf_inv.getText();
+                final String vSerie       = datafill_gab_tf_serie.getText();
+
+                final String vProcesador  = datafill_gab_tf_procesador.getText();
+                final String vRam         = datafill_gab_tf_ram.getText();
+                final String vDisco       = datafill_gab_tf_discoduro.getText();
+                final String vWin         = datafill_gab_tf_win.getText();
+                final String vOffice      = datafill_gab_tf_office.getText();
+
+                // Build the "componentes" string in the required order with a space after each comma
+                final String vComponentes =
+                        (vProcesador == null ? "" : vProcesador) + ", " +
+                                (vRam        == null ? "" : vRam)        + ", " +
+                                (vDisco      == null ? "" : vDisco)      + ", " +
+                                (vWin        == null ? "" : vWin)        + ", " +
+                                (vOffice     == null ? "" : vOffice);
+
+                final String vObservaciones = null; // Will be added later
+
+                try (var conn = BD.Connect.open();
+                     var ps   = conn.prepareStatement(sqlGab)) {
+
+                    // Resolve FK: resguardante (nullable if no selection)
+                    Integer resguardanteId = resolveResguardanteIdByName(conn, vResguardante);
+                    if (resguardanteId == null) {
+                        ps.setNull(1, java.sql.Types.INTEGER);
+                    } else {
+                        ps.setInt(1, resguardanteId);
+                    }
+
+                    ps.setString(2, vMarca);
+                    ps.setString(3, vModelo);
+                    ps.setString(4, vInventario);
+                    ps.setString(5, vSerie);
+                    ps.setString(6, vComponentes);
+                    ps.setString(7, vStatus);
+                    ps.setNull(8, java.sql.Types.VARCHAR); // observaciones placeholder
+
+                    ps.executeUpdate();
+                    JOptionPane.showMessageDialog(this, "Gabinete saved.");
+                    cleanData(2);
+
+                } catch (java.sql.SQLException ex) {
+                    JOptionPane.showMessageDialog(this, ex);
+                } catch (Exception e) {
+                    throw new RuntimeException(e);
+                }
+                break;
+            }
+
+            default:
+                JOptionPane.showMessageDialog(this, "Invalid save option: " + option);
+        }
+    }
+
+    /**
+     * Looks up the datos_resguardante.id by the given name.
+     * Returns null if the name is null, blank, or not found.
+     */
+    private Integer resolveResguardanteIdByName(java.sql.Connection conn, String nombre) {
+        if (nombre == null || nombre.isEmpty() || "Seleciona un Resguardante".equals(nombre)) {
+            return null;
+        }
+
+        final String sqlFind = "SELECT id FROM datos_resguardante WHERE nombre = ? LIMIT 1";
+        try (var ps = conn.prepareStatement(sqlFind)) {
+            ps.setString(1, nombre);
+            try (var rs = ps.executeQuery()) {
+                if (rs.next()) {
+                    return rs.getInt("id");
+                }
+            }
+        } catch (java.sql.SQLException ex) {
+            System.err.println("resolveResguardanteIdByName error: " + ex.getMessage());
+        }
+        return null;
+    }
+
 
     /**
      * @param args the command line arguments

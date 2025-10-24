@@ -519,55 +519,55 @@ public class MainInterface extends javax.swing.JFrame {
             panel.add(label);
             panel.add(pass);
             String[] options = new String[]{"OK", "Cancel"};
-            int option = JOptionPane.showOptionDialog(null, panel, "Refill",
-                                     JOptionPane.NO_OPTION, JOptionPane.PLAIN_MESSAGE,
-                                     null, options, options[0]);
-            if(option == 0) // pressing OK button
-            {
-                char[] password = pass.getPassword();
-                //System.out.println("Your password is: " + new String(password));
-                if(sqlq.getPass(new String(password))){
-                    System.out.println("??");
-                    String yn = "s";
-                    while (yn.equalsIgnoreCase("s")||yn.equalsIgnoreCase("si")) {
-                        String a = JOptionPane.showInputDialog("Empleado o Equipo?");
-
-                        String data[];
-
-                        switch (a.toUpperCase()) {
-                            case "EMPLEADO":
-                                data = new String[5];
-                                data[0] = JOptionPane.showInputDialog("Nombre: ");
-                                data[1] = JOptionPane.showInputDialog("Departamento/Área: ");
-                                data[2] = JOptionPane.showInputDialog("Dirección: ");
-                                data[3] = JOptionPane.showInputDialog("Cargo: ");
-                                data[4] = JOptionPane.showInputDialog("Ubicación: ");
-                                sqlq.insertOnResguardante(data);
-                                break;
-                            case "EQUIPO":
-                                data = new String[8];
-                                data[0] = JOptionPane.showInputDialog("Nombre: ");
-                                data[1] = JOptionPane.showInputDialog("Marca: ");
-                                data[2] = JOptionPane.showInputDialog("Modelo: ");
-                                data[3] = JOptionPane.showInputDialog("Número Inventario: ");
-                                data[4] = JOptionPane.showInputDialog("Número de Serie: ");
-                                data[5] = JOptionPane.showInputDialog("Componentes: \nSeparar por comas");
-                                data[6] = JOptionPane.showInputDialog("Estado: ");
-                                data[7] = JOptionPane.showInputDialog("Observaciones: ");
-                                sqlq.insertOnGabinete(data);
-                                cbx_init();
-                                break;
-                            default:
-                                JOptionPane.showMessageDialog(null, "Opcion invalida");
-                                break;
-                        }
-                        yn = JOptionPane.showInputDialog("Agregar algo mas? (S/N)(Si/No):");
-                    }
-                }else {
-
-                }
-                //System.out.println(sqlq.getPass(new String(password)));
-            }
+//            int option = JOptionPane.showOptionDialog(null, panel, "Refill",
+//                                     JOptionPane.NO_OPTION, JOptionPane.PLAIN_MESSAGE,
+//                                     null, options, options[0]);
+//            if(option == 0) // pressing OK button
+//            {
+//                char[] password = pass.getPassword();
+//                //System.out.println("Your password is: " + new String(password));
+//                if(sqlq.getPass(new String(password))){
+//                    System.out.println("??");
+//                    String yn = "s";
+//                    while (yn.equalsIgnoreCase("s")||yn.equalsIgnoreCase("si")) {
+//                        String a = JOptionPane.showInputDialog("Empleado o Equipo?");
+//
+//                        String data[];
+//
+//                        switch (a.toUpperCase()) {
+//                            case "EMPLEADO":
+//                                data = new String[5];
+//                                data[0] = JOptionPane.showInputDialog("Nombre: ");
+//                                data[1] = JOptionPane.showInputDialog("Departamento/Área: ");
+//                                data[2] = JOptionPane.showInputDialog("Dirección: ");
+//                                data[3] = JOptionPane.showInputDialog("Cargo: ");
+//                                data[4] = JOptionPane.showInputDialog("Ubicación: ");
+//                                sqlq.insertOnResguardante(data);
+//                                break;
+//                            case "EQUIPO":
+//                                data = new String[8];
+//                                data[0] = JOptionPane.showInputDialog("Nombre: ");
+//                                data[1] = JOptionPane.showInputDialog("Marca: ");
+//                                data[2] = JOptionPane.showInputDialog("Modelo: ");
+//                                data[3] = JOptionPane.showInputDialog("Número Inventario: ");
+//                                data[4] = JOptionPane.showInputDialog("Número de Serie: ");
+//                                data[5] = JOptionPane.showInputDialog("Componentes: \nSeparar por comas");
+//                                data[6] = JOptionPane.showInputDialog("Estado: ");
+//                                data[7] = JOptionPane.showInputDialog("Observaciones: ");
+//                                sqlq.insertOnGabinete(data);
+//                                cbx_init();
+//                                break;
+//                            default:
+//                                JOptionPane.showMessageDialog(null, "Opcion invalida");
+//                                break;
+//                        }
+//                        yn = JOptionPane.showInputDialog("Agregar algo mas? (S/N)(Si/No):");
+//                    }
+//                }else {
+//
+//                }
+//                //System.out.println(sqlq.getPass(new String(password)));
+//            }
             clickcount=0;
         }else{
             clickcount++;
