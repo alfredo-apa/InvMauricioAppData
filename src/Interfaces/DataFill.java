@@ -6,6 +6,8 @@ package Interfaces;
 
 import javax.swing.*;
 import java.awt.*;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 
 /**
  *
@@ -469,11 +471,13 @@ public class DataFill extends javax.swing.JFrame {
 
     private void menu_bttn_empleadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menu_bttn_empleadoActionPerformed
         // TODO add your handling code here:
+        cleanData(1);
         cards.show(jcards, "emp");
     }//GEN-LAST:event_menu_bttn_empleadoActionPerformed
 
     private void menu_bttn_equipoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menu_bttn_equipoActionPerformed
         // TODO add your handling code here:
+        cleanData(2);
         cards.show(jcards, "gab");
     }//GEN-LAST:event_menu_bttn_equipoActionPerformed
 
@@ -519,7 +523,24 @@ public class DataFill extends javax.swing.JFrame {
                 }
                 break;
             case 2:
+                String sql = "SELECT nombre FROM datos_resguardante ORDER BY NOMBRE";
                 try{
+                    try(var conn = BD.Connect.open();
+                        var stmt = conn.createStatement();) {
+
+                        ResultSet chk = stmt.executeQuery(sql);
+
+                        datafill_gab_cb_resguardante.removeAllItems();
+
+                        datafill_gab_cb_resguardante.addItem("Resguardante");
+
+                        while (chk.next()) {
+                            datafill_gab_cb_resguardante.addItem(chk.getString("nombre"));
+                        }
+                    }catch (SQLException es){
+                        JOptionPane.showMessageDialog(null, es);
+                    }
+
                     datafill_gab_cb_resguardante.setSelectedIndex(0);
                     datafill_gab_cb_status.setSelectedIndex(0);
                     datafill_gab_tf_marca.setText("");
