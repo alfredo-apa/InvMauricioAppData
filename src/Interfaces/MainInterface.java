@@ -634,7 +634,10 @@ public class MainInterface extends javax.swing.JFrame {
                 
                 mod.addRow(arg);
             }
-            
+
+            co = mod.getRowCount();
+            counting_lbl.setText(String.valueOf(co) + "Equipos en lista");
+
             jTable1.setModel(mod);
             
         }catch(Exception e){
