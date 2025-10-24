@@ -88,7 +88,7 @@ public class DataFill extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jcards.setLayout(new java.awt.CardLayout());
+        jcards.setLayout(cards);
 
         jLabel1.setText("Nombre");
 
@@ -195,7 +195,7 @@ public class DataFill extends javax.swing.JFrame {
                 .addContainerGap(70, Short.MAX_VALUE))
         );
 
-        jcards.add(p_emp, "card2");
+        jcards.add(p_emp, "emp");
 
         datafill_gab_save.setText("Guardar");
         datafill_gab_save.addActionListener(new java.awt.event.ActionListener() {
@@ -382,7 +382,7 @@ public class DataFill extends javax.swing.JFrame {
                 .addGap(36, 36, 36))
         );
 
-        jcards.add(p_gabinete, "card3");
+        jcards.add(p_gabinete, "gab");
 
         menu_bttn_equipo.setText("Equipo");
         menu_bttn_equipo.addActionListener(new java.awt.event.ActionListener() {
@@ -438,7 +438,7 @@ public class DataFill extends javax.swing.JFrame {
                     .addContainerGap(263, Short.MAX_VALUE)))
         );
 
-        jcards.add(p_menu, "card4");
+        jcards.add(p_menu, "menu");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -521,9 +521,16 @@ public class DataFill extends javax.swing.JFrame {
             case 2:
                 try{
                     datafill_gab_cb_resguardante.setSelectedIndex(0);
+                    datafill_gab_cb_status.setSelectedIndex(0);
                     datafill_gab_tf_marca.setText("");
                     datafill_gab_tf_modelo.setText("");
-
+                    datafill_gab_tf_discoduro.setText("");
+                    datafill_gab_tf_inv.setText("");
+                    datafill_gab_tf_office.setText("");
+                    datafill_gab_tf_procesador.setText("");
+                    datafill_gab_tf_ram.setText("");
+                    datafill_gab_tf_serie.setText("");
+                    datafill_gab_tf_win.setText("");
                 } catch (Exception e) {
                     throw new RuntimeException(e);
                 }

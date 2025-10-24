@@ -40,7 +40,7 @@
         <Container class="javax.swing.JPanel" name="p_emp">
           <Constraints>
             <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignCardLayout" value="org.netbeans.modules.form.compat2.layouts.DesignCardLayout$CardConstraintsDescription">
-              <CardConstraints cardName="card2"/>
+              <CardConstraints cardName="emp"/>
             </Constraint>
           </Constraints>
 
@@ -203,7 +203,7 @@
         <Container class="javax.swing.JPanel" name="p_gabinete">
           <Constraints>
             <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignCardLayout" value="org.netbeans.modules.form.compat2.layouts.DesignCardLayout$CardConstraintsDescription">
-              <CardConstraints cardName="card3"/>
+              <CardConstraints cardName="gab"/>
             </Constraint>
           </Constraints>
 
@@ -516,7 +516,7 @@
         <Container class="javax.swing.JPanel" name="p_menu">
           <Constraints>
             <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignCardLayout" value="org.netbeans.modules.form.compat2.layouts.DesignCardLayout$CardConstraintsDescription">
-              <CardConstraints cardName="card4"/>
+              <CardConstraints cardName="menu"/>
             </Constraint>
           </Constraints>
 
