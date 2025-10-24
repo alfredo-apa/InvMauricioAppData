@@ -23,7 +23,11 @@ public class DataFill extends javax.swing.JFrame {
     public DataFill() {
         initComponents();
 
+        cleanData(0);
+
         cards.show(jcards, "menu");
+
+
     }
 
     /**
@@ -456,6 +460,7 @@ public class DataFill extends javax.swing.JFrame {
 
     private void datafill_emp_tf_cleanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_datafill_emp_tf_cleanActionPerformed
         // TODO add your handling code here:
+        cleanData(1);
     }//GEN-LAST:event_datafill_emp_tf_cleanActionPerformed
 
     private void jComboBox2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox2ActionPerformed
@@ -488,12 +493,43 @@ public class DataFill extends javax.swing.JFrame {
 
     private void datafill_gab_bttn_cleanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_datafill_gab_bttn_cleanActionPerformed
         // TODO add your handling code here:
+        cleanData(2);
     }//GEN-LAST:event_datafill_gab_bttn_cleanActionPerformed
 
     private void datafill_gab_bttn_cancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_datafill_gab_bttn_cancelActionPerformed
         // TODO add your handling code here:
         cards.show(jcards, "menu");
     }//GEN-LAST:event_datafill_gab_bttn_cancelActionPerformed
+
+    private void cleanData(int op){
+        switch (op){
+            case 0:
+                cleanData(1);
+                cleanData(2);
+                break;
+            case 1:
+                try{
+                    datafill_emp_tf_direccion.setText("");
+                    datafill_emp_tf_area.setText("");
+                    datafill_emp_tf_cargo.setText("");
+                    datafill_emp_tf_nombre.setText("");
+                    datafill_emp_tf_ubicacion.setText("");
+                } catch (Exception e) {
+                    throw new RuntimeException(e);
+                }
+                break;
+            case 2:
+                try{
+                    datafill_gab_cb_resguardante.setSelectedIndex(0);
+                    datafill_gab_tf_marca.setText("");
+                    datafill_gab_tf_modelo.setText("");
+
+                } catch (Exception e) {
+                    throw new RuntimeException(e);
+                }
+                break;
+        }
+    }
 
     /**
      * @param args the command line arguments
