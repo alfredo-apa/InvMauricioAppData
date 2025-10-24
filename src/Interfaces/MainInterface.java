@@ -602,7 +602,7 @@ public class MainInterface extends javax.swing.JFrame {
         System.exit(0);
     }//GEN-LAST:event_jMenuItem2ActionPerformed
 
-    private void sel(){
+    public void sel(){
         try{
             String sql = "SELECT r.nombre, r.ubicacion_fisica, r.direccion, r.departamento, h.no_inventario, h.marca, h.componentes FROM datos_resguardante r INNER JOIN hardware_gabinete h ON r.id = h.resguardante ";
             var conn = BD.Connect.open();

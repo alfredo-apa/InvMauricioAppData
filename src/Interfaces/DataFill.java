@@ -656,7 +656,7 @@ public class DataFill extends javax.swing.JFrame {
                                 (vWin        == null ? "" : vWin)        + ", " +
                                 (vOffice     == null ? "" : vOffice);
 
-                final String vObservaciones = null; // Will be added later
+                final String vObservaciones = datafill_gab_ta_observaciones.getText(); // Will be added later
 
                 try (var conn = BD.Connect.open();
                      var ps   = conn.prepareStatement(sqlGab)) {
@@ -675,7 +675,7 @@ public class DataFill extends javax.swing.JFrame {
                     ps.setString(5, vSerie);
                     ps.setString(6, vComponentes);
                     ps.setString(7, vStatus);
-                    ps.setNull(8, java.sql.Types.VARCHAR); // observaciones placeholder
+                    ps.setString(8, vObservaciones); // observaciones placeholder
 
                     ps.executeUpdate();
                     JOptionPane.showMessageDialog(this, "Gabinete saved.");
@@ -692,6 +692,8 @@ public class DataFill extends javax.swing.JFrame {
             default:
                 JOptionPane.showMessageDialog(this, "Invalid save option: " + option);
         }
+        MainInterface m = new MainInterface();
+        m.sel();
     }
 
     /**
