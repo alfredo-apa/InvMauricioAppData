@@ -310,6 +310,7 @@ public class MainInterface extends javax.swing.JFrame {
                 .addGap(20, 20, 20))
         );
 
+        jTable1.setAutoCreateRowSorter(true);
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null, null, null, null},
@@ -402,10 +403,20 @@ public class MainInterface extends javax.swing.JFrame {
 
         jMenuItem3.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_0, java.awt.event.InputEvent.ALT_DOWN_MASK));
         jMenuItem3.setText("Actualizar");
+        jMenuItem3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem3ActionPerformed(evt);
+            }
+        });
         jMenu1.add(jMenuItem3);
 
         jMenuItem2.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_F4, java.awt.event.InputEvent.ALT_DOWN_MASK));
         jMenuItem2.setText("Salir");
+        jMenuItem2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem2ActionPerformed(evt);
+            }
+        });
         jMenu1.add(jMenuItem2);
 
         jMenuBar1.add(jMenu1);
@@ -580,6 +591,16 @@ public class MainInterface extends javax.swing.JFrame {
         // TODO add your handling code here:
         sel();
     }//GEN-LAST:event_tf_caracteristicasKeyTyped
+
+    private void jMenuItem3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem3ActionPerformed
+        // TODO add your handling code here:
+        sel();
+    }//GEN-LAST:event_jMenuItem3ActionPerformed
+
+    private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed
+        // TODO add your handling code here
+        System.exit(0);
+    }//GEN-LAST:event_jMenuItem2ActionPerformed
 
     private void sel(){
         try{
