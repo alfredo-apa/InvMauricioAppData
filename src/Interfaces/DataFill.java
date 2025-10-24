@@ -24,6 +24,7 @@ public class DataFill extends javax.swing.JFrame {
      */
     public DataFill() {
         initComponents();
+        jcards.setLayout(cards);
 
         cleanData(0);
 
@@ -93,7 +94,7 @@ public class DataFill extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jcards.setLayout(new java.awt.CardLayout());
+        jcards.setLayout(cards);
 
         jLabel1.setText("Nombre");
 

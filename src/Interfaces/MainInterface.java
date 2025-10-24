@@ -519,15 +519,17 @@ public class MainInterface extends javax.swing.JFrame {
             panel.add(label);
             panel.add(pass);
             String[] options = new String[]{"OK", "Cancel"};
-//            int option = JOptionPane.showOptionDialog(null, panel, "Refill",
-//                                     JOptionPane.NO_OPTION, JOptionPane.PLAIN_MESSAGE,
-//                                     null, options, options[0]);
-//            if(option == 0) // pressing OK button
-//            {
-//                char[] password = pass.getPassword();
-//                //System.out.println("Your password is: " + new String(password));
-//                if(sqlq.getPass(new String(password))){
-//                    System.out.println("??");
+            int option = JOptionPane.showOptionDialog(null, panel, "Refill",
+                                     JOptionPane.NO_OPTION, JOptionPane.PLAIN_MESSAGE,
+                                     null, options, options[0]);
+            if(option == 0) // pressing OK button
+            {
+                char[] password = pass.getPassword();
+                //System.out.println("Your password is: " + new String(password));
+                if(sqlq.getPass(new String(password))){
+                    System.out.println("??");
+                    DataFill dfill = new DataFill();
+                    dfill.setVisible(true);
 //                    String yn = "s";
 //                    while (yn.equalsIgnoreCase("s")||yn.equalsIgnoreCase("si")) {
 //                        String a = JOptionPane.showInputDialog("Empleado o Equipo?");
@@ -563,11 +565,11 @@ public class MainInterface extends javax.swing.JFrame {
 //                        }
 //                        yn = JOptionPane.showInputDialog("Agregar algo mas? (S/N)(Si/No):");
 //                    }
-//                }else {
-//
-//                }
-//                //System.out.println(sqlq.getPass(new String(password)));
-//            }
+                }else {
+
+                }
+                //System.out.println(sqlq.getPass(new String(password)));
+            }
             clickcount=0;
         }else{
             clickcount++;
