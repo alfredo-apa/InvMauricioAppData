@@ -83,6 +83,9 @@ public class DataFill extends javax.swing.JFrame {
         jLabel17 = new javax.swing.JLabel();
         datafill_gab_tf_serie = new javax.swing.JTextField();
         datafill_gab_bttn_cancel = new javax.swing.JButton();
+        jLabel18 = new javax.swing.JLabel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        datafill_gab_ta_observaciones = new javax.swing.JTextArea();
         p_menu = new javax.swing.JPanel();
         menu_bttn_equipo = new javax.swing.JButton();
         menu_bttn_empleado = new javax.swing.JButton();
@@ -90,7 +93,7 @@ public class DataFill extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jcards.setLayout(cards);
+        jcards.setLayout(new java.awt.CardLayout());
 
         jLabel1.setText("Nombre");
 
@@ -194,7 +197,7 @@ public class DataFill extends javax.swing.JFrame {
                     .addComponent(datafill_emp_tf_clean))
                 .addGap(32, 32, 32)
                 .addComponent(datafill_emp_bttn_cancel)
-                .addContainerGap(70, Short.MAX_VALUE))
+                .addContainerGap(188, Short.MAX_VALUE))
         );
 
         jcards.add(p_emp, "emp");
@@ -253,42 +256,28 @@ public class DataFill extends javax.swing.JFrame {
             }
         });
 
+        jLabel18.setText("Observaciones");
+
+        datafill_gab_ta_observaciones.setColumns(20);
+        datafill_gab_ta_observaciones.setRows(5);
+        jScrollPane1.setViewportView(datafill_gab_ta_observaciones);
+
         javax.swing.GroupLayout p_gabineteLayout = new javax.swing.GroupLayout(p_gabinete);
         p_gabinete.setLayout(p_gabineteLayout);
         p_gabineteLayout.setHorizontalGroup(
             p_gabineteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(p_gabineteLayout.createSequentialGroup()
-                .addGroup(p_gabineteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(p_gabineteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGroup(p_gabineteLayout.createSequentialGroup()
-                            .addGap(109, 109, 109)
-                            .addComponent(datafill_gab_save)
-                            .addGap(98, 98, 98)
-                            .addComponent(datafill_gab_bttn_clean))
-                        .addGroup(p_gabineteLayout.createSequentialGroup()
-                            .addGap(29, 29, 29)
-                            .addGroup(p_gabineteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, p_gabineteLayout.createSequentialGroup()
+                .addGroup(p_gabineteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(p_gabineteLayout.createSequentialGroup()
+                        .addContainerGap(28, Short.MAX_VALUE)
+                        .addGroup(p_gabineteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, p_gabineteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                 .addGroup(p_gabineteLayout.createSequentialGroup()
                                     .addComponent(jLabel6)
                                     .addGap(18, 18, 18)
                                     .addComponent(datafill_gab_cb_resguardante, 0, 346, Short.MAX_VALUE))
                                 .addGroup(p_gabineteLayout.createSequentialGroup()
-                                    .addGroup(p_gabineteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addComponent(datafill_gab_tf_procesador, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addComponent(jLabel11, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                    .addGroup(p_gabineteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addComponent(jLabel12, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addComponent(datafill_gab_tf_ram, javax.swing.GroupLayout.PREFERRED_SIZE, 138, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addGap(18, 18, 18)
-                                    .addGroup(p_gabineteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addComponent(datafill_gab_tf_discoduro, javax.swing.GroupLayout.PREFERRED_SIZE, 138, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addComponent(jLabel13, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                                .addGroup(p_gabineteLayout.createSequentialGroup()
-                                    .addGroup(p_gabineteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addComponent(datafill_gab_tf_win, javax.swing.GroupLayout.PREFERRED_SIZE, 138, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addComponent(jLabel15, javax.swing.GroupLayout.PREFERRED_SIZE, 72, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addGap(21, 21, 21)
+                                    .addGap(159, 159, 159)
                                     .addGroup(p_gabineteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                         .addComponent(jLabel14, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addComponent(datafill_gab_tf_office, javax.swing.GroupLayout.PREFERRED_SIZE, 138, javax.swing.GroupLayout.PREFERRED_SIZE)))
@@ -302,24 +291,47 @@ public class DataFill extends javax.swing.JFrame {
                                     .addComponent(jLabel9)
                                     .addGap(18, 18, 18)
                                     .addComponent(datafill_gab_tf_modelo))
+                                .addGroup(p_gabineteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(datafill_gab_bttn_cancel)
+                                    .addGroup(p_gabineteLayout.createSequentialGroup()
+                                        .addComponent(jLabel16, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGap(18, 18, 18)
+                                        .addComponent(datafill_gab_cb_status, javax.swing.GroupLayout.PREFERRED_SIZE, 176, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, p_gabineteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                 .addGroup(p_gabineteLayout.createSequentialGroup()
-                                    .addComponent(jLabel16, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addGroup(p_gabineteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                        .addComponent(jLabel17)
+                                        .addComponent(jLabel8)
+                                        .addComponent(jLabel10))
                                     .addGap(18, 18, 18)
-                                    .addComponent(datafill_gab_cb_status, javax.swing.GroupLayout.PREFERRED_SIZE, 176, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addComponent(jLabel10)))
-                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, p_gabineteLayout.createSequentialGroup()
-                            .addContainerGap()
-                            .addGroup(p_gabineteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                .addComponent(jLabel17)
-                                .addComponent(jLabel8))
-                            .addGap(18, 18, 18)
-                            .addGroup(p_gabineteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                .addComponent(datafill_gab_tf_inv, javax.swing.GroupLayout.DEFAULT_SIZE, 346, Short.MAX_VALUE)
-                                .addComponent(datafill_gab_tf_serie))))
+                                    .addGroup(p_gabineteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                        .addComponent(datafill_gab_tf_inv, javax.swing.GroupLayout.DEFAULT_SIZE, 346, Short.MAX_VALUE)
+                                        .addComponent(datafill_gab_tf_serie)))
+                                .addGroup(p_gabineteLayout.createSequentialGroup()
+                                    .addGroup(p_gabineteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addComponent(datafill_gab_tf_procesador, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(jLabel11, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(jLabel15, javax.swing.GroupLayout.PREFERRED_SIZE, 72, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                    .addGroup(p_gabineteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addGroup(p_gabineteLayout.createSequentialGroup()
+                                            .addComponent(jLabel12, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addGap(112, 112, 112)
+                                            .addComponent(jLabel13, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                        .addGroup(p_gabineteLayout.createSequentialGroup()
+                                            .addComponent(datafill_gab_tf_ram, javax.swing.GroupLayout.PREFERRED_SIZE, 138, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                            .addComponent(datafill_gab_tf_discoduro, javax.swing.GroupLayout.PREFERRED_SIZE, 138, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                                .addComponent(datafill_gab_tf_win, javax.swing.GroupLayout.PREFERRED_SIZE, 138, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(jLabel18, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 438, Short.MAX_VALUE))))
                     .addGroup(p_gabineteLayout.createSequentialGroup()
-                        .addGap(184, 184, 184)
-                        .addComponent(datafill_gab_bttn_cancel)))
-                .addContainerGap(119, Short.MAX_VALUE))
+                        .addGap(104, 104, 104)
+                        .addComponent(datafill_gab_save)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(datafill_gab_bttn_clean)
+                        .addGap(103, 103, 103)))
+                .addGap(119, 119, 119))
         );
         p_gabineteLayout.setVerticalGroup(
             p_gabineteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -345,33 +357,35 @@ public class DataFill extends javax.swing.JFrame {
                 .addGroup(p_gabineteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel17)
                     .addComponent(datafill_gab_tf_serie, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 26, Short.MAX_VALUE)
+                .addGap(18, 18, 18)
                 .addComponent(jLabel10)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(18, 18, 18)
                 .addGroup(p_gabineteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(p_gabineteLayout.createSequentialGroup()
-                        .addGroup(p_gabineteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addGroup(p_gabineteLayout.createSequentialGroup()
-                                .addComponent(jLabel11)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(datafill_gab_tf_procesador, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(p_gabineteLayout.createSequentialGroup()
-                                .addComponent(jLabel12)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(datafill_gab_tf_ram, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(p_gabineteLayout.createSequentialGroup()
-                                .addComponent(jLabel13)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(datafill_gab_tf_discoduro, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGap(18, 18, 18)
-                        .addComponent(jLabel15)
+                        .addComponent(jLabel11)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(datafill_gab_tf_win, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(datafill_gab_tf_procesador, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(p_gabineteLayout.createSequentialGroup()
-                        .addComponent(jLabel14)
+                        .addGroup(p_gabineteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel12)
+                            .addComponent(jLabel13))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(datafill_gab_tf_office, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGroup(p_gabineteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(datafill_gab_tf_ram, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(datafill_gab_tf_discoduro, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addGap(18, 18, 18)
+                .addGroup(p_gabineteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel15)
+                    .addComponent(jLabel14))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(p_gabineteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(datafill_gab_tf_win, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(datafill_gab_tf_office, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabel18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 18, Short.MAX_VALUE)
                 .addGroup(p_gabineteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel16)
                     .addComponent(datafill_gab_cb_status, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -379,9 +393,9 @@ public class DataFill extends javax.swing.JFrame {
                 .addGroup(p_gabineteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(datafill_gab_save)
                     .addComponent(datafill_gab_bttn_clean))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGap(18, 18, 18)
                 .addComponent(datafill_gab_bttn_cancel)
-                .addGap(36, 36, 36))
+                .addGap(30, 30, 30))
         );
 
         jcards.add(p_gabinete, "gab");
@@ -432,12 +446,12 @@ public class DataFill extends javax.swing.JFrame {
                 .addComponent(menu_bttn_equipo, javax.swing.GroupLayout.PREFERRED_SIZE, 63, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(94, 94, 94)
                 .addComponent(menu_bttn_cancel)
-                .addContainerGap(143, Short.MAX_VALUE))
+                .addContainerGap(261, Short.MAX_VALUE))
             .addGroup(p_menuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(p_menuLayout.createSequentialGroup()
                     .addGap(174, 174, 174)
                     .addComponent(menu_bttn_empleado, javax.swing.GroupLayout.PREFERRED_SIZE, 63, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addContainerGap(263, Short.MAX_VALUE)))
+                    .addContainerGap(381, Short.MAX_VALUE)))
         );
 
         jcards.add(p_menu, "menu");
@@ -450,7 +464,7 @@ public class DataFill extends javax.swing.JFrame {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jcards, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jcards, javax.swing.GroupLayout.DEFAULT_SIZE, 618, Short.MAX_VALUE)
         );
 
         pack();
@@ -753,6 +767,7 @@ public class DataFill extends javax.swing.JFrame {
     private javax.swing.JComboBox<String> datafill_gab_cb_resguardante;
     private javax.swing.JComboBox<String> datafill_gab_cb_status;
     private javax.swing.JButton datafill_gab_save;
+    private javax.swing.JTextArea datafill_gab_ta_observaciones;
     private javax.swing.JTextField datafill_gab_tf_discoduro;
     private javax.swing.JTextField datafill_gab_tf_inv;
     private javax.swing.JTextField datafill_gab_tf_marca;
@@ -771,6 +786,7 @@ public class DataFill extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel15;
     private javax.swing.JLabel jLabel16;
     private javax.swing.JLabel jLabel17;
+    private javax.swing.JLabel jLabel18;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
@@ -779,6 +795,7 @@ public class DataFill extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
+    private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JPanel jcards;
     private javax.swing.JButton menu_bttn_cancel;
     private javax.swing.JButton menu_bttn_empleado;
