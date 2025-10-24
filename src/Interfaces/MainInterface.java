@@ -23,7 +23,7 @@ public class MainInterface extends javax.swing.JFrame {
 
     
     private final String devpass = "Coreolis_19";
-    private String version = "1.17.00.AA10L25";
+    private String version = "1.17.20.AA10L25";
     private int clickcount = 0, clickc = 0;
     private Connect con = new Connect();
     private SqliteQuery sqlq = new SqliteQuery();
