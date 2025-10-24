@@ -636,7 +636,7 @@ public class MainInterface extends javax.swing.JFrame {
             }
 
             co = mod.getRowCount();
-            counting_lbl.setText(String.valueOf(co) + "Equipos en lista");
+            counting_lbl.setText(String.valueOf(co) + " Equipos en lista");
 
             jTable1.setModel(mod);
             
