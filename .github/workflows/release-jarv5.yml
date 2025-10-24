@@ -1,5 +1,8 @@
 name: Release single JAR on change
 
+permissions:
+  contents: write
+
 on:
   push:
     paths:
