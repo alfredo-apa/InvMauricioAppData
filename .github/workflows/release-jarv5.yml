@@ -1,0 +1,77 @@
+name: Release single JAR on change
+
+on:
+  push:
+    paths:
+      - 'out/artifacts/InventarioMNBD_jar/**'
+
+jobs:
+  release:
+    name: Release JAR
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Set up JDK
+        uses: actions/setup-java@v4
+        with:
+          distribution: 'temurin'
+          java-version: '17'
+
+      - name: "Debug: list artifact folders"
+        run: |
+          echo "GITHUB_WORKSPACE: $GITHUB_WORKSPACE"
+          pwd
+          ls -la
+          ls -la out || true
+          ls -la out/artifacts || true
+          ls -la out/artifacts/InventarioMNBD_jar || true
+
+      - name: Find JAR and set output
+        id: find_jar
+        run: |
+          set -euo pipefail
+          ROOT="$GITHUB_WORKSPACE"
+          EXPECTED="$ROOT/out/artifacts/InventarioMNBD_jar/InventarioMNBD.jar"
+          echo "Looking for expected path: $EXPECTED"
+          if [ -f "$EXPECTED" ]; then
+            echo "jar_path=$EXPECTED" >> $GITHUB_OUTPUT
+            echo "found=1" >> $GITHUB_OUTPUT
+            echo "Found jar at expected path"
+            exit 0
+          fi
+          JAR=$(find "$ROOT/out/artifacts/InventarioMNBD_jar" -maxdepth 1 -type f -name '*.jar' -print -quit || true)
+          if [ -n "$JAR" ]; then
+            echo "jar_path=$JAR" >> $GITHUB_OUTPUT
+            echo "found=1" >> $GITHUB_OUTPUT
+            echo "Found jar at $JAR"
+            exit 0
+          fi
+          echo "ERROR: No JAR found in out/artifacts/InventarioMNBD_jar"
+          ls -la "$ROOT/out/artifacts/InventarioMNBD_jar" || true
+          echo "found=0" >> $GITHUB_OUTPUT
+          exit 1
+
+      - name: Create Release (if needed)
+        id: create_release
+        if: steps.find_jar.outputs.found == '1'
+        uses: ncipollo/release-action@v1
+        with:
+          tag: "jar-${{ github.sha }}"
+          name: "Jar release ${{ github.sha }}"
+          body: "Automated release containing the JAR"
+          draft: false
+          prerelease: false
+
+      - name: Upload release asset
+        if: steps.find_jar.outputs.found == '1'
+        uses: actions/upload-release-asset@v1
+        with:
+          upload_url: ${{ steps.create_release.outputs.upload_url }}
+          asset_path: ${{ steps.find_jar.outputs.jar_path }}
+          asset_name: InventarioMNBD.jar
+          asset_content_type: application/java-archive
