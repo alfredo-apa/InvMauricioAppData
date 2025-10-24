@@ -1,0 +1,30 @@
+name: Release JAR on change
+
+# ensure the workflow can create/update releases
+permissions:
+  contents: write
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - 'out/artifacts/InventarioMNBD_jar/**'
+  workflow_dispatch: {}  # optional manual trigger
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Upload JAR as a GitHub Release asset
+        # Creates a release with tag `jar-latest` (or updates it) and uploads the JAR,
+        # overwriting an existing asset with the same name.
+        uses: ncipollo/release-action@v1
+        with:
+          tag: jar-latest
+          name: InventarioMNBD.jar (auto-upload)
+          files: out/artifacts/InventarioMNBD_jar/InventarioMNBD.jar
+          overwrite: true
