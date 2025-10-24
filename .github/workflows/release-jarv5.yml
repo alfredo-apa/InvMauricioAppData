@@ -18,6 +18,7 @@ jobs:
         uses: actions/checkout@v4
         with:
           fetch-depth: 0
+          persist-credentials: true   # keep GITHUB_TOKEN available for later actions
 
       - name: Set up JDK
         uses: actions/setup-java@v4
@@ -25,14 +26,21 @@ jobs:
           distribution: 'temurin'
           java-version: '17'
 
-      - name: "Debug: list artifact folders"
+      - name: "Debug: list repository root and artifact folders"
         run: |
           echo "GITHUB_WORKSPACE: $GITHUB_WORKSPACE"
           pwd
-          ls -la
+          echo "ls -la (root):"
+          ls -la || true
+          echo "ls -la out:"
           ls -la out || true
+          echo "ls -la out/artifacts:"
           ls -la out/artifacts || true
+          echo "ls -la out/artifacts/InventarioMNBD_jar:"
           ls -la out/artifacts/InventarioMNBD_jar || true
+          echo "git status / git rev-parse HEAD:"
+          git rev-parse --abbrev-ref HEAD || true
+          git log -1 --oneline || true
 
       - name: Find JAR and set output
         id: find_jar
@@ -47,15 +55,34 @@ jobs:
             echo "Found jar at expected path"
             exit 0
           fi
-          JAR=$(find "$ROOT/out/artifacts/InventarioMNBD_jar" -maxdepth 1 -type f -name '*.jar' -print -quit || true)
-          if [ -n "$JAR" ]; then
-            echo "jar_path=$JAR" >> $GITHUB_OUTPUT
-            echo "found=1" >> $GITHUB_OUTPUT
-            echo "Found jar at $JAR"
-            exit 0
-          fi
-          echo "ERROR: No JAR found in out/artifacts/InventarioMNBD_jar"
-          ls -la "$ROOT/out/artifacts/InventarioMNBD_jar" || true
+
+          # Try a few common locations
+          SEARCH_LOCATIONS=(
+            "$ROOT/out/artifacts/InventarioMNBD_jar"
+            "$ROOT/build/libs"
+            "$ROOT/target"
+            "$ROOT"
+          )
+
+          for d in "${SEARCH_LOCATIONS[@]}"; do
+            echo "Checking $d"
+            if [ -d "$d" ]; then
+              JAR=$(find "$d" -maxdepth 2 -type f -name '*.jar' -print -quit || true)
+              if [ -n "$JAR" ]; then
+                echo "jar_path=$JAR" >> $GITHUB_OUTPUT
+                echo "found=1" >> $GITHUB_OUTPUT
+                echo "Found jar at $JAR"
+                exit 0
+              fi
+            else
+              echo "Directory does not exist: $d"
+            fi
+          done
+
+          echo "ERROR: No JAR found in any expected locations"
+          for d in "${SEARCH_LOCATIONS[@]}"; do
+            ls -la "$d" || true
+          done
           echo "found=0" >> $GITHUB_OUTPUT
           exit 1
 
@@ -64,6 +91,9 @@ jobs:
         if: steps.find_jar.outputs.found == '1'
         uses: ncipollo/release-action@v1
         with:
+          # If your repo settings prevent GITHUB_TOKEN write (e.g. run from fork),
+          # create a PAT (repo scope) and set secrets.RELEASE_PAT and uncomment next line:
+          # token: ${{ secrets.RELEASE_PAT }}
           tag: "jar-${{ github.sha }}"
           name: "Jar release ${{ github.sha }}"
           body: "Automated release containing the JAR"
