@@ -84,7 +84,7 @@ public class DataFill extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jcards.setLayout(new java.awt.CardLayout());
+        jcards.setLayout(cards);
 
         jLabel1.setText("Nombre");
 
@@ -191,7 +191,7 @@ public class DataFill extends javax.swing.JFrame {
                 .addContainerGap(70, Short.MAX_VALUE))
         );
 
-        jcards.add(p_emp, "card2");
+        jcards.add(p_emp, "emp");
 
         datafill_gab_save.setText("Guardar");
         datafill_gab_save.addActionListener(new java.awt.event.ActionListener() {
@@ -378,7 +378,7 @@ public class DataFill extends javax.swing.JFrame {
                 .addGap(36, 36, 36))
         );
 
-        jcards.add(p_gabinete, "card3");
+        jcards.add(p_gabinete, "gab");
 
         menu_bttn_equipo.setText("Equipo");
         menu_bttn_equipo.addActionListener(new java.awt.event.ActionListener() {
@@ -434,7 +434,7 @@ public class DataFill extends javax.swing.JFrame {
                     .addContainerGap(263, Short.MAX_VALUE)))
         );
 
-        jcards.add(p_menu, "card4");
+        jcards.add(p_menu, "menu");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
