@@ -133,6 +133,16 @@ public class MainInterface extends javax.swing.JFrame {
         jScrollPane1.setViewportView(jLabel1);
         jLabel1.getAccessibleContext().setAccessibleName("<h1>Acerca</h1>\n        <p>Programa hecho por Stratos Dilligence para la coordinación de informática de <strong>COAPATAP</strong> solicitado por <strong>Mauricio Ochoa</strong> con las siguientes especificaciones:</p>\n\n        <p><strong>Solicitud de desarrollo de interfaz local para visualización de base de datos</strong></p>\n        <p>Se solicita el desarrollo de una interfaz gráfica local que permita la visualización estructurada de los datos contenidos en la base de datos correspondiente a la Oficina Matriz. La interfaz deberá mostrar los siguientes campos:</p>\n        \n        <ul>\n            <li>Número de inventario</li>\n            <li>Nombre</li>\n            <li>Características</li>\n            <li>Dirección</li>\n            <li>Área</li>\n            <li>Ubicación física</li>\n            <li>Descripción del equipo</li>\n            <li>Estado</li>\n        </ul>\n\n        <p><strong>Requisitos técnicos:</strong></p>\n        <ul>\n            <li>La interfaz debe ejecutarse de forma local en equipos de escritorio (Windows).</li>\n            <li>Debe estar conectada a la base de datos previamente armada por el mismo programador.</li>\n            <li>El diseño debe ser amigable y funcional, permitiendo ordenar columnas y, de ser posible, filtrar/buscar registros por cualquiera de los campos listados.</li>\n            <li>No es necesario acceso web ni conexión remota.</li>\n            <li>No requiere permisos de edición, únicamente visualización, por el momento.</li>\n        </ul>\n        <p>Solicitud hecha el dia <strong>25/07/2025</strong></p>");
 
+        /*TODO: add next log on Acerca panel:
+         * Sulicitud de cambios hecha por Mauricio Ochoa Luis el dia 24/10/2025:
+         * -Interfaz adaptable hay espacios que se pueden utilizar
+         * -Contador en una columna
+         * -Ajuste de columnas segun informacion
+         * -Reordenamiento de informacion en pestañas
+         * -Considerar el STATUS
+         */
+
+
         bttn_dev.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 bttn_devActionPerformed(evt);
@@ -622,18 +632,19 @@ public class MainInterface extends javax.swing.JFrame {
             
             DefaultTableModel mod = (DefaultTableModel) jTable1.getModel();
             
-            String arg[] = new String[7];
+            String arg[] = new String[8];
             
             mod.setRowCount(0);
             
             while(chk.next()){
-                arg[0]=chk.getString(1);
-                arg[1]=chk.getString(5);
-                arg[2]=chk.getString(6);
-                arg[3]=chk.getString(2);
-                arg[4]=chk.getString(7);
-                arg[5]=chk.getString(3);
-                arg[6]=chk.getString(4);
+                arg[0]=String.valueOf(mod.getRowCount()+1);
+                arg[1]=chk.getString(1);
+                arg[2]=chk.getString(5);
+                arg[3]=chk.getString(6);
+                arg[4]=chk.getString(2);
+                arg[5]=chk.getString(7);
+                arg[6]=chk.getString(3);
+                arg[7]=chk.getString(4);
                 
                 mod.addRow(arg);
             }
