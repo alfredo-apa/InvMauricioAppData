@@ -133,15 +133,6 @@ public class MainInterface extends javax.swing.JFrame {
         jScrollPane1.setViewportView(jLabel1);
         jLabel1.getAccessibleContext().setAccessibleName("<h1>Acerca</h1>\n        <p>Programa hecho por Stratos Dilligence para la coordinación de informática de <strong>COAPATAP</strong> solicitado por <strong>Mauricio Ochoa</strong> con las siguientes especificaciones:</p>\n\n        <p><strong>Solicitud de desarrollo de interfaz local para visualización de base de datos</strong></p>\n        <p>Se solicita el desarrollo de una interfaz gráfica local que permita la visualización estructurada de los datos contenidos en la base de datos correspondiente a la Oficina Matriz. La interfaz deberá mostrar los siguientes campos:</p>\n        \n        <ul>\n            <li>Número de inventario</li>\n            <li>Nombre</li>\n            <li>Características</li>\n            <li>Dirección</li>\n            <li>Área</li>\n            <li>Ubicación física</li>\n            <li>Descripción del equipo</li>\n            <li>Estado</li>\n        </ul>\n\n        <p><strong>Requisitos técnicos:</strong></p>\n        <ul>\n            <li>La interfaz debe ejecutarse de forma local en equipos de escritorio (Windows).</li>\n            <li>Debe estar conectada a la base de datos previamente armada por el mismo programador.</li>\n            <li>El diseño debe ser amigable y funcional, permitiendo ordenar columnas y, de ser posible, filtrar/buscar registros por cualquiera de los campos listados.</li>\n            <li>No es necesario acceso web ni conexión remota.</li>\n            <li>No requiere permisos de edición, únicamente visualización, por el momento.</li>\n        </ul>\n        <p>Solicitud hecha el dia <strong>25/07/2025</strong></p>");
 
-        /*TODO: add next log in Acerca:
-         *Solicitud hecha por Mauricio Ochoa el dia 24/10/2025:
-         *- Interfaz adaptable hay espacios que se pueden utilizar
-         *- Contador en una columna
-         *- Ajuste de columnas según informacion
-         *- Reordenamiento de información en pestañas
-         *- Considerar el STATUS
-         */
-
         bttn_dev.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 bttn_devActionPerformed(evt);
@@ -329,20 +320,20 @@ public class MainInterface extends javax.swing.JFrame {
         jTable1.setAutoCreateRowSorter(true);
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null}
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null}
             },
             new String [] {
-                "Nombre", "No Inv", "Marca", "Ubicacion", "Caracteristicas", "Direccion", "Area"
+                "N", "Nombre", "No Inv", "Marca", "Ubicacion", "Caracteristicas", "Direccion", "Area"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
+                java.lang.Object.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
             };
             boolean[] canEdit = new boolean [] {
-                false, false, false, true, false, false, true
+                false, false, false, false, false, false, false, false
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -354,6 +345,9 @@ public class MainInterface extends javax.swing.JFrame {
             }
         });
         jScrollPane2.setViewportView(jTable1);
+        if (jTable1.getColumnModel().getColumnCount() > 0) {
+            jTable1.getColumnModel().getColumn(0).setPreferredWidth(5);
+        }
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
