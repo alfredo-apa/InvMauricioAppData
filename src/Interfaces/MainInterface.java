@@ -82,10 +82,11 @@ public class MainInterface extends javax.swing.JFrame {
 
         jInternalFrame1 = new javax.swing.JInternalFrame();
         jButton1 = new javax.swing.JButton();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        jLabel1 = new javax.swing.JLabel();
         bttn_dev = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
+        jTabbedPane1 = new javax.swing.JTabbedPane();
+        jLabel1 = new javax.swing.JLabel();
+        jLabel9 = new javax.swing.JLabel();
         jDesktopPane1 = new javax.swing.JDesktopPane();
         jPanel1 = new javax.swing.JPanel();
         jPanel2 = new javax.swing.JPanel();
@@ -124,25 +125,6 @@ public class MainInterface extends javax.swing.JFrame {
             }
         });
 
-        jScrollPane1.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
-
-        jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel1.setText("<html><h1 style=\"text-align: center\">Acerca</h1>         <div><p>Programa hecho por Stratos Dilligennce para la coordinación de informática de <strong>COAPATAP</strong> solicitado por <strong>Mauricio Ochoa</strong> con las siguientes especificaciones:</p>          <p><strong>Solicitud de desarrollo de interfaz local para visualización de base de datos</strong></p>         <p>Se solicita el desarrollo de una interfaz gráfica local que permita la visualización estructurada de los datos contenidos en la base de datos correspondiente a la Oficina Matriz. La interfaz deberá mostrar los siguientes campos:</p>                  <ul>             <li>Número de inventario</li>             <li>Nombre</li>             <li>Características</li>             <li>Dirección</li>             <li>Área</li>             <li>Ubicación física</li>             <li>Descripción del equipo</li>             <li>Estado</li>         </ul>          <p><strong>Requisitos técnicos:</strong></p>         <ul>             <li>La interfaz debe ejecutarse de forma local en equipos de escritorio (Windows).</li>             <li>Debe estar conectada a la base de datos previamente armada por el mismo programador.</li>             <li>El diseño debe ser amigable y funcional, permitiendo ordenar columnas y, de ser posible, filtrar/buscar registros por cualquiera de los campos listados.</li>             <li>No es necesario acceso web ni conexión remota.</li>             <li>No requiere permisos de edición, únicamente visualización, por el momento.</li>         </ul>         <p>Solicitud hecha el día <strong>25/07/2025</strong></p>\t<p>Entrega acordada el día <strong>17/10/2025</strong></p>\t<p>Entrega de avances <strong>cada 2 viernes</strong></p></div></html>");
-        jLabel1.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        jLabel1.setPreferredSize(new java.awt.Dimension(500, 375));
-        jScrollPane1.setViewportView(jLabel1);
-        jLabel1.getAccessibleContext().setAccessibleName("<h1>Acerca</h1>\n        <p>Programa hecho por Stratos Dilligence para la coordinación de informática de <strong>COAPATAP</strong> solicitado por <strong>Mauricio Ochoa</strong> con las siguientes especificaciones:</p>\n\n        <p><strong>Solicitud de desarrollo de interfaz local para visualización de base de datos</strong></p>\n        <p>Se solicita el desarrollo de una interfaz gráfica local que permita la visualización estructurada de los datos contenidos en la base de datos correspondiente a la Oficina Matriz. La interfaz deberá mostrar los siguientes campos:</p>\n        \n        <ul>\n            <li>Número de inventario</li>\n            <li>Nombre</li>\n            <li>Características</li>\n            <li>Dirección</li>\n            <li>Área</li>\n            <li>Ubicación física</li>\n            <li>Descripción del equipo</li>\n            <li>Estado</li>\n        </ul>\n\n        <p><strong>Requisitos técnicos:</strong></p>\n        <ul>\n            <li>La interfaz debe ejecutarse de forma local en equipos de escritorio (Windows).</li>\n            <li>Debe estar conectada a la base de datos previamente armada por el mismo programador.</li>\n            <li>El diseño debe ser amigable y funcional, permitiendo ordenar columnas y, de ser posible, filtrar/buscar registros por cualquiera de los campos listados.</li>\n            <li>No es necesario acceso web ni conexión remota.</li>\n            <li>No requiere permisos de edición, únicamente visualización, por el momento.</li>\n        </ul>\n        <p>Solicitud hecha el dia <strong>25/07/2025</strong></p>");
-
-        /*TODO: add next log on Acerca panel:
-         * Sulicitud de cambios hecha por Mauricio Ochoa Luis el dia 24/10/2025:
-         * -Interfaz adaptable hay espacios que se pueden utilizar
-         * -Contador en una columna
-         * -Ajuste de columnas segun informacion
-         * -Reordenamiento de informacion en pestañas
-         * -Considerar el STATUS
-         */
-
-
         bttn_dev.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 bttn_devActionPerformed(evt);
@@ -154,6 +136,16 @@ public class MainInterface extends javax.swing.JFrame {
                 jButton2ActionPerformed(evt);
             }
         });
+
+        jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel1.setText("<html><h1 style=\"text-align: center\">Acerca</h1>         <div><p>Programa hecho por Stratos Dilligennce para la coordinación de informática de <strong>COAPATAP</strong> solicitado por <strong>Mauricio Ochoa</strong> con las siguientes especificaciones:</p>          <p><strong>Solicitud de desarrollo de interfaz local para visualización de base de datos</strong></p>         <p>Se solicita el desarrollo de una interfaz gráfica local que permita la visualización estructurada de los datos contenidos en la base de datos correspondiente a la Oficina Matriz. La interfaz deberá mostrar los siguientes campos:</p>                  <ul>             <li>Número de inventario</li>             <li>Nombre</li>             <li>Características</li>             <li>Dirección</li>             <li>Área</li>             <li>Ubicación física</li>             <li>Descripción del equipo</li>             <li>Estado</li>         </ul>          <p><strong>Requisitos técnicos:</strong></p>         <ul>             <li>La interfaz debe ejecutarse de forma local en equipos de escritorio (Windows).</li>             <li>Debe estar conectada a la base de datos previamente armada por el mismo programador.</li>             <li>El diseño debe ser amigable y funcional, permitiendo ordenar columnas y, de ser posible, filtrar/buscar registros por cualquiera de los campos listados.</li>             <li>No es necesario acceso web ni conexión remota.</li>             <li>No requiere permisos de edición, únicamente visualización, por el momento.</li>         </ul>         <p>Solicitud hecha el día <strong>25/07/2025</strong></p>\t<p>Entrega acordada el día <strong>17/10/2025</strong></p>\t<p>Entrega de avances <strong>cada 2 viernes</strong></p></div></html>");
+        jLabel1.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        jLabel1.setPreferredSize(new java.awt.Dimension(500, 375));
+        jTabbedPane1.addTab("25/07/2025", jLabel1);
+        jLabel1.getAccessibleContext().setAccessibleName("<h1>Acerca</h1>\n        <p>Programa hecho por Stratos Dilligence para la coordinación de informática de <strong>COAPATAP</strong> solicitado por <strong>Mauricio Ochoa</strong> con las siguientes especificaciones:</p>\n\n        <p><strong>Solicitud de desarrollo de interfaz local para visualización de base de datos</strong></p>\n        <p>Se solicita el desarrollo de una interfaz gráfica local que permita la visualización estructurada de los datos contenidos en la base de datos correspondiente a la Oficina Matriz. La interfaz deberá mostrar los siguientes campos:</p>\n        \n        <ul>\n            <li>Número de inventario</li>\n            <li>Nombre</li>\n            <li>Características</li>\n            <li>Dirección</li>\n            <li>Área</li>\n            <li>Ubicación física</li>\n            <li>Descripción del equipo</li>\n            <li>Estado</li>\n        </ul>\n\n        <p><strong>Requisitos técnicos:</strong></p>\n        <ul>\n            <li>La interfaz debe ejecutarse de forma local en equipos de escritorio (Windows).</li>\n            <li>Debe estar conectada a la base de datos previamente armada por el mismo programador.</li>\n            <li>El diseño debe ser amigable y funcional, permitiendo ordenar columnas y, de ser posible, filtrar/buscar registros por cualquiera de los campos listados.</li>\n            <li>No es necesario acceso web ni conexión remota.</li>\n            <li>No requiere permisos de edición, únicamente visualización, por el momento.</li>\n        </ul>\n        <p>Solicitud hecha el dia <strong>25/07/2025</strong></p>");
+
+        jLabel9.setText("<html>\n  <div style='width:320px'>\n    <b>Sulicitud de cambios hecha por Mauricio Ochoa Luis el dia 24/10/2025:</b>\n    <ul style='margin-top:4px'>\n      <li>Interfaz adaptable hay espacios que se pueden utilizar</li>\n      <li>Contador en una columna</li>\n      <li>Ajuste de columnas segun informacion</li>\n      <li>Reordenamiento de informacion en pestañas</li>\n      <li>Considerar el STATUS</li>\n    </ul>\n  </div>\n</html>\n");
+        jTabbedPane1.addTab("24/10/2025", jLabel9);
 
         javax.swing.GroupLayout jInternalFrame1Layout = new javax.swing.GroupLayout(jInternalFrame1.getContentPane());
         jInternalFrame1.getContentPane().setLayout(jInternalFrame1Layout);
@@ -167,28 +159,30 @@ public class MainInterface extends javax.swing.JFrame {
                     .addGroup(jInternalFrame1Layout.createSequentialGroup()
                         .addContainerGap()
                         .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 11, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 502, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGap(520, 520, 520)
                         .addComponent(bttn_dev, javax.swing.GroupLayout.PREFERRED_SIZE, 11, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(jInternalFrame1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jInternalFrame1Layout.createSequentialGroup()
+                    .addGap(27, 27, 27)
+                    .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addContainerGap(27, Short.MAX_VALUE)))
         );
         jInternalFrame1Layout.setVerticalGroup(
             jInternalFrame1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jInternalFrame1Layout.createSequentialGroup()
-                .addGroup(jInternalFrame1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jInternalFrame1Layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 491, Short.MAX_VALUE))
-                    .addGroup(jInternalFrame1Layout.createSequentialGroup()
-                        .addComponent(jButton2)
-                        .addGap(0, 0, Short.MAX_VALUE)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jButton2)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 581, Short.MAX_VALUE)
                 .addComponent(jButton1)
                 .addGap(13, 13, 13))
             .addGroup(jInternalFrame1Layout.createSequentialGroup()
                 .addComponent(bttn_dev, javax.swing.GroupLayout.PREFERRED_SIZE, 11, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, Short.MAX_VALUE))
+            .addGroup(jInternalFrame1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jInternalFrame1Layout.createSequentialGroup()
+                    .addGap(25, 25, 25)
+                    .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 548, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addContainerGap(51, Short.MAX_VALUE)))
         );
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -330,20 +324,20 @@ public class MainInterface extends javax.swing.JFrame {
         jTable1.setAutoCreateRowSorter(true);
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null}
+                {null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null}
             },
             new String [] {
-                "N", "Nombre", "No Inv", "Marca", "Ubicacion", "Caracteristicas", "Direccion", "Area"
+                "N", "Nombre", "No Inv", "Marca", "Ubicacion", "Caracteristicas", "Direccion", "Area", "Estado"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.Object.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
+                java.lang.Object.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.Object.class
             };
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, false, false, false
+                false, false, false, false, false, false, false, false, true
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -356,7 +350,7 @@ public class MainInterface extends javax.swing.JFrame {
         });
         jScrollPane2.setViewportView(jTable1);
         if (jTable1.getColumnModel().getColumnCount() > 0) {
-            jTable1.getColumnModel().getColumn(0).setPreferredWidth(5);
+            jTable1.getColumnModel().getColumn(0).setPreferredWidth(3);
         }
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
@@ -624,7 +618,7 @@ public class MainInterface extends javax.swing.JFrame {
 
     public void sel(){
         try{
-            String sql = "SELECT r.nombre, r.ubicacion_fisica, r.direccion, r.departamento, h.no_inventario, h.marca, h.componentes FROM datos_resguardante r INNER JOIN hardware_gabinete h ON r.id = h.resguardante ";
+            String sql = "SELECT r.nombre, r.ubicacion_fisica, r.direccion, r.departamento, h.no_inventario, h.marca, h.componentes, h.status FROM datos_resguardante r INNER JOIN hardware_gabinete h ON r.id = h.resguardante ";
             var conn = BD.Connect.open();
             var stmt = conn.createStatement();
             sql = sql + filters();
@@ -632,7 +626,7 @@ public class MainInterface extends javax.swing.JFrame {
             
             DefaultTableModel mod = (DefaultTableModel) jTable1.getModel();
             
-            String arg[] = new String[8];
+            String arg[] = new String[9];
             
             mod.setRowCount(0);
             
@@ -645,6 +639,7 @@ public class MainInterface extends javax.swing.JFrame {
                 arg[5]=chk.getString(7);
                 arg[6]=chk.getString(3);
                 arg[7]=chk.getString(4);
+                arg[8]=chk.getString(8);
                 
                 mod.addRow(arg);
             }
@@ -859,6 +854,7 @@ public class MainInterface extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
+    private javax.swing.JLabel jLabel9;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenuBar jMenuBar1;
@@ -868,8 +864,8 @@ public class MainInterface extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
-    private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JTabbedPane jTabbedPane1;
     private javax.swing.JTable jTable1;
     private javax.swing.JLabel lbl_version;
     private javax.swing.JTextField tf_caracteristicas;
