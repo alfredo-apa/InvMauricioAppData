@@ -8,6 +8,7 @@ import invmauricio.*;
 import javax.swing.JOptionPane;
 import javax.swing.*;
 import BD.*;
+import utilities.TableAutoResizer;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.LinkedHashSet;
@@ -58,6 +59,8 @@ public class MainInterface extends javax.swing.JFrame {
         sqlq.createdbTable();
         cbx_init();
         sel();
+
+        TableAutoResizer.attach(jTable1);
         
         //cbx_area.setVisible(false);
         //cbx_dir.setVisible(false);

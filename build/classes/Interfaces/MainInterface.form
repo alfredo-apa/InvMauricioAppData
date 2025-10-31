@@ -19,36 +19,39 @@
                       <Group type="102" alignment="0" attributes="0">
                           <EmptySpace max="-2" attributes="0"/>
                           <Component id="jButton2" min="-2" pref="11" max="-2" attributes="0"/>
-                          <EmptySpace max="-2" attributes="0"/>
-                          <Component id="jScrollPane1" min="-2" pref="502" max="-2" attributes="0"/>
-                          <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                          <EmptySpace min="-2" pref="520" max="-2" attributes="0"/>
                           <Component id="bttn_dev" min="-2" pref="11" max="-2" attributes="0"/>
                       </Group>
                   </Group>
                   <EmptySpace max="32767" attributes="0"/>
+              </Group>
+              <Group type="103" rootIndex="1" groupAlignment="0" attributes="0">
+                  <Group type="102" alignment="0" attributes="0">
+                      <EmptySpace min="-2" pref="27" max="-2" attributes="0"/>
+                      <Component id="jTabbedPane1" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace pref="27" max="32767" attributes="0"/>
+                  </Group>
               </Group>
           </Group>
         </DimensionLayout>
         <DimensionLayout dim="1">
           <Group type="103" groupAlignment="0" attributes="0">
               <Group type="102" attributes="0">
-                  <Group type="103" groupAlignment="0" attributes="0">
-                      <Group type="102" attributes="0">
-                          <EmptySpace max="-2" attributes="0"/>
-                          <Component id="jScrollPane1" pref="491" max="32767" attributes="0"/>
-                      </Group>
-                      <Group type="102" alignment="0" attributes="0">
-                          <Component id="jButton2" min="-2" max="-2" attributes="0"/>
-                          <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
-                      </Group>
-                  </Group>
-                  <EmptySpace max="-2" attributes="0"/>
+                  <Component id="jButton2" min="-2" max="-2" attributes="0"/>
+                  <EmptySpace pref="581" max="32767" attributes="0"/>
                   <Component id="jButton1" min="-2" max="-2" attributes="0"/>
                   <EmptySpace min="-2" pref="13" max="-2" attributes="0"/>
               </Group>
               <Group type="102" attributes="0">
                   <Component id="bttn_dev" min="-2" pref="11" max="-2" attributes="0"/>
                   <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+              </Group>
+              <Group type="103" rootIndex="1" groupAlignment="0" attributes="0">
+                  <Group type="102" alignment="0" attributes="0">
+                      <EmptySpace min="-2" pref="25" max="-2" attributes="0"/>
+                      <Component id="jTabbedPane1" min="-2" pref="548" max="-2" attributes="0"/>
+                      <EmptySpace pref="51" max="32767" attributes="0"/>
+                  </Group>
               </Group>
           </Group>
         </DimensionLayout>
@@ -62,12 +65,19 @@
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButton1ActionPerformed"/>
           </Events>
         </Component>
-        <Container class="javax.swing.JScrollPane" name="jScrollPane1">
-          <Properties>
-            <Property name="horizontalScrollBarPolicy" type="int" value="31"/>
-          </Properties>
+        <Component class="javax.swing.JButton" name="bttn_dev">
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="bttn_devActionPerformed"/>
+          </Events>
+        </Component>
+        <Component class="javax.swing.JButton" name="jButton2">
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButton2ActionPerformed"/>
+          </Events>
+        </Component>
+        <Container class="javax.swing.JTabbedPane" name="jTabbedPane1">
 
-          <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
+          <Layout class="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout"/>
           <SubComponents>
             <Component class="javax.swing.JLabel" name="jLabel1">
               <Properties>
@@ -81,19 +91,28 @@
               <AccessibilityProperties>
                 <Property name="AccessibleContext.accessibleName" type="java.lang.String" value="&lt;h1&gt;Acerca&lt;/h1&gt;&#xa;        &lt;p&gt;Programa hecho por Stratos Dilligence para la coordinaci&#xf3;n de inform&#xe1;tica de &lt;strong&gt;COAPATAP&lt;/strong&gt; solicitado por &lt;strong&gt;Mauricio Ochoa&lt;/strong&gt; con las siguientes especificaciones:&lt;/p&gt;&#xa;&#xa;        &lt;p&gt;&lt;strong&gt;Solicitud de desarrollo de interfaz local para visualizaci&#xf3;n de base de datos&lt;/strong&gt;&lt;/p&gt;&#xa;        &lt;p&gt;Se solicita el desarrollo de una interfaz gr&#xe1;fica local que permita la visualizaci&#xf3;n estructurada de los datos contenidos en la base de datos correspondiente a la Oficina Matriz. La interfaz deber&#xe1; mostrar los siguientes campos:&lt;/p&gt;&#xa;        &#xa;        &lt;ul&gt;&#xa;            &lt;li&gt;N&#xfa;mero de inventario&lt;/li&gt;&#xa;            &lt;li&gt;Nombre&lt;/li&gt;&#xa;            &lt;li&gt;Caracter&#xed;sticas&lt;/li&gt;&#xa;            &lt;li&gt;Direcci&#xf3;n&lt;/li&gt;&#xa;            &lt;li&gt;&#xc1;rea&lt;/li&gt;&#xa;            &lt;li&gt;Ubicaci&#xf3;n f&#xed;sica&lt;/li&gt;&#xa;            &lt;li&gt;Descripci&#xf3;n del equipo&lt;/li&gt;&#xa;            &lt;li&gt;Estado&lt;/li&gt;&#xa;        &lt;/ul&gt;&#xa;&#xa;        &lt;p&gt;&lt;strong&gt;Requisitos t&#xe9;cnicos:&lt;/strong&gt;&lt;/p&gt;&#xa;        &lt;ul&gt;&#xa;            &lt;li&gt;La interfaz debe ejecutarse de forma local en equipos de escritorio (Windows).&lt;/li&gt;&#xa;            &lt;li&gt;Debe estar conectada a la base de datos previamente armada por el mismo programador.&lt;/li&gt;&#xa;            &lt;li&gt;El dise&#xf1;o debe ser amigable y funcional, permitiendo ordenar columnas y, de ser posible, filtrar/buscar registros por cualquiera de los campos listados.&lt;/li&gt;&#xa;            &lt;li&gt;No es necesario acceso web ni conexi&#xf3;n remota.&lt;/li&gt;&#xa;            &lt;li&gt;No requiere permisos de edici&#xf3;n, &#xfa;nicamente visualizaci&#xf3;n, por el momento.&lt;/li&gt;&#xa;        &lt;/ul&gt;&#xa;        &lt;p&gt;Solicitud hecha el dia &lt;strong&gt;25/07/2025&lt;/strong&gt;&lt;/p&gt;"/>
               </AccessibilityProperties>
+              <Constraints>
+                <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout" value="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout$JTabbedPaneConstraintsDescription">
+                  <JTabbedPaneConstraints tabName="25/07/2025">
+                    <Property name="tabTitle" type="java.lang.String" value="25/07/2025"/>
+                  </JTabbedPaneConstraints>
+                </Constraint>
+              </Constraints>
+            </Component>
+            <Component class="javax.swing.JLabel" name="jLabel9">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="&lt;html&gt;&#xa;  &lt;div style=&apos;width:320px&apos;&gt;&#xa;    &lt;b&gt;Sulicitud de cambios hecha por Mauricio Ochoa Luis el dia 24/10/2025:&lt;/b&gt;&#xa;    &lt;ul style=&apos;margin-top:4px&apos;&gt;&#xa;      &lt;li&gt;Interfaz adaptable hay espacios que se pueden utilizar&lt;/li&gt;&#xa;      &lt;li&gt;Contador en una columna&lt;/li&gt;&#xa;      &lt;li&gt;Ajuste de columnas segun informacion&lt;/li&gt;&#xa;      &lt;li&gt;Reordenamiento de informacion en pesta&#xf1;as&lt;/li&gt;&#xa;      &lt;li&gt;Considerar el STATUS&lt;/li&gt;&#xa;    &lt;/ul&gt;&#xa;  &lt;/div&gt;&#xa;&lt;/html&gt;&#xa;"/>
+              </Properties>
+              <Constraints>
+                <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout" value="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout$JTabbedPaneConstraintsDescription">
+                  <JTabbedPaneConstraints tabName="24/10/2025">
+                    <Property name="tabTitle" type="java.lang.String" value="24/10/2025"/>
+                  </JTabbedPaneConstraints>
+                </Constraint>
+              </Constraints>
             </Component>
           </SubComponents>
         </Container>
-        <Component class="javax.swing.JButton" name="bttn_dev">
-          <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="bttn_devActionPerformed"/>
-          </Events>
-        </Component>
-        <Component class="javax.swing.JButton" name="jButton2">
-          <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButton2ActionPerformed"/>
-          </Events>
-        </Component>
       </SubComponents>
     </Container>
     <Menu class="javax.swing.JMenuBar" name="jMenuBar1">
@@ -501,7 +520,7 @@
                       <Properties>
                         <Property name="autoCreateRowSorter" type="boolean" value="true"/>
                         <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
-                          <Table columnCount="8" rowCount="4">
+                          <Table columnCount="9" rowCount="4">
                             <Column editable="false" title="N" type="java.lang.Object"/>
                             <Column editable="false" title="Nombre" type="java.lang.String"/>
                             <Column editable="false" title="No Inv" type="java.lang.String"/>
@@ -510,11 +529,17 @@
                             <Column editable="false" title="Caracteristicas" type="java.lang.String"/>
                             <Column editable="false" title="Direccion" type="java.lang.String"/>
                             <Column editable="false" title="Area" type="java.lang.String"/>
+                            <Column editable="true" title="Estado" type="java.lang.Object"/>
                           </Table>
                         </Property>
                         <Property name="columnModel" type="javax.swing.table.TableColumnModel" editor="org.netbeans.modules.form.editors2.TableColumnModelEditor">
                           <TableColumnModel selectionModel="0">
-                            <Column maxWidth="-1" minWidth="-1" prefWidth="5" resizable="true">
+                            <Column maxWidth="-1" minWidth="-1" prefWidth="3" resizable="true">
+                              <Title/>
+                              <Editor/>
+                              <Renderer/>
+                            </Column>
+                            <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
                               <Title/>
                               <Editor/>
                               <Renderer/>
