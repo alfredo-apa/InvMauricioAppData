@@ -44,8 +44,15 @@ public class MainInterface extends javax.swing.JFrame {
     public MainInterface() {
         initComponents();
         System.out.println(MacAddressUtil.getMacAddress());
-        jInternalFrame1.pack();
-        jInternalFrame1.hide();
+        //jInternalFrame1.pack();
+        
+        jDesktopPane1.setLayer(jPanel1, javax.swing.JDesktopPane.DEFAULT_LAYER);
+        jDesktopPane1.setLayer(jInternalFrame1, javax.swing.JDesktopPane.POPUP_LAYER);
+        
+        jPanel1.setVisible(true);
+        
+        jInternalFrame1.setVisible(false);
+        jInternalFrame1.setDefaultCloseOperation(WindowConstants.HIDE_ON_CLOSE);
         lbl_version.setText(lbl_version.getText()+version);
         
         
@@ -70,6 +77,8 @@ public class MainInterface extends javax.swing.JFrame {
         //cbx_ninv.setVisible(false);
         //cbx_status.setVisible(false);
         //cbx_ubicacion.setVisible(false);
+        
+        jDesktopPane1.repaint();
     }
 
     public String getVersion() {
@@ -121,6 +130,7 @@ public class MainInterface extends javax.swing.JFrame {
         jMenu2 = new javax.swing.JMenu();
         jMenuItem1 = new javax.swing.JMenuItem();
 
+        jInternalFrame1.setDefaultCloseOperation(javax.swing.WindowConstants.HIDE_ON_CLOSE);
         jInternalFrame1.setVisible(true);
 
         jButton1.setText("Cerrar");
@@ -190,9 +200,9 @@ public class MainInterface extends javax.swing.JFrame {
                     .addContainerGap(51, Short.MAX_VALUE)))
         );
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        jInternalFrame1.getAccessibleContext().setAccessibleParent(jDesktopPane1);
 
-        jDesktopPane1.setLayout(new java.awt.BorderLayout());
+        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         jPanel1.setLayout(new java.awt.BorderLayout(5, 5));
 
@@ -393,7 +403,18 @@ public class MainInterface extends javax.swing.JFrame {
         lbl_version.setText("version");
         jPanel1.add(lbl_version, java.awt.BorderLayout.SOUTH);
 
-        jDesktopPane1.add(jPanel1, java.awt.BorderLayout.CENTER);
+        jDesktopPane1.setLayer(jPanel1, javax.swing.JLayeredPane.DEFAULT_LAYER);
+
+        javax.swing.GroupLayout jDesktopPane1Layout = new javax.swing.GroupLayout(jDesktopPane1);
+        jDesktopPane1.setLayout(jDesktopPane1Layout);
+        jDesktopPane1Layout.setHorizontalGroup(
+            jDesktopPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+        );
+        jDesktopPane1Layout.setVerticalGroup(
+            jDesktopPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+        );
 
         jMenu1.setText("Archivo");
 
@@ -453,15 +474,24 @@ public class MainInterface extends javax.swing.JFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
-        jInternalFrame1.hide();
+        jInternalFrame1.setVisible(false);
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
         // TODO add your handling code here:
-        jDesktopPane1.add(jInternalFrame1);
-        jInternalFrame1.show();
+        //jDesktopPane1.add(jInternalFrame1);
+        //jInternalFrame1.setVisible(true);
+        //jInternalFrame1.toFront();
+        //jDesktopPane1.repaint();
+         if (!jInternalFrame1.isVisible()) {
+            jInternalFrame1.setVisible(true);
+        }
+        try {
+            jInternalFrame1.setSelected(true);
+        } catch (java.beans.PropertyVetoException ex) {
+            // ignore or log
+        }
         jInternalFrame1.toFront();
-        this.revalidate();
     }//GEN-LAST:event_jMenuItem1ActionPerformed
 
     private void cbx_areaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbx_areaActionPerformed
