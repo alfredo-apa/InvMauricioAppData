@@ -4,6 +4,7 @@
  */
 package Interfaces;
 
+import BD.SqliteQuery;
 import javax.swing.*;
 import java.awt.*;
 import java.sql.ResultSet;
@@ -17,17 +18,18 @@ public class DataFill extends javax.swing.JFrame {
 
 
 
-    CardLayout cards = new CardLayout();
+    private CardLayout cards;
+    private final SqliteQuery sqlq = new SqliteQuery();
+    private boolean editMode = false;
+    private Integer editGabineteId = null;
 
     /**
      * Creates new form HardwareData
      */
     public DataFill() {
         initComponents();
-        jcards.setLayout(cards);
-
+        cards = (CardLayout) jcards.getLayout();
         cleanData(0);
-
         cards.show(jcards, "menu");
 
 
@@ -46,17 +48,18 @@ public class DataFill extends javax.swing.JFrame {
         p_menu = new javax.swing.JPanel();
         menu_bttn_equipo = new javax.swing.JButton();
         menu_bttn_empleado = new javax.swing.JButton();
+        menu_bttn_editar = new javax.swing.JButton();
         menu_bttn_cancel = new javax.swing.JButton();
         p_emp = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         datafill_emp_tf_nombre = new javax.swing.JTextField();
-        datafill_emp_tf_ubicacion = new javax.swing.JTextField();
+        datafill_emp_tf_ubicacion = new javax.swing.JComboBox<>();
         jLabel2 = new javax.swing.JLabel();
-        datafill_emp_tf_area = new javax.swing.JTextField();
+        datafill_emp_tf_area = new javax.swing.JComboBox<>();
         jLabel3 = new javax.swing.JLabel();
-        datafill_emp_tf_direccion = new javax.swing.JTextField();
+        datafill_emp_tf_direccion = new javax.swing.JComboBox<>();
         jLabel4 = new javax.swing.JLabel();
-        datafill_emp_tf_cargo = new javax.swing.JTextField();
+        datafill_emp_tf_cargo = new javax.swing.JComboBox<>();
         jLabel5 = new javax.swing.JLabel();
         datafill_emp_bttn_save = new javax.swing.JButton();
         datafill_emp_tf_clean = new javax.swing.JButton();
@@ -79,9 +82,9 @@ public class DataFill extends javax.swing.JFrame {
         jLabel12 = new javax.swing.JLabel();
         datafill_gab_tf_discoduro = new javax.swing.JTextField();
         jLabel13 = new javax.swing.JLabel();
-        datafill_gab_tf_office = new javax.swing.JTextField();
+        datafill_gab_tf_office = new javax.swing.JComboBox<>();
         jLabel14 = new javax.swing.JLabel();
-        datafill_gab_tf_win = new javax.swing.JTextField();
+        datafill_gab_tf_win = new javax.swing.JComboBox<>();
         jLabel15 = new javax.swing.JLabel();
         datafill_gab_cb_status = new javax.swing.JComboBox<>();
         jLabel16 = new javax.swing.JLabel();
@@ -136,7 +139,7 @@ public class DataFill extends javax.swing.JFrame {
         jComboBox7 = new javax.swing.JComboBox<>();
         jComboBox8 = new javax.swing.JComboBox<>();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
 
         jcards.setLayout(new java.awt.CardLayout());
 
@@ -151,6 +154,13 @@ public class DataFill extends javax.swing.JFrame {
         menu_bttn_empleado.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 menu_bttn_empleadoActionPerformed(evt);
+            }
+        });
+
+        menu_bttn_editar.setText("Editar");
+        menu_bttn_editar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                menu_bttn_editarActionPerformed(evt);
             }
         });
 
@@ -173,6 +183,10 @@ public class DataFill extends javax.swing.JFrame {
                 .addGap(239, 239, 239)
                 .addComponent(menu_bttn_cancel)
                 .addContainerGap(270, Short.MAX_VALUE))
+            .addGroup(p_menuLayout.createSequentialGroup()
+                .addGap(239, 239, 239)
+                .addComponent(menu_bttn_editar)
+                .addContainerGap(286, Short.MAX_VALUE))
             .addGroup(p_menuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(p_menuLayout.createSequentialGroup()
                     .addGap(123, 123, 123)
@@ -184,7 +198,9 @@ public class DataFill extends javax.swing.JFrame {
             .addGroup(p_menuLayout.createSequentialGroup()
                 .addGap(177, 177, 177)
                 .addComponent(menu_bttn_equipo, javax.swing.GroupLayout.PREFERRED_SIZE, 63, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(94, 94, 94)
+                .addGap(18, 18, 18)
+                .addComponent(menu_bttn_editar)
+                .addGap(76, 76, 76)
                 .addComponent(menu_bttn_cancel)
                 .addContainerGap(261, Short.MAX_VALUE))
             .addGroup(p_menuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -200,11 +216,19 @@ public class DataFill extends javax.swing.JFrame {
 
         jLabel2.setText("Ubicacion");
 
+        datafill_emp_tf_ubicacion.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "13 AV SUR", "4A SUR", "ALVARO OBREGON", "CULTURA DEL AGUA", "P1", "P2", "PB", "PETAR", "SOLIDARIDAD", "UNIDAD ADMINISTRATIVA" }));
+
         jLabel3.setText("Area");
+
+        datafill_emp_tf_area.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "ACTIVO FIJO", "ADULTO MAYOR", "ARCHIVO", "ATENCION AL PUBLICO", "ATENCION OPERATIVA", "CAJAS", "COMERCIAL", "COMPRAS", "CONTABILIDAD", "CONTRALORIA", "CONTRATOS", "COORDINACION COMERCIAL", "COORDINACION DE INFORMATICA", "CORTES Y RECONEXIONES", "CULTURA DEL AGUA", "DIRECCION COMERCIAL", "EMPRESARIAL", "FACTURACION", "FINANZAS", "INGENIERIA", "INSPECTORES", "JURIDICO", "LECTURAS", "OPERATIVO", "PETAR", "PLANEACION", "RECURSOS HUMANOS", "RECURSOS MATERIALES", "REZAGOS", "SECRETARIA DE DIRECCION ADMINISTRATIVA", "SUCURSAL" }));
 
         jLabel4.setText("Direccion");
 
+        datafill_emp_tf_direccion.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "DIRECCION ADMINISTRATIVA", "DIRECCION COMERCIAL", "DIRECCION GENERAL", "DIRECCION INGENIERIA", "DIRECCION OPERATIVA" }));
+
         jLabel5.setText("Cargo");
+
+        datafill_emp_tf_cargo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "ASISTENTE(A)", "AUXILIAR ADMINISTRATIVO", "AUXILIAR INFORMATICO", "CAJERA", "COORDINADOR(A)", "DIRECTOR", "ENCARGADO(A)", "JEFE(A)", "TITULAR" }));
 
         datafill_emp_bttn_save.setText("Guardar");
         datafill_emp_bttn_save.addActionListener(new java.awt.event.ActionListener() {
@@ -337,7 +361,11 @@ public class DataFill extends javax.swing.JFrame {
 
         jLabel14.setText("Office");
 
+        datafill_gab_tf_office.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "2010", "2013", "2016", "2019", "365" }));
+
         jLabel15.setText("Windows");
+
+        datafill_gab_tf_win.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "XP", "VISTA", "7", "8", "10", "11" }));
 
         datafill_gab_cb_status.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "BUENO", "OBSOLETO", "BAJA" }));
         datafill_gab_cb_status.addActionListener(new java.awt.event.ActionListener() {
@@ -395,7 +423,7 @@ public class DataFill extends javax.swing.JFrame {
                                 .addGroup(p_gabineteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                                     .addComponent(datafill_gab_bttn_cancel)
                                     .addGroup(p_gabineteLayout.createSequentialGroup()
-                                        .addComponent(jLabel16, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(jLabel16, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addGap(18, 18, 18)
                                         .addComponent(datafill_gab_cb_status, javax.swing.GroupLayout.PREFERRED_SIZE, 176, javax.swing.GroupLayout.PREFERRED_SIZE))))
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, p_gabineteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
@@ -794,8 +822,25 @@ public class DataFill extends javax.swing.JFrame {
     private void menu_bttn_equipoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menu_bttn_equipoActionPerformed
         // TODO add your handling code here:
         cleanData(2);
+        exitEditMode();
         cards.show(jcards, "gab");
     }//GEN-LAST:event_menu_bttn_equipoActionPerformed
+
+    private void menu_bttn_editarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menu_bttn_editarActionPerformed
+        // TODO add your handling code here:
+        if (!requirePassword()) {
+            return;
+        }
+        String inventario = promptInventarioSelection();
+        if (inventario == null || inventario.isBlank()) {
+            return;
+        }
+        if (!loadGabineteByInventario(inventario)) {
+            JOptionPane.showMessageDialog(this, "No se encontró el inventario: " + inventario);
+            return;
+        }
+        cards.show(jcards, "gab");
+    }//GEN-LAST:event_menu_bttn_editarActionPerformed
 
     private void menu_bttn_cancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menu_bttn_cancelActionPerformed
         // TODO add your handling code here:
@@ -819,6 +864,7 @@ public class DataFill extends javax.swing.JFrame {
 
     private void datafill_gab_bttn_cancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_datafill_gab_bttn_cancelActionPerformed
         // TODO add your handling code here:
+        exitEditMode();
         cards.show(jcards, "menu");
     }//GEN-LAST:event_datafill_gab_bttn_cancelActionPerformed
 
@@ -830,13 +876,13 @@ public class DataFill extends javax.swing.JFrame {
                 break;
             case 1:
                 try{
-                    datafill_emp_tf_direccion.setText("");
-                    datafill_emp_tf_area.setText("");
-                    datafill_emp_tf_cargo.setText("");
+                    datafill_emp_tf_direccion.setSelectedIndex(0);
+                    datafill_emp_tf_area.setSelectedIndex(0);
+                    datafill_emp_tf_cargo.setSelectedIndex(0);
                     datafill_emp_tf_nombre.setText("");
-                    datafill_emp_tf_ubicacion.setText("");
+                    datafill_emp_tf_ubicacion.setSelectedIndex(0);
                 } catch (Exception e) {
-                    throw new RuntimeException(e);
+                    JOptionPane.showMessageDialog(this, e);
                 }
                 break;
             case 2:
@@ -864,13 +910,14 @@ public class DataFill extends javax.swing.JFrame {
                     datafill_gab_tf_modelo.setText("");
                     datafill_gab_tf_discoduro.setText("");
                     datafill_gab_tf_inv.setText("");
-                    datafill_gab_tf_office.setText("");
+                      datafill_gab_tf_office.setSelectedIndex(0);
                     datafill_gab_tf_procesador.setText("");
                     datafill_gab_tf_ram.setText("");
                     datafill_gab_tf_serie.setText("");
-                    datafill_gab_tf_win.setText("");
+                      datafill_gab_tf_win.setSelectedIndex(0);
+                    datafill_gab_ta_observaciones.setText("");
                 } catch (Exception e) {
-                    throw new RuntimeException(e);
+                    JOptionPane.showMessageDialog(this, e);
                 }
                 break;
         }
@@ -897,10 +944,41 @@ public class DataFill extends javax.swing.JFrame {
                                 "VALUES (?, ?, ?, ?, ?, ?, ?)";
 
                 final String vNombre     = datafill_emp_tf_nombre.getText();
-                final String vArea       = datafill_emp_tf_area.getText();
-                final String vDireccion  = datafill_emp_tf_direccion.getText();
-                final String vCargo      = datafill_emp_tf_cargo.getText();
-                final String vUbicacion  = datafill_emp_tf_ubicacion.getText();
+                final Object areaSel      = datafill_emp_tf_area.getSelectedItem();
+                final Object dirSel       = datafill_emp_tf_direccion.getSelectedItem();
+                final Object cargoSel     = datafill_emp_tf_cargo.getSelectedItem();
+                final Object ubicacionSel = datafill_emp_tf_ubicacion.getSelectedItem();
+
+                final String vArea       = areaSel == null ? "" : areaSel.toString();
+                final String vDireccion  = dirSel == null ? "" : dirSel.toString();
+                final String vCargo      = cargoSel == null ? "" : cargoSel.toString();
+                final String vUbicacion  = ubicacionSel == null ? "" : ubicacionSel.toString();
+
+                // TODO: Re-enable DualDbWriter (SQLite + MySQL) workflow when ready.
+                /*
+                BD.DualDbWriter.Result res = BD.DualDbWriter.executeUpdate(
+                        sqlEmp,
+                        ps -> {
+                            ps.setString(1, vNombre);
+                            ps.setString(2, vArea);
+                            ps.setString(3, vDireccion);
+                            ps.setString(4, vCargo);
+                            ps.setString(5, vUbicacion);
+                            ps.setNull(6, java.sql.Types.VARCHAR); // extension not in UI
+                            ps.setNull(7, java.sql.Types.VARCHAR); // correo not in UI
+                        }
+                );
+
+                if (res.sqliteOk) {
+                    JOptionPane.showMessageDialog(this, "Empleado guardado.");
+                    if (!res.mysqlOk && res.mysqlError != null) {
+                        JOptionPane.showMessageDialog(this, "MySQL no guardado: " + res.mysqlError.getMessage());
+                    }
+                    cleanData(1);
+                } else if (res.sqliteError != null) {
+                    JOptionPane.showMessageDialog(this, res.sqliteError);
+                }
+                */
 
                 try (var conn = BD.Connect.open();
                      var ps   = conn.prepareStatement(sqlEmp)) {
@@ -920,17 +998,12 @@ public class DataFill extends javax.swing.JFrame {
                 } catch (java.sql.SQLException ex) {
                     JOptionPane.showMessageDialog(this, ex);
                 } catch (Exception e) {
-                    throw new RuntimeException(e);
+                    JOptionPane.showMessageDialog(this, e);
                 }
                 break;
             }
 
             case 2: { // GABINETE (p_gabinete) -> hardware_gabinete
-                final String sqlGab =
-                        "INSERT INTO hardware_gabinete " +
-                                " (resguardante, marca, modelo, no_inventario, numero_serie, componentes, status, observaciones) " +
-                                "VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
-
                 final Object selResguardante = datafill_gab_cb_resguardante.getSelectedItem();
                 final Object selStatus       = datafill_gab_cb_status.getSelectedItem();
 
@@ -945,8 +1018,11 @@ public class DataFill extends javax.swing.JFrame {
                 final String vProcesador  = datafill_gab_tf_procesador.getText();
                 final String vRam         = datafill_gab_tf_ram.getText();
                 final String vDisco       = datafill_gab_tf_discoduro.getText();
-                final String vWin         = datafill_gab_tf_win.getText();
-                final String vOffice      = datafill_gab_tf_office.getText();
+                final Object winSel       = datafill_gab_tf_win.getSelectedItem();
+                final Object officeSel    = datafill_gab_tf_office.getSelectedItem();
+
+                final String vWin         = winSel == null ? "" : winSel.toString();
+                final String vOffice      = officeSel == null ? "" : officeSel.toString();
 
                 // Build the "componentes" string in the required order with a space after each comma
                 final String vComponentes =
@@ -957,6 +1033,67 @@ public class DataFill extends javax.swing.JFrame {
                                 (vOffice     == null ? "" : vOffice);
 
                 final String vObservaciones = datafill_gab_ta_observaciones.getText(); // Will be added later
+
+                if (editMode && editGabineteId != null) {
+                    try {
+                        sqlq.updateGabinete(
+                                editGabineteId,
+                                vResguardante,
+                                vMarca,
+                                vModelo,
+                                vInventario,
+                                vSerie,
+                                vComponentes,
+                                vStatus,
+                                vObservaciones
+                        );
+                        JOptionPane.showMessageDialog(this, "Gabinete actualizado.");
+                        exitEditMode();
+                        cleanData(2);
+                    } catch (Exception ex) {
+                        JOptionPane.showMessageDialog(this, ex);
+                    }
+                    break;
+                }
+
+                final String sqlGab =
+                        "INSERT INTO hardware_gabinete " +
+                                " (resguardante, marca, modelo, no_inventario, numero_serie, componentes, status, observaciones) " +
+                                "VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
+
+                // TODO: Re-enable DualDbWriter (SQLite + MySQL) workflow when ready.
+                /*
+                Integer sqliteResguardanteId = null;
+                Integer mysqlResguardanteId = null;
+                try (var conn = BD.Connect.open()) {
+                    sqliteResguardanteId = BD.DualDbWriter.resolveResguardanteIdByName(conn, vResguardante);
+                } catch (Exception e) {
+                    JOptionPane.showMessageDialog(this, e);
+                }
+                try (var conn = BD.MySqlConnect.open()) {
+                    mysqlResguardanteId = BD.DualDbWriter.resolveResguardanteIdByName(conn, vResguardante);
+                } catch (Exception e) {
+                    JOptionPane.showMessageDialog(this, "MySQL lookup error: " + e.getMessage());
+                }
+
+                BD.DualDbWriter.Result res = BD.DualDbWriter.executeUpdate(
+                        sqlGab,
+                        ps -> bindGabinete(ps, sqliteResguardanteId, vMarca, vModelo, vInventario, vSerie,
+                                vComponentes, vStatus, vObservaciones),
+                        ps -> bindGabinete(ps, mysqlResguardanteId, vMarca, vModelo, vInventario, vSerie,
+                                vComponentes, vStatus, vObservaciones)
+                );
+
+                if (res.sqliteOk) {
+                    JOptionPane.showMessageDialog(this, "Gabinete guardado.");
+                    if (!res.mysqlOk && res.mysqlError != null) {
+                        JOptionPane.showMessageDialog(this, "MySQL no guardado: " + res.mysqlError.getMessage());
+                    }
+                    cleanData(2);
+                } else if (res.sqliteError != null) {
+                    JOptionPane.showMessageDialog(this, res.sqliteError);
+                }
+                */
 
                 try (var conn = BD.Connect.open();
                      var ps   = conn.prepareStatement(sqlGab)) {
@@ -984,7 +1121,7 @@ public class DataFill extends javax.swing.JFrame {
                 } catch (java.sql.SQLException ex) {
                     JOptionPane.showMessageDialog(this, ex);
                 } catch (Exception e) {
-                    throw new RuntimeException(e);
+                    JOptionPane.showMessageDialog(this, e);
                 }
                 break;
             }
@@ -996,9 +1133,179 @@ public class DataFill extends javax.swing.JFrame {
             default:
                 JOptionPane.showMessageDialog(this, "Invalid save option: " + option);
         }
-        MainInterface m = new MainInterface();
-        m.sel();
+        // TODO: Hook refresh to existing MainInterface instead of creating a new one.
     }
+
+    private boolean requirePassword() {
+        JPanel panel = new JPanel();
+        JLabel label = new JLabel("Contraseña:");
+        JPasswordField pass = new JPasswordField(10);
+        panel.add(label);
+        panel.add(pass);
+        String[] options = new String[]{"OK", "Cancel"};
+        int option = JOptionPane.showOptionDialog(
+                this,
+                panel,
+                "Editar",
+                JOptionPane.NO_OPTION,
+                JOptionPane.PLAIN_MESSAGE,
+                null,
+                options,
+                options[0]
+        );
+        if (option == 0) {
+            char[] password = pass.getPassword();
+            return sqlq.getPass(new String(password));
+        }
+        return false;
+    }
+
+    private String promptInventarioSelection() {
+        java.util.List<String> inventarios;
+        try {
+            inventarios = sqlq.listInventarios();
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(this, ex);
+            return null;
+        }
+
+        if (inventarios.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "No hay inventarios para editar.");
+            return null;
+        }
+
+        Object selected = JOptionPane.showInputDialog(
+                this,
+                "Selecciona No. Inventario:",
+                "Editar",
+                JOptionPane.PLAIN_MESSAGE,
+                null,
+                inventarios.toArray(),
+                inventarios.get(0)
+        );
+        return selected == null ? null : selected.toString();
+    }
+
+    private boolean loadGabineteByInventario(String inventario) {
+        if (inventario == null || inventario.isBlank()) {
+            return false;
+        }
+        cleanData(2);
+        try {
+            SqliteQuery.GabineteRecord rec = sqlq.getGabineteByInventario(inventario);
+            if (rec == null) {
+                return false;
+            }
+
+            editMode = true;
+            editGabineteId = rec.id;
+            datafill_gab_save.setText("Actualizar");
+
+            if (rec.resguardanteNombre != null) {
+                datafill_gab_cb_resguardante.setSelectedItem(rec.resguardanteNombre);
+            }
+
+            datafill_gab_tf_marca.setText(rec.marca);
+            datafill_gab_tf_modelo.setText(rec.modelo);
+            datafill_gab_tf_inv.setText(rec.noInventario);
+            datafill_gab_tf_serie.setText(rec.numeroSerie);
+            datafill_gab_ta_observaciones.setText(rec.observaciones);
+
+            String status = rec.status;
+            if (status != null && !status.isBlank()) {
+                boolean found = false;
+                for (int i = 0; i < datafill_gab_cb_status.getItemCount(); i++) {
+                    if (status.equalsIgnoreCase(datafill_gab_cb_status.getItemAt(i))) {
+                        datafill_gab_cb_status.setSelectedIndex(i);
+                        found = true;
+                        break;
+                    }
+                }
+                if (!found) {
+                    datafill_gab_cb_status.addItem(status);
+                    datafill_gab_cb_status.setSelectedItem(status);
+                }
+            }
+
+            populateComponentFields(rec.componentes);
+            return true;
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(this, ex);
+            return false;
+        }
+    }
+
+    private void populateComponentFields(String componentes) {
+        String[] parts = componentes == null ? new String[0] : componentes.split(",");
+        String p0 = parts.length > 0 ? parts[0].trim() : "";
+        String p1 = parts.length > 1 ? parts[1].trim() : "";
+        String p2 = parts.length > 2 ? parts[2].trim() : "";
+        String p3 = parts.length > 3 ? parts[3].trim() : "";
+        String p4 = parts.length > 4 ? parts[4].trim() : "";
+
+        datafill_gab_tf_procesador.setText(p0);
+        datafill_gab_tf_ram.setText(p1);
+        datafill_gab_tf_discoduro.setText(p2);
+        selectComboItem(datafill_gab_tf_win, p3);
+        selectComboItem(datafill_gab_tf_office, p4);
+    }
+
+    private void selectComboItem(javax.swing.JComboBox<String> combo, String value) {
+        if (combo == null) {
+            return;
+        }
+        if (value == null || value.isBlank()) {
+            if (combo.getItemCount() > 0) {
+                combo.setSelectedIndex(0);
+            }
+            return;
+        }
+        for (int i = 0; i < combo.getItemCount(); i++) {
+            String item = combo.getItemAt(i);
+            if (item != null && item.equalsIgnoreCase(value.trim())) {
+                combo.setSelectedIndex(i);
+                return;
+            }
+        }
+        combo.addItem(value.trim());
+        combo.setSelectedItem(value.trim());
+    }
+
+    private void exitEditMode() {
+        editMode = false;
+        editGabineteId = null;
+        datafill_gab_save.setText("Guardar");
+    }
+
+    /**
+     * Looks up the datos_resguardante.id by the given name.
+     * Returns null if the name is null, blank, or not found.
+     */
+    // TODO: Restore helper for DualDbWriter binding when DualDbWriter is re-enabled.
+    /*
+    private void bindGabinete(java.sql.PreparedStatement ps,
+                              Integer resguardanteId,
+                              String vMarca,
+                              String vModelo,
+                              String vInventario,
+                              String vSerie,
+                              String vComponentes,
+                              String vStatus,
+                              String vObservaciones) throws java.sql.SQLException {
+        if (resguardanteId == null) {
+            ps.setNull(1, java.sql.Types.INTEGER);
+        } else {
+            ps.setInt(1, resguardanteId);
+        }
+        ps.setString(2, vMarca);
+        ps.setString(3, vModelo);
+        ps.setString(4, vInventario);
+        ps.setString(5, vSerie);
+        ps.setString(6, vComponentes);
+        ps.setString(7, vStatus);
+        ps.setString(8, vObservaciones);
+    }
+    */
 
     /**
      * Looks up the datos_resguardante.id by the given name.
@@ -1063,12 +1370,12 @@ public class DataFill extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton datafill_emp_bttn_cancel;
     private javax.swing.JButton datafill_emp_bttn_save;
-    private javax.swing.JTextField datafill_emp_tf_area;
-    private javax.swing.JTextField datafill_emp_tf_cargo;
+    private javax.swing.JComboBox<String> datafill_emp_tf_area;
+    private javax.swing.JComboBox<String> datafill_emp_tf_cargo;
     private javax.swing.JButton datafill_emp_tf_clean;
-    private javax.swing.JTextField datafill_emp_tf_direccion;
+    private javax.swing.JComboBox<String> datafill_emp_tf_direccion;
     private javax.swing.JTextField datafill_emp_tf_nombre;
-    private javax.swing.JTextField datafill_emp_tf_ubicacion;
+    private javax.swing.JComboBox<String> datafill_emp_tf_ubicacion;
     private javax.swing.JButton datafill_gab_bttn_cancel;
     private javax.swing.JButton datafill_gab_bttn_clean;
     private javax.swing.JComboBox<String> datafill_gab_cb_resguardante;
@@ -1079,11 +1386,11 @@ public class DataFill extends javax.swing.JFrame {
     private javax.swing.JTextField datafill_gab_tf_inv;
     private javax.swing.JTextField datafill_gab_tf_marca;
     private javax.swing.JTextField datafill_gab_tf_modelo;
-    private javax.swing.JTextField datafill_gab_tf_office;
+    private javax.swing.JComboBox<String> datafill_gab_tf_office;
     private javax.swing.JTextField datafill_gab_tf_procesador;
     private javax.swing.JTextField datafill_gab_tf_ram;
     private javax.swing.JTextField datafill_gab_tf_serie;
-    private javax.swing.JTextField datafill_gab_tf_win;
+    private javax.swing.JComboBox<String> datafill_gab_tf_win;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
@@ -1147,6 +1454,7 @@ public class DataFill extends javax.swing.JFrame {
     private javax.swing.JTextField jTextField7;
     private javax.swing.JPanel jcards;
     private javax.swing.JButton menu_bttn_cancel;
+    private javax.swing.JButton menu_bttn_editar;
     private javax.swing.JButton menu_bttn_empleado;
     private javax.swing.JButton menu_bttn_equipo;
     private javax.swing.JPanel p_emp;

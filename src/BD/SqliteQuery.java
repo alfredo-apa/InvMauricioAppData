@@ -132,72 +132,268 @@ public class SqliteQuery {
     
     public void insertOnResguardante(String[] data){
         String sql = "INSERT INTO datos_resguardante(nombre, departamento, direccion, cargo, ubicacion_fisica) VALUES(?,?,?,?,?)";
+        // TODO: Re-enable DualDbWriter (SQLite + MySQL) workflow when ready.
+        /*
+        BD.DualDbWriter.Result res = BD.DualDbWriter.executeUpdate(
+                sql,
+                ps -> {
+                    ps.setString(1, data[0]);
+                    ps.setString(2, data[1]);
+                    ps.setString(3, data[2]);
+                    ps.setString(4, data[3]);
+                    ps.setString(5, data[4]);
+                }
+        );
+
+        if (res.sqliteOk) {
+            JOptionPane.showMessageDialog(null,"Proceso Terminado");
+            if (!res.mysqlOk && res.mysqlError != null) {
+                JOptionPane.showMessageDialog(null, "MySQL no guardado: " + res.mysqlError.getMessage());
+            }
+        } else if (res.sqliteError != null) {
+            JOptionPane.showMessageDialog(null, res.sqliteError);
+        }
+        */
+
         try (var conn = BD.Connect.open();
              var pstmt = conn.prepareStatement(sql)) {
 
-            pstmt.setString(1,data[0]);
-            pstmt.setString(2,data[1]);
-            pstmt.setString(3,data[2]);
-            pstmt.setString(4,data[3]);
-            pstmt.setString(5,data[4]);
+            pstmt.setString(1, data[0]);
+            pstmt.setString(2, data[1]);
+            pstmt.setString(3, data[2]);
+            pstmt.setString(4, data[3]);
+            pstmt.setString(5, data[4]);
 
             pstmt.executeUpdate();
-            
             JOptionPane.showMessageDialog(null,"Proceso Terminado");
 
-        /*    for(int i = 0; i < 3; i++){
-                pstmt.setString(1, names[i]);
-                pstmt.setDouble(2, capacities[i]);
-                pstmt.executeUpdate();
-            }
-        */
-        } catch (SQLException e) {
+        } catch (Exception e) {
             System.out.println("dbFuntions");
             System.err.println(e.getMessage());
             System.err.println(e.getStackTrace().toString());
-        } catch (Exception e) {
-            throw new RuntimeException(e);
         }
 
     }
     
     public void insertOnGabinete(String[] data){
         String sql = "INSERT INTO hardware_gabinete(resguardante, marca, modelo, no_inventario, numero_serie, componentes, status, observaciones) VALUES(?,?,?,?,?,?,?,?)";
+        // TODO: Re-enable DualDbWriter (SQLite + MySQL) workflow when ready.
+        /*
+        Integer sqliteResguardanteId = null;
+        Integer mysqlResguardanteId = null;
+        try (var conn = BD.Connect.open()) {
+            sqliteResguardanteId = BD.DualDbWriter.resolveResguardanteIdByName(conn, data[0]);
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, e);
+        }
+        try (var conn = BD.MySqlConnect.open()) {
+            mysqlResguardanteId = BD.DualDbWriter.resolveResguardanteIdByName(conn, data[0]);
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "MySQL lookup error: " + e.getMessage());
+        }
+
+        BD.DualDbWriter.Result res = BD.DualDbWriter.executeUpdate(
+                sql,
+                ps -> bindGabinete(ps, sqliteResguardanteId, data),
+                ps -> bindGabinete(ps, mysqlResguardanteId, data)
+        );
+
+        if (res.sqliteOk) {
+            JOptionPane.showMessageDialog(null,"Proceso Terminado");
+            if (!res.mysqlOk && res.mysqlError != null) {
+                JOptionPane.showMessageDialog(null, "MySQL no guardado: " + res.mysqlError.getMessage());
+            }
+        } else if (res.sqliteError != null) {
+            JOptionPane.showMessageDialog(null, res.sqliteError);
+        }
+        */
+
         try (var conn = BD.Connect.open();
-             var stmt = conn.createStatement();
              var pstmt = conn.prepareStatement(sql)) {
 
-            ResultSet chk = stmt.executeQuery("SELECT id FROM datos_resguardante where nombre='"+data[0]+"'");
-            //chk.getRow();
-            int id = chk.getInt(1);
-            System.out.println(id);
-
-            pstmt.setInt(1,id);
-            pstmt.setString(2,data[1]);
-            pstmt.setString(3,data[2]);
-            pstmt.setString(4,data[3]);
-            pstmt.setString(5,data[4]);
-            pstmt.setString(6,data[5]);
-            pstmt.setString(7,data[6]);
-            pstmt.setString(8,data[7]);
+            Integer resguardanteId = resolveResguardanteIdByName(conn, data[0]);
+            if (resguardanteId == null) {
+                pstmt.setNull(1, java.sql.Types.INTEGER);
+            } else {
+                pstmt.setInt(1, resguardanteId);
+            }
+            pstmt.setString(2, data[1]);
+            pstmt.setString(3, data[2]);
+            pstmt.setString(4, data[3]);
+            pstmt.setString(5, data[4]);
+            pstmt.setString(6, data[5]);
+            pstmt.setString(7, data[6]);
+            pstmt.setString(8, data[7]);
 
             pstmt.executeUpdate();
             JOptionPane.showMessageDialog(null,"Proceso Terminado");
 
-        /*    for(int i = 0; i < 3; i++){
-                pstmt.setString(1, names[i]);
-                pstmt.setDouble(2, capacities[i]);
-                pstmt.executeUpdate();
-            }
-        */
-        } catch (SQLException e) {
+        } catch (Exception e) {
             System.out.println("dbFuntions");
             System.err.println(e.getMessage());
             System.err.println(e.getStackTrace().toString());
-        } catch (Exception e) {
-            throw new RuntimeException(e);
         }
 
+    }
+
+    public java.util.List<String> listInventarios() throws Exception {
+        java.util.ArrayList<String> inventarios = new java.util.ArrayList<>();
+        final String sql =
+                "SELECT DISTINCT TRIM(no_inventario) AS no_inventario " +
+                "FROM hardware_gabinete " +
+                "WHERE no_inventario IS NOT NULL AND TRIM(no_inventario) <> '' " +
+                "ORDER BY no_inventario";
+        try (var conn = BD.Connect.open();
+             var stmt = conn.createStatement();
+             var rs = stmt.executeQuery(sql)) {
+            while (rs.next()) {
+                String inv = rs.getString("no_inventario");
+                if (inv != null && !inv.isBlank()) {
+                    inventarios.add(inv.trim());
+                }
+            }
+        }
+        return inventarios;
+    }
+
+    public GabineteRecord getGabineteByInventario(String inventario) throws Exception {
+        if (inventario == null || inventario.isBlank()) {
+            return null;
+        }
+        final String sql =
+                "SELECT h.id, h.resguardante, h.marca, h.modelo, h.no_inventario, h.numero_serie, " +
+                "h.componentes, h.status, h.observaciones, r.nombre " +
+                "FROM hardware_gabinete h " +
+                "LEFT JOIN datos_resguardante r ON r.id = h.resguardante " +
+                "WHERE TRIM(h.no_inventario) = ? " +
+                "LIMIT 1";
+        try (var conn = BD.Connect.open();
+             var ps = conn.prepareStatement(sql)) {
+            ps.setString(1, inventario.trim());
+            try (var rs = ps.executeQuery()) {
+                if (!rs.next()) {
+                    return null;
+                }
+                return new GabineteRecord(
+                        rs.getInt("id"),
+                        rs.getString("nombre"),
+                        rs.getString("marca"),
+                        rs.getString("modelo"),
+                        rs.getString("no_inventario"),
+                        rs.getString("numero_serie"),
+                        rs.getString("componentes"),
+                        rs.getString("status"),
+                        rs.getString("observaciones")
+                );
+            }
+        }
+    }
+
+    public void updateGabinete(int gabineteId,
+                               String resguardanteNombre,
+                               String marca,
+                               String modelo,
+                               String noInventario,
+                               String numeroSerie,
+                               String componentes,
+                               String status,
+                               String observaciones) throws Exception {
+        final String sqlUpdate =
+                "UPDATE hardware_gabinete " +
+                "SET resguardante = ?, marca = ?, modelo = ?, no_inventario = ?, numero_serie = ?, " +
+                "componentes = ?, status = ?, observaciones = ? " +
+                "WHERE id = ?";
+        try (var conn = BD.Connect.open();
+             var ps = conn.prepareStatement(sqlUpdate)) {
+            Integer resguardanteId = resolveResguardanteIdByName(conn, resguardanteNombre);
+            if (resguardanteId == null) {
+                ps.setNull(1, java.sql.Types.INTEGER);
+            } else {
+                ps.setInt(1, resguardanteId);
+            }
+            ps.setString(2, marca);
+            ps.setString(3, modelo);
+            ps.setString(4, noInventario);
+            ps.setString(5, numeroSerie);
+            ps.setString(6, componentes);
+            ps.setString(7, status);
+            ps.setString(8, observaciones);
+            ps.setInt(9, gabineteId);
+            ps.executeUpdate();
+        }
+    }
+
+    public static class GabineteRecord {
+        public final int id;
+        public final String resguardanteNombre;
+        public final String marca;
+        public final String modelo;
+        public final String noInventario;
+        public final String numeroSerie;
+        public final String componentes;
+        public final String status;
+        public final String observaciones;
+
+        public GabineteRecord(int id,
+                              String resguardanteNombre,
+                              String marca,
+                              String modelo,
+                              String noInventario,
+                              String numeroSerie,
+                              String componentes,
+                              String status,
+                              String observaciones) {
+            this.id = id;
+            this.resguardanteNombre = resguardanteNombre;
+            this.marca = marca;
+            this.modelo = modelo;
+            this.noInventario = noInventario;
+            this.numeroSerie = numeroSerie;
+            this.componentes = componentes;
+            this.status = status;
+            this.observaciones = observaciones;
+        }
+    }
+
+    // TODO: Restore helper for DualDbWriter binding when DualDbWriter is re-enabled.
+    /*
+    private void bindGabinete(java.sql.PreparedStatement ps, Integer resguardanteId, String[] data) throws SQLException {
+        if (resguardanteId == null) {
+            ps.setNull(1, java.sql.Types.INTEGER);
+        } else {
+            ps.setInt(1, resguardanteId);
+        }
+        ps.setString(2, data[1]);
+        ps.setString(3, data[2]);
+        ps.setString(4, data[3]);
+        ps.setString(5, data[4]);
+        ps.setString(6, data[5]);
+        ps.setString(7, data[6]);
+        ps.setString(8, data[7]);
+    }
+    */
+
+    /**
+     * Looks up the datos_resguardante.id by the given name.
+     * Returns null if the name is null, blank, or not found.
+     */
+    private Integer resolveResguardanteIdByName(java.sql.Connection conn, String nombre) {
+        if (nombre == null || nombre.isEmpty() || "Seleciona un Resguardante".equals(nombre)) {
+            return null;
+        }
+
+        final String sqlFind = "SELECT id FROM datos_resguardante WHERE nombre = ? LIMIT 1";
+        try (var ps = conn.prepareStatement(sqlFind)) {
+            ps.setString(1, nombre);
+            try (var rs = ps.executeQuery()) {
+                if (rs.next()) {
+                    return rs.getInt("id");
+                }
+            }
+        } catch (java.sql.SQLException ex) {
+            System.err.println("resolveResguardanteIdByName error: " + ex.getMessage());
+        }
+        return null;
     }
     
     

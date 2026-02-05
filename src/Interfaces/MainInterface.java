@@ -44,7 +44,11 @@ public class MainInterface extends javax.swing.JFrame {
     public MainInterface() {
         initComponents();
         System.out.println(MacAddressUtil.getMacAddress());
-        //jInternalFrame1.pack();
+        // Ensure the internal frame is attached and sized before first use.
+        if (jInternalFrame1.getParent() == null) {
+            jDesktopPane1.add(jInternalFrame1);
+        }
+        jInternalFrame1.pack();
         
         jDesktopPane1.setLayer(jPanel1, javax.swing.JDesktopPane.DEFAULT_LAYER);
         jDesktopPane1.setLayer(jInternalFrame1, javax.swing.JDesktopPane.POPUP_LAYER);
@@ -483,7 +487,14 @@ public class MainInterface extends javax.swing.JFrame {
         //jInternalFrame1.setVisible(true);
         //jInternalFrame1.toFront();
         //jDesktopPane1.repaint();
-         if (!jInternalFrame1.isVisible()) {
+        if (jInternalFrame1.getParent() == null) {
+            jDesktopPane1.add(jInternalFrame1);
+        }
+        jInternalFrame1.pack();
+        int x = Math.max(0, (jDesktopPane1.getWidth() - jInternalFrame1.getWidth()) / 2);
+        int y = Math.max(0, (jDesktopPane1.getHeight() - jInternalFrame1.getHeight()) / 2);
+        jInternalFrame1.setLocation(x, y);
+        if (!jInternalFrame1.isVisible()) {
             jInternalFrame1.setVisible(true);
         }
         try {
