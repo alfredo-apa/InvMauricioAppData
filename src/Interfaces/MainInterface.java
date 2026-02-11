@@ -103,6 +103,7 @@ public class MainInterface extends javax.swing.JFrame {
         bttn_dev = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
         jTabbedPane1 = new javax.swing.JTabbedPane();
+        jLabel10 = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
         jLabel9 = new javax.swing.JLabel();
         jDesktopPane1 = new javax.swing.JDesktopPane();
@@ -155,6 +156,18 @@ public class MainInterface extends javax.swing.JFrame {
                 jButton2ActionPerformed(evt);
             }
         });
+
+        jLabel10.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel10.setText("<html><div style='width:410px; padding:8px 18px 8px 12px; text-align:justify; font-size:11px; line-height:1.35;'><h1 style='margin:0 0 8px 0; text-align:center;'>Acerca de</h1><p><strong>Sistema de Consulta de Inventario de Inform&aacute;tica (SCII)</strong><br><br>El Sistema de Consulta de Inventario de Inform&aacute;tica (SCII) es una aplicaci&oacute;n de escritorio desarrollada para la coordinaci&oacute;n de inform&aacute;tica de COAPATAP, dise&ntilde;ada para visualizar de manera estructurada, clara y organizada la informaci&oacute;n correspondiente al inventario de equipos de la Oficina Matriz.<br><br>El sistema permite consultar los registros almacenados en la base de datos institucional mediante filtros din&aacute;micos por:<br><br>&bull; N&uacute;mero de inventario<br>&bull; Nombre del resguardante<br>&bull; Direcci&oacute;n<br>&bull; &Aacute;rea<br>&bull; Ubicaci&oacute;n f&iacute;sica<br>&bull; Estado del equipo<br>&bull; Caracter&iacute;sticas t&eacute;cnicas<br><br>La interfaz presenta la informaci&oacute;n en formato tabular, incluyendo datos como marca, n&uacute;mero de inventario, ubicaci&oacute;n, direcci&oacute;n administrativa y especificaciones t&eacute;cnicas del equipo, facilitando la b&uacute;squeda, ordenamiento y consulta eficiente de los activos tecnol&oacute;gicos.<br><br>El SCII fue concebido bajo la solicitud de desarrollar una herramienta enfocada exclusivamente en la visualizaci&oacute;n estructurada y consulta organizada de la base de datos institucional. Opera de manera local en equipos con sistema operativo Windows y se conecta a una base de datos previamente estructurada, sin requerir conexi&oacute;n a internet ni acceso remoto.<br><br>Desarrollado para fortalecer el control y la organizaci&oacute;n del inventario tecnol&oacute;gico institucional.</p></div></html>");
+        jLabel10.setVerticalAlignment(javax.swing.SwingConstants.TOP);
+        jLabel10.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        jLabel10.setPreferredSize(null);
+        javax.swing.JScrollPane acercaScrollPane = new javax.swing.JScrollPane(jLabel10);
+        acercaScrollPane.setBorder(null);
+        acercaScrollPane.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_AS_NEEDED);
+        acercaScrollPane.setVerticalScrollBarPolicy(javax.swing.ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED);
+        acercaScrollPane.getVerticalScrollBar().setUnitIncrement(16);
+        jTabbedPane1.insertTab("Acerca", null, acercaScrollPane, null, 0);
 
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel1.setText("<html><h1 style=\"text-align: center\">Acerca</h1>         <div><p>Programa hecho por Stratos Dilligennce para la coordinación de informática de <strong>COAPATAP</strong> solicitado por <strong>Mauricio Ochoa</strong> con las siguientes especificaciones:</p>          <p><strong>Solicitud de desarrollo de interfaz local para visualización de base de datos</strong></p>         <p>Se solicita el desarrollo de una interfaz gráfica local que permita la visualización estructurada de los datos contenidos en la base de datos correspondiente a la Oficina Matriz. La interfaz deberá mostrar los siguientes campos:</p>                  <ul>             <li>Número de inventario</li>             <li>Nombre</li>             <li>Características</li>             <li>Dirección</li>             <li>Área</li>             <li>Ubicación física</li>             <li>Descripción del equipo</li>             <li>Estado</li>         </ul>          <p><strong>Requisitos técnicos:</strong></p>         <ul>             <li>La interfaz debe ejecutarse de forma local en equipos de escritorio (Windows).</li>             <li>Debe estar conectada a la base de datos previamente armada por el mismo programador.</li>             <li>El diseño debe ser amigable y funcional, permitiendo ordenar columnas y, de ser posible, filtrar/buscar registros por cualquiera de los campos listados.</li>             <li>No es necesario acceso web ni conexión remota.</li>             <li>No requiere permisos de edición, únicamente visualización, por el momento.</li>         </ul>         <p>Solicitud hecha el día <strong>25/07/2025</strong></p>\t<p>Entrega acordada el día <strong>17/10/2025</strong></p>\t<p>Entrega de avances <strong>cada 2 viernes</strong></p></div></html>");
@@ -869,6 +882,7 @@ public class MainInterface extends javax.swing.JFrame {
     private javax.swing.JDesktopPane jDesktopPane1;
     private javax.swing.JInternalFrame jInternalFrame1;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
