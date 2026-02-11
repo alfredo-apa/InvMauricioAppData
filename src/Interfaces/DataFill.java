@@ -22,17 +22,28 @@ public class DataFill extends javax.swing.JFrame {
     private final SqliteQuery sqlq = new SqliteQuery();
     private boolean editMode = false;
     private Integer editGabineteId = null;
+    private boolean employeeEditMode = false;
+    private Integer editEmpleadoId = null;
 
     /**
      * Creates new form HardwareData
      */
     public DataFill() {
         initComponents();
+        stabilizeEmployeePanelButtons();
         cards = (CardLayout) jcards.getLayout();
         cleanData(0);
         cards.show(jcards, "menu");
 
 
+    }
+
+    private void stabilizeEmployeePanelButtons() {
+        int height = datafill_emp_bttn_save.getPreferredSize().height;
+        Dimension fixed = new Dimension(110, height);
+        datafill_emp_bttn_save.setPreferredSize(fixed);
+        datafill_emp_bttn_save.setMinimumSize(fixed);
+        datafill_emp_bttn_save.setMaximumSize(fixed);
     }
 
     /**
@@ -49,6 +60,7 @@ public class DataFill extends javax.swing.JFrame {
         menu_bttn_equipo = new javax.swing.JButton();
         menu_bttn_empleado = new javax.swing.JButton();
         menu_bttn_editar = new javax.swing.JButton();
+        menu_bttn_editar_emp = new javax.swing.JButton();
         menu_bttn_cancel = new javax.swing.JButton();
         p_emp = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
@@ -62,6 +74,7 @@ public class DataFill extends javax.swing.JFrame {
         datafill_emp_tf_cargo = new javax.swing.JComboBox<>();
         jLabel5 = new javax.swing.JLabel();
         datafill_emp_bttn_save = new javax.swing.JButton();
+        datafill_emp_bttn_delete = new javax.swing.JButton();
         datafill_emp_tf_clean = new javax.swing.JButton();
         datafill_emp_bttn_cancel = new javax.swing.JButton();
         p_gabinete = new javax.swing.JPanel();
@@ -157,10 +170,17 @@ public class DataFill extends javax.swing.JFrame {
             }
         });
 
-        menu_bttn_editar.setText("Editar");
+        menu_bttn_editar.setText("Editar Equipo");
         menu_bttn_editar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 menu_bttn_editarActionPerformed(evt);
+            }
+        });
+
+        menu_bttn_editar_emp.setText("Editar Empleado");
+        menu_bttn_editar_emp.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                menu_bttn_editar_empActionPerformed(evt);
             }
         });
 
@@ -175,39 +195,35 @@ public class DataFill extends javax.swing.JFrame {
         p_menu.setLayout(p_menuLayout);
         p_menuLayout.setHorizontalGroup(
             p_menuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, p_menuLayout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(menu_bttn_equipo, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(160, 160, 160))
             .addGroup(p_menuLayout.createSequentialGroup()
-                .addGap(239, 239, 239)
+                .addGap(85, 85, 85)
+                .addGroup(p_menuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
+                    .addComponent(menu_bttn_empleado, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(menu_bttn_editar_emp))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 120, Short.MAX_VALUE)
+                .addGroup(p_menuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
+                    .addComponent(menu_bttn_equipo, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(menu_bttn_editar))
+                .addGap(85, 85, 85))
+            .addGroup(p_menuLayout.createSequentialGroup()
+                .addGap(250, 250, 250)
                 .addComponent(menu_bttn_cancel)
-                .addContainerGap(270, Short.MAX_VALUE))
-            .addGroup(p_menuLayout.createSequentialGroup()
-                .addGap(239, 239, 239)
-                .addComponent(menu_bttn_editar)
-                .addContainerGap(286, Short.MAX_VALUE))
-            .addGroup(p_menuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(p_menuLayout.createSequentialGroup()
-                    .addGap(123, 123, 123)
-                    .addComponent(menu_bttn_empleado, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addContainerGap(337, Short.MAX_VALUE)))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         p_menuLayout.setVerticalGroup(
             p_menuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(p_menuLayout.createSequentialGroup()
-                .addGap(177, 177, 177)
-                .addComponent(menu_bttn_equipo, javax.swing.GroupLayout.PREFERRED_SIZE, 63, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(165, 165, 165)
+                .addGroup(p_menuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(menu_bttn_equipo, javax.swing.GroupLayout.PREFERRED_SIZE, 63, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(menu_bttn_empleado, javax.swing.GroupLayout.PREFERRED_SIZE, 63, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
-                .addComponent(menu_bttn_editar)
-                .addGap(76, 76, 76)
+                .addGroup(p_menuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(menu_bttn_editar)
+                    .addComponent(menu_bttn_editar_emp))
+                .addGap(70, 70, 70)
                 .addComponent(menu_bttn_cancel)
-                .addContainerGap(261, Short.MAX_VALUE))
-            .addGroup(p_menuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(p_menuLayout.createSequentialGroup()
-                    .addGap(174, 174, 174)
-                    .addComponent(menu_bttn_empleado, javax.swing.GroupLayout.PREFERRED_SIZE, 63, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addContainerGap(381, Short.MAX_VALUE)))
+                .addContainerGap(280, Short.MAX_VALUE))
         );
 
         jcards.add(p_menu, "menu");
@@ -237,6 +253,14 @@ public class DataFill extends javax.swing.JFrame {
             }
         });
 
+        datafill_emp_bttn_delete.setText("Eliminar Empleado");
+        datafill_emp_bttn_delete.setVisible(false);
+        datafill_emp_bttn_delete.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                datafill_emp_bttn_deleteActionPerformed(evt);
+            }
+        });
+
         datafill_emp_tf_clean.setText("Limpiar");
         datafill_emp_tf_clean.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -256,42 +280,33 @@ public class DataFill extends javax.swing.JFrame {
         p_empLayout.setHorizontalGroup(
             p_empLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(p_empLayout.createSequentialGroup()
+                .addGap(30, 30, 30)
                 .addGroup(p_empLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(p_empLayout.createSequentialGroup()
-                        .addGap(33, 33, 33)
                         .addGroup(p_empLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addGroup(p_empLayout.createSequentialGroup()
-                                .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(datafill_emp_tf_area, javax.swing.GroupLayout.PREFERRED_SIZE, 282, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(p_empLayout.createSequentialGroup()
-                                .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(datafill_emp_tf_cargo, javax.swing.GroupLayout.PREFERRED_SIZE, 282, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(p_empLayout.createSequentialGroup()
-                                .addComponent(jLabel2)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addGroup(p_empLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(datafill_emp_tf_ubicacion, javax.swing.GroupLayout.PREFERRED_SIZE, 282, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addGroup(p_empLayout.createSequentialGroup()
-                                        .addComponent(datafill_emp_bttn_save)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                        .addComponent(datafill_emp_tf_clean)
-                                        .addGap(61, 61, 61))))))
-                    .addGroup(p_empLayout.createSequentialGroup()
-                        .addGap(36, 36, 36)
-                        .addComponent(jLabel4)
+                            .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(datafill_emp_tf_direccion, javax.swing.GroupLayout.PREFERRED_SIZE, 282, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(p_empLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(datafill_emp_tf_nombre, javax.swing.GroupLayout.PREFERRED_SIZE, 350, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(datafill_emp_tf_area, javax.swing.GroupLayout.PREFERRED_SIZE, 350, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(datafill_emp_tf_direccion, javax.swing.GroupLayout.PREFERRED_SIZE, 350, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(datafill_emp_tf_cargo, javax.swing.GroupLayout.PREFERRED_SIZE, 350, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(datafill_emp_tf_ubicacion, javax.swing.GroupLayout.PREFERRED_SIZE, 350, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(p_empLayout.createSequentialGroup()
-                        .addGap(42, 42, 42)
-                        .addComponent(jLabel1)
+                        .addGap(95, 95, 95)
+                        .addComponent(datafill_emp_bttn_save)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(datafill_emp_tf_nombre, javax.swing.GroupLayout.PREFERRED_SIZE, 282, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(datafill_emp_bttn_delete)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(datafill_emp_tf_clean))
                     .addGroup(p_empLayout.createSequentialGroup()
-                        .addGap(167, 167, 167)
+                        .addGap(190, 190, 190)
                         .addComponent(datafill_emp_bttn_cancel)))
-                .addContainerGap(205, Short.MAX_VALUE))
+                .addContainerGap(120, Short.MAX_VALUE))
         );
         p_empLayout.setVerticalGroup(
             p_empLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -319,6 +334,7 @@ public class DataFill extends javax.swing.JFrame {
                 .addGap(68, 68, 68)
                 .addGroup(p_empLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(datafill_emp_bttn_save)
+                    .addComponent(datafill_emp_bttn_delete)
                     .addComponent(datafill_emp_tf_clean))
                 .addGap(32, 32, 32)
                 .addComponent(datafill_emp_bttn_cancel)
@@ -804,6 +820,52 @@ public class DataFill extends javax.swing.JFrame {
         saveData(1);
     }//GEN-LAST:event_datafill_emp_bttn_saveActionPerformed
 
+    private void datafill_emp_bttn_deleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_datafill_emp_bttn_deleteActionPerformed
+        if (!employeeEditMode || editEmpleadoId == null) {
+            JOptionPane.showMessageDialog(this, "Selecciona un empleado en modo edición.");
+            return;
+        }
+        if (hasLinkedEquipos(editEmpleadoId)) {
+            JOptionPane.showMessageDialog(
+                    this,
+                    "No se puede eliminar el empleado porque tiene equipo(s) vinculado(s).",
+                    "Eliminación bloqueada",
+                    JOptionPane.WARNING_MESSAGE
+            );
+            return;
+        }
+        if (!requirePassword("Eliminar Empleado")) {
+            return;
+        }
+        int confirm = JOptionPane.showConfirmDialog(
+                this,
+                "¿Deseas eliminar este empleado?",
+                "Confirmar eliminación",
+                JOptionPane.YES_NO_OPTION,
+                JOptionPane.WARNING_MESSAGE
+        );
+        if (confirm != JOptionPane.YES_OPTION) {
+            return;
+        }
+        final String sql = "DELETE FROM datos_resguardante WHERE id = ?";
+        try (var conn = BD.Connect.open();
+             var ps = conn.prepareStatement(sql)) {
+            ps.setInt(1, editEmpleadoId);
+            int affected = ps.executeUpdate();
+            if (affected > 0) {
+                JOptionPane.showMessageDialog(this, "Empleado eliminado.");
+                cleanData(1);
+                cards.show(jcards, "menu");
+            } else {
+                JOptionPane.showMessageDialog(this, "No se encontró el empleado a eliminar.");
+            }
+        } catch (java.sql.SQLException ex) {
+            JOptionPane.showMessageDialog(this, "No se puede eliminar: " + ex.getMessage());
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(this, ex);
+        }
+    }//GEN-LAST:event_datafill_emp_bttn_deleteActionPerformed
+
     private void datafill_emp_tf_cleanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_datafill_emp_tf_cleanActionPerformed
         // TODO add your handling code here:
         cleanData(1);
@@ -842,6 +904,18 @@ public class DataFill extends javax.swing.JFrame {
         cards.show(jcards, "gab");
     }//GEN-LAST:event_menu_bttn_editarActionPerformed
 
+    private void menu_bttn_editar_empActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menu_bttn_editar_empActionPerformed
+        String nombre = promptEmployeeNameSelection();
+        if (nombre == null || nombre.isBlank()) {
+            return;
+        }
+        if (!loadEmployeeByName(nombre)) {
+            JOptionPane.showMessageDialog(this, "No se encontró el empleado: " + nombre);
+            return;
+        }
+        cards.show(jcards, "emp");
+    }//GEN-LAST:event_menu_bttn_editar_empActionPerformed
+
     private void menu_bttn_cancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menu_bttn_cancelActionPerformed
         // TODO add your handling code here:
         this.dispose();
@@ -849,6 +923,7 @@ public class DataFill extends javax.swing.JFrame {
 
     private void datafill_emp_bttn_cancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_datafill_emp_bttn_cancelActionPerformed
         // TODO add your handling code here:
+        exitEmployeeEditMode();
         cards.show(jcards, "menu");
     }//GEN-LAST:event_datafill_emp_bttn_cancelActionPerformed
 
@@ -876,6 +951,7 @@ public class DataFill extends javax.swing.JFrame {
                 break;
             case 1:
                 try{
+                    exitEmployeeEditMode();
                     datafill_emp_tf_direccion.setSelectedIndex(0);
                     datafill_emp_tf_area.setSelectedIndex(0);
                     datafill_emp_tf_cargo.setSelectedIndex(0);
@@ -953,6 +1029,28 @@ public class DataFill extends javax.swing.JFrame {
                 final String vDireccion  = dirSel == null ? "" : dirSel.toString();
                 final String vCargo      = cargoSel == null ? "" : cargoSel.toString();
                 final String vUbicacion  = ubicacionSel == null ? "" : ubicacionSel.toString();
+
+                if (employeeEditMode && editEmpleadoId != null) {
+                    final String sqlEmpUpdate =
+                            "UPDATE datos_resguardante " +
+                                    "SET nombre = ?, departamento = ?, direccion = ?, cargo = ?, ubicacion_fisica = ? " +
+                                    "WHERE id = ?";
+                    try (var conn = BD.Connect.open();
+                         var ps   = conn.prepareStatement(sqlEmpUpdate)) {
+                        ps.setString(1, vNombre);
+                        ps.setString(2, vArea);
+                        ps.setString(3, vDireccion);
+                        ps.setString(4, vCargo);
+                        ps.setString(5, vUbicacion);
+                        ps.setInt(6, editEmpleadoId);
+                        ps.executeUpdate();
+                        JOptionPane.showMessageDialog(this, "Empleado actualizado.");
+                        cleanData(1);
+                    } catch (Exception ex) {
+                        JOptionPane.showMessageDialog(this, ex);
+                    }
+                    break;
+                }
 
                 // TODO: Re-enable DualDbWriter (SQLite + MySQL) workflow when ready.
                 /*
@@ -1136,9 +1234,141 @@ public class DataFill extends javax.swing.JFrame {
         // TODO: Hook refresh to existing MainInterface instead of creating a new one.
     }
 
+    private String promptEmployeeNameSelection() {
+        java.util.ArrayList<String> nombres = new java.util.ArrayList<>();
+        final String sql = "SELECT DISTINCT TRIM(nombre) AS nombre FROM datos_resguardante " +
+                "WHERE nombre IS NOT NULL AND TRIM(nombre) <> '' ORDER BY nombre";
+        try (var conn = BD.Connect.open();
+             var stmt = conn.createStatement();
+             var rs = stmt.executeQuery(sql)) {
+            while (rs.next()) {
+                String nombre = rs.getString("nombre");
+                if (nombre != null && !nombre.isBlank()) {
+                    nombres.add(nombre.trim());
+                }
+            }
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(this, ex);
+            return null;
+        }
+
+        if (nombres.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "No hay empleados para editar.");
+            return null;
+        }
+
+        DefaultListModel<String> nombresModel = new DefaultListModel<>();
+        for (String nombre : nombres) {
+            nombresModel.addElement(nombre);
+        }
+        JTextField nombreFilterField = new JTextField(20);
+        JList<String> nombresList = new JList<>(nombresModel);
+        nombresList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+        nombresList.setSelectedIndex(0);
+
+        Runnable applyFilter = () -> {
+            String q = nombreFilterField.getText();
+            nombresModel.clear();
+            for (String nombre : nombres) {
+                if (q == null || q.isBlank() || nombre.toLowerCase().contains(q.toLowerCase())) {
+                    nombresModel.addElement(nombre);
+                }
+            }
+            if (!nombresModel.isEmpty()) {
+                nombresList.setSelectedIndex(0);
+            }
+        };
+
+        nombreFilterField.getDocument().addDocumentListener(new javax.swing.event.DocumentListener() {
+            @Override
+            public void insertUpdate(javax.swing.event.DocumentEvent e) { applyFilter.run(); }
+            @Override
+            public void removeUpdate(javax.swing.event.DocumentEvent e) { applyFilter.run(); }
+            @Override
+            public void changedUpdate(javax.swing.event.DocumentEvent e) { applyFilter.run(); }
+        });
+
+        JPanel panel = new JPanel(new BorderLayout(8, 8));
+        panel.add(new JLabel("Filtrar/Seleccionar Nombre:"), BorderLayout.NORTH);
+        panel.add(nombreFilterField, BorderLayout.CENTER);
+        JScrollPane listScroll = new JScrollPane(nombresList);
+        listScroll.setPreferredSize(new Dimension(320, 220));
+        panel.add(listScroll, BorderLayout.SOUTH);
+
+        int option = JOptionPane.showConfirmDialog(
+                this,
+                panel,
+                "Editar Empleado",
+                JOptionPane.OK_CANCEL_OPTION,
+                JOptionPane.PLAIN_MESSAGE
+        );
+        if (option != JOptionPane.OK_OPTION) {
+            return null;
+        }
+        String selected = nombresList.getSelectedValue();
+        return (selected == null || selected.isBlank()) ? null : selected.trim();
+    }
+
+    private boolean loadEmployeeByName(String nombre) {
+        if (nombre == null || nombre.isBlank()) {
+            return false;
+        }
+        final String sql = "SELECT id, nombre, departamento, direccion, cargo, ubicacion_fisica " +
+                "FROM datos_resguardante WHERE TRIM(nombre) = ? ORDER BY id LIMIT 1";
+        cleanData(1);
+        try (var conn = BD.Connect.open();
+             var ps = conn.prepareStatement(sql)) {
+            ps.setString(1, nombre.trim());
+            try (var rs = ps.executeQuery()) {
+                if (!rs.next()) {
+                    return false;
+                }
+                employeeEditMode = true;
+                editEmpleadoId = rs.getInt("id");
+                datafill_emp_bttn_save.setText("Actualizar");
+                datafill_emp_bttn_delete.setVisible(true);
+
+                datafill_emp_tf_nombre.setText(rs.getString("nombre"));
+                selectComboItem(datafill_emp_tf_area, rs.getString("departamento"));
+                selectComboItem(datafill_emp_tf_direccion, rs.getString("direccion"));
+                selectComboItem(datafill_emp_tf_cargo, rs.getString("cargo"));
+                selectComboItem(datafill_emp_tf_ubicacion, rs.getString("ubicacion_fisica"));
+                return true;
+            }
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(this, ex);
+            return false;
+        }
+    }
+
+    private void exitEmployeeEditMode() {
+        employeeEditMode = false;
+        editEmpleadoId = null;
+        datafill_emp_bttn_save.setText("Guardar");
+        datafill_emp_bttn_delete.setVisible(false);
+    }
+
+    private boolean hasLinkedEquipos(int empleadoId) {
+        final String sql = "SELECT COUNT(1) AS total FROM hardware_gabinete WHERE resguardante = ?";
+        try (var conn = BD.Connect.open();
+             var ps = conn.prepareStatement(sql)) {
+            ps.setInt(1, empleadoId);
+            try (var rs = ps.executeQuery()) {
+                return rs.next() && rs.getInt("total") > 0;
+            }
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(this, ex);
+            return true;
+        }
+    }
+
     private boolean requirePassword() {
+        return requirePassword("Editar");
+    }
+
+    private boolean requirePassword(String title) {
         JPanel panel = new JPanel();
-        JLabel label = new JLabel("Contraseña:");
+        JLabel label = new JLabel("Contrase\u00f1a:");
         JPasswordField pass = new JPasswordField(10);
         panel.add(label);
         panel.add(pass);
@@ -1146,7 +1376,7 @@ public class DataFill extends javax.swing.JFrame {
         int option = JOptionPane.showOptionDialog(
                 this,
                 panel,
-                "Editar",
+                title,
                 JOptionPane.NO_OPTION,
                 JOptionPane.PLAIN_MESSAGE,
                 null,
@@ -1159,31 +1389,112 @@ public class DataFill extends javax.swing.JFrame {
         }
         return false;
     }
-
     private String promptInventarioSelection() {
-        java.util.List<String> inventarios;
+        java.util.List<String> nombres;
         try {
-            inventarios = sqlq.listInventarios();
+            nombres = sqlq.listResguardanteNamesWithInventario();
         } catch (Exception ex) {
             JOptionPane.showMessageDialog(this, ex);
             return null;
         }
 
-        if (inventarios.isEmpty()) {
-            JOptionPane.showMessageDialog(this, "No hay inventarios para editar.");
+        if (nombres.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "No hay resguardantes con inventarios para editar.");
             return null;
         }
 
-        Object selected = JOptionPane.showInputDialog(
+        DefaultListModel<String> nombresModel = new DefaultListModel<>();
+        for (String nombre : nombres) {
+            nombresModel.addElement(nombre);
+        }
+        JTextField nombreFilterField = new JTextField(20);
+        JList<String> nombresList = new JList<>(nombresModel);
+        nombresList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+        nombresList.setSelectedIndex(0);
+
+        DefaultListModel<String> inventariosModel = new DefaultListModel<>();
+        JList<String> inventarioList = new JList<>(inventariosModel);
+        inventarioList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+
+        Runnable reloadInventarios = () -> {
+            inventariosModel.clear();
+            String nombre = nombresList.getSelectedValue();
+            if (nombre == null || nombre.isBlank()) {
+                return;
+            }
+            try {
+                for (String inv : sqlq.listInventariosByResguardanteName(nombre)) {
+                    inventariosModel.addElement(inv);
+                }
+            } catch (Exception ex) {
+                JOptionPane.showMessageDialog(this, ex);
+            }
+            if (!inventariosModel.isEmpty()) {
+                inventarioList.setSelectedIndex(0);
+            }
+        };
+        reloadInventarios.run();
+
+        nombresList.addListSelectionListener(e -> {
+            if (!e.getValueIsAdjusting()) {
+                reloadInventarios.run();
+            }
+        });
+
+        Runnable applyNombreFilter = () -> {
+            String query = nombreFilterField.getText();
+            nombresModel.clear();
+            for (String nombre : nombres) {
+                if (query == null || query.isBlank() || nombre.toLowerCase().contains(query.toLowerCase())) {
+                    nombresModel.addElement(nombre);
+                }
+            }
+            if (!nombresModel.isEmpty()) {
+                nombresList.setSelectedIndex(0);
+                reloadInventarios.run();
+            } else {
+                inventariosModel.clear();
+            }
+        };
+
+        nombreFilterField.getDocument().addDocumentListener(new javax.swing.event.DocumentListener() {
+            @Override
+            public void insertUpdate(javax.swing.event.DocumentEvent e) { applyNombreFilter.run(); }
+            @Override
+            public void removeUpdate(javax.swing.event.DocumentEvent e) { applyNombreFilter.run(); }
+            @Override
+            public void changedUpdate(javax.swing.event.DocumentEvent e) { applyNombreFilter.run(); }
+        });
+
+        JPanel panel = new JPanel(new BorderLayout(8, 8));
+        JPanel listsPanel = new JPanel(new GridLayout(1, 2, 8, 0));
+        JPanel nombresPanel = new JPanel(new BorderLayout(4, 4));
+        JPanel nombreHeaderPanel = new JPanel(new BorderLayout(4, 4));
+        nombreHeaderPanel.add(new JLabel("Resguardante:"), BorderLayout.NORTH);
+        nombreHeaderPanel.add(nombreFilterField, BorderLayout.SOUTH);
+        nombresPanel.add(nombreHeaderPanel, BorderLayout.NORTH);
+        nombresPanel.add(new JScrollPane(nombresList), BorderLayout.CENTER);
+        JPanel inventariosPanel = new JPanel(new BorderLayout(4, 4));
+        inventariosPanel.add(new JLabel("No. Inventario:"), BorderLayout.NORTH);
+        inventariosPanel.add(new JScrollPane(inventarioList), BorderLayout.CENTER);
+        listsPanel.add(nombresPanel);
+        listsPanel.add(inventariosPanel);
+        listsPanel.setPreferredSize(new Dimension(520, 250));
+        panel.add(listsPanel, BorderLayout.CENTER);
+
+        int option = JOptionPane.showConfirmDialog(
                 this,
-                "Selecciona No. Inventario:",
+                panel,
                 "Editar",
-                JOptionPane.PLAIN_MESSAGE,
-                null,
-                inventarios.toArray(),
-                inventarios.get(0)
+                JOptionPane.OK_CANCEL_OPTION,
+                JOptionPane.PLAIN_MESSAGE
         );
-        return selected == null ? null : selected.toString();
+
+        if (option != JOptionPane.OK_OPTION) {
+            return null;
+        }
+        String selected = inventarioList.getSelectedValue();
+        return (selected == null || selected.isBlank()) ? null : selected.trim();
     }
 
     private boolean loadGabineteByInventario(String inventario) {
@@ -1369,6 +1680,7 @@ public class DataFill extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton datafill_emp_bttn_cancel;
+    private javax.swing.JButton datafill_emp_bttn_delete;
     private javax.swing.JButton datafill_emp_bttn_save;
     private javax.swing.JComboBox<String> datafill_emp_tf_area;
     private javax.swing.JComboBox<String> datafill_emp_tf_cargo;
@@ -1455,6 +1767,7 @@ public class DataFill extends javax.swing.JFrame {
     private javax.swing.JPanel jcards;
     private javax.swing.JButton menu_bttn_cancel;
     private javax.swing.JButton menu_bttn_editar;
+    private javax.swing.JButton menu_bttn_editar_emp;
     private javax.swing.JButton menu_bttn_empleado;
     private javax.swing.JButton menu_bttn_equipo;
     private javax.swing.JPanel p_emp;
@@ -1464,3 +1777,4 @@ public class DataFill extends javax.swing.JFrame {
     private javax.swing.JPanel p_perifericos;
     // End of variables declaration//GEN-END:variables
 }
+

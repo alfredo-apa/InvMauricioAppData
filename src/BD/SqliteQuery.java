@@ -256,6 +256,55 @@ public class SqliteQuery {
         return inventarios;
     }
 
+    public java.util.List<String> listResguardanteNamesWithInventario() throws Exception {
+        java.util.ArrayList<String> nombres = new java.util.ArrayList<>();
+        final String sql =
+                "SELECT DISTINCT TRIM(r.nombre) AS nombre " +
+                "FROM hardware_gabinete h " +
+                "JOIN datos_resguardante r ON r.id = h.resguardante " +
+                "WHERE r.nombre IS NOT NULL AND TRIM(r.nombre) <> '' " +
+                "AND h.no_inventario IS NOT NULL AND TRIM(h.no_inventario) <> '' " +
+                "ORDER BY nombre";
+        try (var conn = BD.Connect.open();
+             var stmt = conn.createStatement();
+             var rs = stmt.executeQuery(sql)) {
+            while (rs.next()) {
+                String nombre = rs.getString("nombre");
+                if (nombre != null && !nombre.isBlank()) {
+                    nombres.add(nombre.trim());
+                }
+            }
+        }
+        return nombres;
+    }
+
+    public java.util.List<String> listInventariosByResguardanteName(String nombre) throws Exception {
+        java.util.ArrayList<String> inventarios = new java.util.ArrayList<>();
+        if (nombre == null || nombre.isBlank()) {
+            return inventarios;
+        }
+        final String sql =
+                "SELECT DISTINCT TRIM(h.no_inventario) AS no_inventario " +
+                "FROM hardware_gabinete h " +
+                "JOIN datos_resguardante r ON r.id = h.resguardante " +
+                "WHERE TRIM(r.nombre) = ? " +
+                "AND h.no_inventario IS NOT NULL AND TRIM(h.no_inventario) <> '' " +
+                "ORDER BY no_inventario";
+        try (var conn = BD.Connect.open();
+             var ps = conn.prepareStatement(sql)) {
+            ps.setString(1, nombre.trim());
+            try (var rs = ps.executeQuery()) {
+                while (rs.next()) {
+                    String inv = rs.getString("no_inventario");
+                    if (inv != null && !inv.isBlank()) {
+                        inventarios.add(inv.trim());
+                    }
+                }
+            }
+        }
+        return inventarios;
+    }
+
     public GabineteRecord getGabineteByInventario(String inventario) throws Exception {
         if (inventario == null || inventario.isBlank()) {
             return null;

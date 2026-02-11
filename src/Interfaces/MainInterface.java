@@ -37,12 +37,17 @@ public class MainInterface extends javax.swing.JFrame {
     private ComboBoxModel cbxmubi;
     private ComboBoxModel cbxmname;
     private ComboBoxModel cbxmnoinv;
+    private final List<String> hiddenTabTitles = new ArrayList<>();
+    private final List<java.awt.Component> hiddenTabComponents = new ArrayList<>();
+    private final List<String> hiddenTabTooltips = new ArrayList<>();
+    private boolean acercaTabsUnlocked = false;
     
     /**
      * Creates new form MainInterface
      */
     public MainInterface() {
         initComponents();
+        lockAcercaTabsUntilDevPass();
         System.out.println(MacAddressUtil.getMacAddress());
         // Ensure the internal frame is attached and sized before first use.
         if (jInternalFrame1.getParent() == null) {
@@ -83,6 +88,38 @@ public class MainInterface extends javax.swing.JFrame {
         //cbx_ubicacion.setVisible(false);
         
         jDesktopPane1.repaint();
+    }
+
+    private void lockAcercaTabsUntilDevPass() {
+        if (acercaTabsUnlocked) {
+            return;
+        }
+        hiddenTabTitles.clear();
+        hiddenTabComponents.clear();
+        hiddenTabTooltips.clear();
+        for (int i = jTabbedPane1.getTabCount() - 1; i >= 0; i--) {
+            String title = jTabbedPane1.getTitleAt(i);
+            if (!"Acerca".equals(title)) {
+                hiddenTabTitles.add(0, title);
+                hiddenTabComponents.add(0, jTabbedPane1.getComponentAt(i));
+                hiddenTabTooltips.add(0, jTabbedPane1.getToolTipTextAt(i));
+                jTabbedPane1.removeTabAt(i);
+            }
+        }
+    }
+
+    private void unlockAcercaTabs() {
+        if (acercaTabsUnlocked) {
+            return;
+        }
+        int insertIndex = jTabbedPane1.getTabCount();
+        for (int i = 0; i < hiddenTabTitles.size(); i++) {
+            jTabbedPane1.insertTab(hiddenTabTitles.get(i), null, hiddenTabComponents.get(i), hiddenTabTooltips.get(i), insertIndex++);
+        }
+        hiddenTabTitles.clear();
+        hiddenTabComponents.clear();
+        hiddenTabTooltips.clear();
+        acercaTabsUnlocked = true;
     }
 
     public String getVersion() {
@@ -170,13 +207,13 @@ public class MainInterface extends javax.swing.JFrame {
         jTabbedPane1.insertTab("Acerca", null, acercaScrollPane, null, 0);
 
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel1.setText("<html><h1 style=\"text-align: center\">Acerca</h1>         <div><p>Programa hecho por Stratos Dilligennce para la coordinación de informática de <strong>COAPATAP</strong> solicitado por <strong>Mauricio Ochoa</strong> con las siguientes especificaciones:</p>          <p><strong>Solicitud de desarrollo de interfaz local para visualización de base de datos</strong></p>         <p>Se solicita el desarrollo de una interfaz gráfica local que permita la visualización estructurada de los datos contenidos en la base de datos correspondiente a la Oficina Matriz. La interfaz deberá mostrar los siguientes campos:</p>                  <ul>             <li>Número de inventario</li>             <li>Nombre</li>             <li>Características</li>             <li>Dirección</li>             <li>Área</li>             <li>Ubicación física</li>             <li>Descripción del equipo</li>             <li>Estado</li>         </ul>          <p><strong>Requisitos técnicos:</strong></p>         <ul>             <li>La interfaz debe ejecutarse de forma local en equipos de escritorio (Windows).</li>             <li>Debe estar conectada a la base de datos previamente armada por el mismo programador.</li>             <li>El diseño debe ser amigable y funcional, permitiendo ordenar columnas y, de ser posible, filtrar/buscar registros por cualquiera de los campos listados.</li>             <li>No es necesario acceso web ni conexión remota.</li>             <li>No requiere permisos de edición, únicamente visualización, por el momento.</li>         </ul>         <p>Solicitud hecha el día <strong>25/07/2025</strong></p>\t<p>Entrega acordada el día <strong>17/10/2025</strong></p>\t<p>Entrega de avances <strong>cada 2 viernes</strong></p></div></html>");
+        jLabel1.setText("<html><h1 style=\"text-align: center\">Acerca</h1>         <div><p>Programa hecho por Stratos Dilligennce para la coordinación de informática de <strong>COAPATAP</strong> solicitado por <strong>Mauricio Ochoa</strong> con las siguientes especificaciones:</p>          <p><strong>Solicitud de desarrollo de interfaz local para visualización de base de datos</strong></p>         <p>Se solicita el desarrollo de una interfaz gráfica local que permita la visualización estructurada de los datos contenidos en la base de datos correspondiente a la Oficina Matriz. La interfaz deberá mostrar los siguientes campos:</p>                  <ul>             <li>Número de inventario</li>             <li>Nombre</li>             <li>Características</li>             <li>Dirección</li>             <li>Área</li>             <li>Ubicación física</li>             <li>Descripción del equipo</li>             <li>Estado</li>         </ul>          <p><strong>Requisitos técnicos:</strong></p>         <ul>             <li>La interfaz debe ejecutarse de forma local en equipos de escritorio (Windows).</li>             <li>Debe estar conectada a la base de datos previamente armada por el mismo programador.</li>             <li>El diseño debe ser amigable y funcional, permitiendo ordenar columnas y, de ser posible, filtrar/buscar registros por cualquiera de los campos listados.</li>             <li>No es necesario acceso web ni conexión remota.</li>             <li>No requiere permisos de edición, únicamente visualización, por el momento.</li>         </ul>         <p>Solicitud hecha el día <strong>25/07/2025</strong></p>\t<p>Entrega acordada el día <strong>17/10/2025</strong></p>\t<p>Entrega de avances <strong>cada 2 viernes</strong><br><br><strong>Entregado el dia 17/10/2025</strong></p></div></html>");
         jLabel1.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         jLabel1.setPreferredSize(new java.awt.Dimension(500, 375));
         jTabbedPane1.addTab("25/07/2025", jLabel1);
         jLabel1.getAccessibleContext().setAccessibleName("<h1>Acerca</h1>\n        <p>Programa hecho por Stratos Dilligence para la coordinación de informática de <strong>COAPATAP</strong> solicitado por <strong>Mauricio Ochoa</strong> con las siguientes especificaciones:</p>\n\n        <p><strong>Solicitud de desarrollo de interfaz local para visualización de base de datos</strong></p>\n        <p>Se solicita el desarrollo de una interfaz gráfica local que permita la visualización estructurada de los datos contenidos en la base de datos correspondiente a la Oficina Matriz. La interfaz deberá mostrar los siguientes campos:</p>\n        \n        <ul>\n            <li>Número de inventario</li>\n            <li>Nombre</li>\n            <li>Características</li>\n            <li>Dirección</li>\n            <li>Área</li>\n            <li>Ubicación física</li>\n            <li>Descripción del equipo</li>\n            <li>Estado</li>\n        </ul>\n\n        <p><strong>Requisitos técnicos:</strong></p>\n        <ul>\n            <li>La interfaz debe ejecutarse de forma local en equipos de escritorio (Windows).</li>\n            <li>Debe estar conectada a la base de datos previamente armada por el mismo programador.</li>\n            <li>El diseño debe ser amigable y funcional, permitiendo ordenar columnas y, de ser posible, filtrar/buscar registros por cualquiera de los campos listados.</li>\n            <li>No es necesario acceso web ni conexión remota.</li>\n            <li>No requiere permisos de edición, únicamente visualización, por el momento.</li>\n        </ul>\n        <p>Solicitud hecha el dia <strong>25/07/2025</strong></p>");
 
-        jLabel9.setText("<html>\n  <div style='width:320px'>\n    <b>Sulicitud de cambios hecha por Mauricio Ochoa Luis el dia 24/10/2025:</b>\n    <ul style='margin-top:4px'>\n      <li>Interfaz adaptable hay espacios que se pueden utilizar</li>\n      <li>Contador en una columna</li>\n      <li>Ajuste de columnas segun informacion</li>\n      <li>Reordenamiento de informacion en pestañas</li>\n      <li>Considerar el STATUS</li>\n    </ul>\n  </div>\n</html>\n");
+        jLabel9.setText("<html>\n  <div style='width:320px'>\n    <b>Sulicitud de cambios hecha por Mauricio Ochoa Luis el dia 24/10/2025:</b>\n    <ul style='margin-top:4px'>\n      <li>Interfaz adaptable hay espacios que se pueden utilizar</li>\n      <li>Contador en una columna</li>\n      <li>Ajuste de columnas segun informacion</li>\n      <li>Reordenamiento de informacion en pestañas</li>\n      <li>Considerar el STATUS</li>\n    </ul>\n  <br><br><strong>Entregado el dia 19/12/2025<br>Pendiente arreglar el error que causa que la aplicacion deje de funcionar cuando se maximiza la ventana<br>Entregado el dia 13/02/2026</strong></div>\n</html>\n");
         jTabbedPane1.addTab("24/10/2025", jLabel9);
 
         javax.swing.GroupLayout jInternalFrame1Layout = new javax.swing.GroupLayout(jInternalFrame1.getContentPane());
@@ -539,6 +576,7 @@ public class MainInterface extends javax.swing.JFrame {
                 char[] password = pass.getPassword();
                 //System.out.println("Your password is: " + new String(password));
                 if(new String(password).equals(devpass)){
+                    unlockAcercaTabs();
                     String auxQuery = JOptionPane.showInputDialog("Query: ");
                     //backup -> sqlite3 source_database.db ".backup backup_database.db"
                     System.out.println(auxQuery);
@@ -638,7 +676,7 @@ public class MainInterface extends javax.swing.JFrame {
 
     private void tf_caracteristicasKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tf_caracteristicasKeyTyped
         // TODO add your handling code here:
-        sel();
+        javax.swing.SwingUtilities.invokeLater(this::sel);
     }//GEN-LAST:event_tf_caracteristicasKeyTyped
 
     private void jMenuItem3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem3ActionPerformed
@@ -653,108 +691,86 @@ public class MainInterface extends javax.swing.JFrame {
 
     public void sel(){
         try{
-            String sql = "SELECT r.nombre, r.ubicacion_fisica, r.direccion, r.departamento, h.no_inventario, h.marca, h.componentes, h.status FROM datos_resguardante r INNER JOIN hardware_gabinete h ON r.id = h.resguardante ";
-            var conn = BD.Connect.open();
-            var stmt = conn.createStatement();
-            sql = sql + filters();
-            ResultSet chk = stmt.executeQuery(sql);
-            
-            DefaultTableModel mod = (DefaultTableModel) jTable1.getModel();
-            
-            String arg[] = new String[9];
-            
-            mod.setRowCount(0);
-            
-            while(chk.next()){
-                arg[0]=String.valueOf(mod.getRowCount()+1);
-                arg[1]=chk.getString(1);
-                arg[2]=chk.getString(5);
-                arg[3]=chk.getString(6);
-                arg[4]=chk.getString(2);
-                arg[5]=chk.getString(7);
-                arg[6]=chk.getString(3);
-                arg[7]=chk.getString(4);
-                arg[8]=chk.getString(8);
-                
-                mod.addRow(arg);
+            final String baseSql =
+                    "SELECT r.nombre, r.ubicacion_fisica, r.direccion, r.departamento, " +
+                    "h.no_inventario, h.marca, h.componentes, h.status " +
+                    "FROM datos_resguardante r " +
+                    "INNER JOIN hardware_gabinete h ON r.id = h.resguardante";
+
+            List<String> clauses = new ArrayList<>();
+            List<String> params = new ArrayList<>();
+
+            addFilterClause(clauses, params, "r.departamento", getSelectedFilterValue(cbx_area));
+            addFilterClause(clauses, params, "r.direccion", getSelectedFilterValue(cbx_dir));
+            addFilterClause(clauses, params, "r.ubicacion_fisica", getSelectedFilterValue(cbx_ubicacion));
+            addFilterClause(clauses, params, "h.status", getSelectedFilterValue(cbx_status));
+            addFilterClause(clauses, params, "h.no_inventario", getSelectedFilterValue(cbx_ninv));
+            addFilterClause(clauses, params, "r.nombre", getSelectedFilterValue(cbx_name));
+
+            String comp = tf_caracteristicas.getText();
+            if (comp != null && !comp.isBlank()) {
+                clauses.add("h.componentes LIKE ?");
+                params.add("%" + comp.trim() + "%");
             }
 
-            co = mod.getRowCount();
-            counting_lbl.setText(String.valueOf(co) + " Equipos en lista");
+            StringBuilder sql = new StringBuilder(baseSql);
+            if (!clauses.isEmpty()) {
+                sql.append(" WHERE ").append(String.join(" AND ", clauses));
+            }
 
-            jTable1.setModel(mod);
-            
+            try (var conn = BD.Connect.open();
+                 var ps = conn.prepareStatement(sql.toString())) {
+                for (int i = 0; i < params.size(); i++) {
+                    ps.setString(i + 1, params.get(i));
+                }
+                try (ResultSet chk = ps.executeQuery()) {
+                    DefaultTableModel mod = (DefaultTableModel) jTable1.getModel();
+                    String arg[] = new String[9];
+                    mod.setRowCount(0);
+
+                    while (chk.next()) {
+                        arg[0]=String.valueOf(mod.getRowCount()+1);
+                        arg[1]=chk.getString(1);
+                        arg[2]=chk.getString(5);
+                        arg[3]=chk.getString(6);
+                        arg[4]=chk.getString(2);
+                        arg[5]=chk.getString(7);
+                        arg[6]=chk.getString(3);
+                        arg[7]=chk.getString(4);
+                        arg[8]=chk.getString(8);
+                        mod.addRow(arg);
+                    }
+
+                    co = mod.getRowCount();
+                    counting_lbl.setText(String.valueOf(co) + " Equipos en lista");
+                    jTable1.setModel(mod);
+                }
+            }
         }catch(Exception e){
             System.out.println(e);
         }
     }
-    private String filters(){
-        String f = " ";
-        int c = 0;
-        if (cbx_area.getSelectedItem().toString().equalsIgnoreCase("TODO") && cbx_dir.getSelectedItem().toString().equalsIgnoreCase("TODO") && cbx_name.getSelectedItem().toString().equalsIgnoreCase("TODO") && cbx_ninv.getSelectedItem().toString().equalsIgnoreCase("TODO") && cbx_status.getSelectedItem().toString().equalsIgnoreCase("TODO") && cbx_ubicacion.getSelectedItem().toString().equalsIgnoreCase("TODO") && tf_caracteristicas.getText().isBlank()){
-            f = " ";
-            System.out.println("--"+c);
-        }else{
-            f = f + "where ";
-            if (!cbx_area.getSelectedItem().toString().equalsIgnoreCase("TODO")){
-                f = f + "departamento = '"+cbx_area.getSelectedItem().toString()+"' ";
-                c++;
-            System.out.println("--"+c);
-            }
-            if (!cbx_dir.getSelectedItem().toString().equalsIgnoreCase("TODO")){
-                if(c>0){
-                    f = f + ", ";
-                }
-                f = f + "direccion = '"+cbx_dir.getSelectedItem().toString()+"' ";
-                c++;
-            System.out.println("--"+c);
-            }
-            if (!cbx_ubicacion.getSelectedItem().toString().equalsIgnoreCase("TODO")){
-                if(c>0){
-                    f = f + ", ";
-                }
-                f = f + "ubicacion_fisica = '"+cbx_ubicacion.getSelectedItem().toString()+"' ";
-                c++;
-            }
-            if (!cbx_status.getSelectedItem().toString().equalsIgnoreCase("TODO")){
-                if(c>0){
-                    f = f + ", ";
-                }
-                f = f + "status = '"+cbx_status.getSelectedItem().toString()+"' ";
 
-                c++;
-            }
-            if (!cbx_ninv.getSelectedItem().toString().equalsIgnoreCase("TODO")){
-                if(c>0){
-                    f = f + ", ";
-                }
-                f = f + "no_inventario = '"+cbx_ninv.getSelectedItem().toString()+"' ";
-                c++;
-            }
-            if (!cbx_name.getSelectedItem().toString().equalsIgnoreCase("TODO")){
-                if(c>0){
-                    f = f + ", ";
-                }
-                f = f + "nombre = '"+cbx_name.getSelectedItem().toString()+"' ";
-                c++;
-            }
-            if (!tf_caracteristicas.getText().isBlank()){
-                if(c>0){
-                    f = f + ", ";
-                }
-                f = f + "componentes like '%"+tf_caracteristicas.getText()+"%'";
-            }
-
+    private String getSelectedFilterValue(JComboBox<String> combo) {
+        Object sel = combo.getSelectedItem();
+        if (sel == null) {
+            return null;
         }
-        
-        
-        return f;
+        String value = sel.toString().trim();
+        return value.equalsIgnoreCase("TODO") ? null : value;
     }
+
+    private void addFilterClause(List<String> clauses, List<String> params, String column, String value) {
+        if (value == null || value.isBlank()) {
+            return;
+        }
+        clauses.add(column + " = ?");
+        params.add(value);
+    }
+
     private void cbx_init(){
         try{
             String sql = "SELECT r.nombre, r.ubicacion_fisica, r.direccion, r.departamento, h.no_inventario, h.status FROM datos_resguardante r INNER JOIN hardware_gabinete h ON r.id = h.resguardante ";
-            var conn = BD.Connect.open();
-            var stmt = conn.createStatement();
             ResultSet chk;
             List<String> lname, lubif, ldir, larea, linv, lstatus;
             //String item = "";
@@ -766,18 +782,21 @@ public class MainInterface extends javax.swing.JFrame {
             cbx_status.removeAllItems();
             cbx_ubicacion.removeAllItems();
 
-            chk = stmt.executeQuery(sql);
-            lname = getUniqueValues(chk, "nombre");
-            chk = stmt.executeQuery(sql);
-            lubif = getUniqueValues(chk, "ubicacion_fisica");
-            chk = stmt.executeQuery(sql);
-            ldir = getUniqueValues(chk, "direccion");
-            chk = stmt.executeQuery(sql);
-            larea = getUniqueValues(chk, "departamento");
-            chk = stmt.executeQuery(sql);
-            linv = getUniqueValues(chk, "no_inventario");
-            chk = stmt.executeQuery(sql);
-            lstatus = getUniqueValues(chk, "status");
+            try (var conn = BD.Connect.open();
+                 var stmt = conn.createStatement()) {
+                chk = stmt.executeQuery(sql);
+                lname = getUniqueValues(chk, "nombre");
+                chk = stmt.executeQuery(sql);
+                lubif = getUniqueValues(chk, "ubicacion_fisica");
+                chk = stmt.executeQuery(sql);
+                ldir = getUniqueValues(chk, "direccion");
+                chk = stmt.executeQuery(sql);
+                larea = getUniqueValues(chk, "departamento");
+                chk = stmt.executeQuery(sql);
+                linv = getUniqueValues(chk, "no_inventario");
+                chk = stmt.executeQuery(sql);
+                lstatus = getUniqueValues(chk, "status");
+            }
             
             cbx_name.addItem("TODO");
             cbx_area.addItem("TODO");
